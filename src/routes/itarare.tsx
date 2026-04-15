@@ -92,6 +92,8 @@ function ItararePage() {
         </div>
       </section>
 
+      <AniversariantesDoMes casa="Itararé" />
+
       <section className="py-20 bg-cdl-bg-dark grain-overlay relative text-center">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mx-auto max-w-xl px-4">
           <h2 className="font-heading text-3xl text-cdl-text-light font-semibold mb-4">Reserve sua vaga</h2>

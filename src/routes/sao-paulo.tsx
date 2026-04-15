@@ -88,6 +88,8 @@ function SaoPauloPage() {
         </div>
       </section>
 
+      <AniversariantesDoMes casa="São Paulo" />
+
       <section className="py-20 bg-muted/50">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center">
