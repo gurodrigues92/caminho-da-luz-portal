@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { fadeUp } from "@/lib/animations";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({

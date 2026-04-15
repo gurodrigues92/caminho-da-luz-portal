@@ -1,28 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ChevronDown, Instagram, MessageCircle, MapPin } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
-      { name: "description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé. Expansão de consciência através do uso religioso do Santo Daime." },
-      { property: "og:title", content: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
-      { property: "og:description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé." },
-    ],
-  }),
-  component: HomePage,
-});
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-const stagger = {
-  visible: { transition: { staggerChildren: 0.1 } },
-};
+import { ChevronDown, Instagram, MessageCircle } from "lucide-react";
+import { fadeUp, stagger } from "@/lib/animations";
 
 function HomePage() {
   return (
