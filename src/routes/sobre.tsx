@@ -109,7 +109,7 @@ function SobrePage() {
             Se é sua primeira vez, preencha a anamnese antes da sua participação.
           </p>
           <a
-            href="https://res.cloudinary.com/dtt7egwkk/raw/upload/v1776188783/caminhodaluz/Anamnese.pdf"
+            href="/docs/Anamnese_Formulario.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-cdl-primary text-cdl-text-light font-label uppercase tracking-widest text-sm rounded-lg hover:bg-cdl-primary-light transition-all duration-300"

@@ -207,7 +207,7 @@ function SorocabaPage() {
           </a>
           <p className="text-cdl-text-light/60 text-sm mt-6">
             Primeira vez?{" "}
-            <a href="https://res.cloudinary.com/dtt7egwkk/raw/upload/v1776188783/caminhodaluz/Anamnese.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-cdl-text-light transition-colors">
+            <a href="/docs/Anamnese_Formulario.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-cdl-text-light transition-colors">
               Baixe a anamnese antes
             </a>
           </p>

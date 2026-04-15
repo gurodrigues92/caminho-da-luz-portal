@@ -63,7 +63,7 @@ function HeroSection() {
         </motion.p>
         <motion.p
           variants={fadeUp}
-          className="mt-8 text-cdl-text/85 italic max-w-xl mx-auto text-base md:text-lg leading-relaxed"
+          className="mt-8 text-cdl-text-light/85 italic max-w-xl mx-auto text-base md:text-lg leading-relaxed"
         >
           "Mudar o mundo é uma tarefa que se inicia mudando a cada um de nós."
         </motion.p>
@@ -311,7 +311,7 @@ function CTASection() {
         <p className="text-cdl-text-light/60 text-sm mt-6">
           Primeira vez?{" "}
           <a
-            href="https://res.cloudinary.com/dtt7egwkk/raw/upload/v1776188783/caminhodaluz/Anamnese.pdf"
+            href="/docs/Anamnese_Formulario.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-cdl-text-light transition-colors"
