@@ -140,3 +140,10 @@
   position: relative;
   z-index: 2;
 }
+
+/* Fix bg-fixed on iOS Safari */
+@supports (-webkit-touch-callout: none) {
+  .bg-fixed {
+    background-attachment: scroll !important;
+  }
+}

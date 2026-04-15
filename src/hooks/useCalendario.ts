@@ -21,7 +21,11 @@ export function useCalendario(casa: string, limit = 6) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetch() {
+    async function fetchData() {
+      if (!supabase) {
+        setLoading(false);
+        return;
+      }
       setLoading(true);
       try {
         const today = new Date().toISOString().split("T")[0];
@@ -43,7 +47,7 @@ export function useCalendario(casa: string, limit = 6) {
         setLoading(false);
       }
     }
-    fetch();
+    fetchData();
   }, [casa, limit]);
 
   return { eventos, loading, error };

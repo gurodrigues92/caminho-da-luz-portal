@@ -10,6 +10,11 @@ export const Route = createFileRoute("/sobre")({
       { name: "description", content: "Conheça a história do Instituto Caminho da Luz, nossa missão, visão, valores e o Decálogo do Estrelado." },
       { property: "og:title", content: "Sobre — Instituto Caminho da Luz" },
       { property: "og:description", content: "Conheça a história do Instituto Caminho da Luz." },
+      { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188751/caminhodaluz/pedrao.jpg" },
+      { property: "og:url", content: "https://caminhodaluzdaime.com.br/sobre" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://caminhodaluzdaime.com.br/sobre" },
     ],
   }),
   component: SobrePage,
@@ -25,7 +30,7 @@ function SobrePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <motion.img
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-              src="https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188751/caminhodaluz/pedrao.jpg"
+              src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
               alt="João Carlos Pedrão"
               className="rounded-xl aspect-[3/4] object-cover w-full max-w-md mx-auto"
               loading="lazy"

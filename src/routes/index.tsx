@@ -11,6 +11,11 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé. Expansão de consciência através do uso religioso do Santo Daime." },
       { property: "og:title", content: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
       { property: "og:description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé." },
+      { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
+      { property: "og:url", content: "https://caminhodaluzdaime.com.br/" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://caminhodaluzdaime.com.br/" },
     ],
   }),
   component: HomePage,
@@ -48,7 +53,7 @@ function HeroSection() {
       >
         <motion.img
           variants={fadeUp}
-          src="https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188742/caminhodaluz/logo.png"
+          src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_200/v1776188742/caminhodaluz/logo.png"
           alt="Caminho da Luz"
           className="h-24 w-auto mx-auto mb-6"
         />
@@ -90,7 +95,7 @@ const casasData = [
   {
     name: "Sorocaba",
     subtitle: "R. Paulo Varchavtchik, 365 — Brigadeiro Tobias",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188744/caminhodaluz/caminho-da-luz.jpg",
+    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg",
     to: "/sorocaba" as const,
     sede: true,
     whatsapp: "5515974011072",
@@ -99,7 +104,7 @@ const casasData = [
   {
     name: "São Paulo",
     subtitle: "Rua Medeiros Furtado, 642 — Vila Formosa",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188749/caminhodaluz/ipiranga.jpg",
+    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188749/caminhodaluz/ipiranga.jpg",
     to: "/sao-paulo" as const,
     sede: false,
     whatsapp: "5511916652879",
@@ -108,7 +113,7 @@ const casasData = [
   {
     name: "Recife",
     subtitle: "Pernambuco",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188750/caminhodaluz/recife.jpg",
+    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188750/caminhodaluz/recife.jpg",
     to: "/recife" as const,
     sede: false,
     whatsapp: "5581992038383",
@@ -117,7 +122,7 @@ const casasData = [
   {
     name: "Itararé",
     subtitle: "Rua XV de Novembro, 156 — Centro",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188749/caminhodaluz/itarare.jpg",
+    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188749/caminhodaluz/itarare.jpg",
     to: "/itarare" as const,
     sede: false,
     whatsapp: "5515996751934",
@@ -141,7 +146,7 @@ function CasasSection() {
               className={`group relative overflow-hidden rounded-xl shadow-[0_4px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.02] ${casa.sede ? "md:col-span-2" : ""}`}
             >
               <Link to={casa.to} className="block">
-                <div className={`relative ${casa.sede ? "aspect-video md:aspect-[2.33/1]" : "aspect-[4/3]"}`}>
+                <div className={`relative ${casa.sede ? "aspect-video md:aspect-[2.33]" : "aspect-[4/3]"}`}>
                   <img src={casa.image} alt={casa.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -179,7 +184,7 @@ function AboutSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <img
-              src="https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188751/caminhodaluz/pedrao.jpg"
+              src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
               alt="João Carlos Pedrão"
               className="rounded-xl aspect-[3/4] object-cover w-full max-w-md mx-auto"
               loading="lazy"
@@ -354,7 +359,7 @@ function CTASection() {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('/images/bg/cta-section.jpg')" }}
       />
-      <div className="absolute inset-0 bg-white/30" />
+      <div className="absolute inset-0 bg-black/40" />
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -362,10 +367,10 @@ function CTASection() {
         variants={fadeUp}
         className="relative z-10 text-center px-4 max-w-2xl mx-auto"
       >
-        <h2 className="font-heading text-3xl md:text-5xl text-cdl-text font-semibold mb-4">
+        <h2 className="font-heading text-3xl md:text-5xl text-cdl-text-light font-semibold mb-4">
           Pronto para expandir sua consciência?
         </h2>
-        <p className="text-cdl-text-muted mb-8">Reserve sua vaga para o próximo trabalho</p>
+        <p className="text-cdl-text-light/70 mb-8">Reserve sua vaga para o próximo trabalho</p>
         <a
           href="https://api.whatsapp.com/send?phone=5515974011072&text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Caminho%20da%20Luz."
           target="_blank"
@@ -374,13 +379,13 @@ function CTASection() {
         >
           Fale conosco no WhatsApp
         </a>
-        <p className="text-cdl-text-muted text-sm mt-6">
+        <p className="text-cdl-text-light/60 text-sm mt-6">
           Primeira vez?{" "}
           <a
             href="/docs/Anamnese_Formulario.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-cdl-text transition-colors"
+            className="underline hover:text-cdl-text-light transition-colors"
           >
             Preencha a anamnese antes da sua participação.
           </a>
