@@ -60,12 +60,12 @@
 
 :root {
   --radius: 0.75rem;
-  --cdl-primary: oklch(0.28 0.05 155);
-  --cdl-primary-light: oklch(0.40 0.06 155);
+  --cdl-primary: oklch(0.30 0.08 250);
+  --cdl-primary-light: oklch(0.45 0.10 250);
   --cdl-secondary: oklch(0.72 0.12 85);
-  --cdl-accent: oklch(0.52 0.14 40);
+  --cdl-accent: oklch(0.55 0.12 240);
   --cdl-bg-light: oklch(0.95 0.01 80);
-  --cdl-bg-dark: oklch(0.18 0.03 155);
+  --cdl-bg-dark: oklch(0.18 0.04 250);
   --cdl-text: oklch(0.25 0.01 0);
   --cdl-text-light: oklch(0.91 0.02 70);
   --cdl-text-muted: oklch(0.58 0.04 70);
@@ -100,7 +100,7 @@
   --sidebar-primary-foreground: var(--cdl-text-light);
   --sidebar-accent: var(--cdl-primary-light);
   --sidebar-accent-foreground: var(--cdl-text-light);
-  --sidebar-border: oklch(0.3 0.03 155);
+  --sidebar-border: oklch(0.3 0.03 250);
   --sidebar-ring: var(--cdl-primary-light);
 }
 
