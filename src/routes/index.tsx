@@ -36,7 +36,7 @@ function HeroSection() {
         className="absolute inset-0 bg-cover bg-center bg-fixed"
         style={{ backgroundImage: "url('/images/bg/hero-main.jpg')" }}
       />
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black/20" />
       <motion.div
         initial="hidden"
         animate="visible"
@@ -51,7 +51,7 @@ function HeroSection() {
         />
         <motion.h1
           variants={fadeUp}
-          className="font-heading text-4xl md:text-7xl text-cdl-text-light font-semibold"
+          className="font-heading text-4xl md:text-7xl text-cdl-primary font-semibold"
         >
           Caminho da Luz
         </motion.h1>
