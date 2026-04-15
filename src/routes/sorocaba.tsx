@@ -5,6 +5,7 @@ import { Instagram, MessageCircle, MapPin } from "lucide-react";
 import { TrabalhoCard } from "@/components/TrabalhoCard";
 import { EventCalendar } from "@/components/EventCalendar";
 import { GaleriaPreview } from "@/components/GaleriaPreview";
+import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 
 export const Route = createFileRoute("/sorocaba")({
   head: () => ({
@@ -158,6 +159,9 @@ function SorocabaPage() {
           <EventCalendar title="Calendário 2026 — Sorocaba" eventos={eventos} />
         </div>
       </section>
+
+      {/* Aniversariantes do Mês */}
+      <AniversariantesDoMes casa="Sorocaba" />
 
       {/* Galeria Preview */}
       <section className="py-20 bg-muted/50">

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ChevronDown, Instagram, MessageCircle } from "lucide-react";
+import { ChevronDown, Instagram, MessageCircle, Camera } from "lucide-react";
 import { fadeUp, stagger } from "@/lib/animations";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +23,7 @@ function HomePage() {
       <AboutSection />
       <MissaoSection />
       <RadioSection />
+      <GaleriaHomeSection />
       <CTASection />
     </div>
   );
@@ -138,7 +139,7 @@ function CasasSection() {
               className={`group relative overflow-hidden rounded-xl shadow-[0_4px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.02] ${casa.sede ? "md:col-span-2" : ""}`}
             >
               <Link to={casa.to} className="block">
-                <div className={`relative ${casa.sede ? "aspect-[16/9] md:aspect-[21/9]" : "aspect-[4/3]"}`}>
+                <div className={`relative ${casa.sede ? "aspect-video md:aspect-[21/9]" : "aspect-[4/3]"}`}>
                   <img src={casa.image} alt={casa.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -274,6 +275,69 @@ function RadioSection() {
               className="rounded-xl"
             />
           </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Galeria Home ───
+const galeriaData = [
+  {
+    casa: "Sorocaba",
+    to: "/sorocaba/galeria" as const,
+    fotos: [
+      "https://caminhodaluzdaime.com.br/images/mural/desktop/fogueira/24-06-23/1.jpg",
+      "https://caminhodaluzdaime.com.br/images/mural/desktop/original/10-06/1.jpg",
+      "https://caminhodaluzdaime.com.br/images/mural/desktop/estudos/20-05/2.jpg",
+    ],
+  },
+  {
+    casa: "São Paulo",
+    to: "/sao-paulo/galeria" as const,
+    fotos: [
+      "https://caminhodaluzdaime.com.br/images/mural/desktop/sementes/22/1.jpg",
+      "https://caminhodaluzdaime.com.br/images/mural/desktop/florescer/1.jpg",
+      "https://caminhodaluzdaime.com.br/images/mural/desktop/original/1.jpg",
+    ],
+  },
+];
+
+function GaleriaHomeSection() {
+  return (
+    <section className="py-20 bg-cdl-bg-light">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-12">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Camera className="h-5 w-5 text-cdl-secondary" />
+            <h2 className="font-heading text-3xl md:text-4xl text-cdl-text font-semibold">Galeria de Fotos</h2>
+          </div>
+          <p className="text-cdl-text-muted">Registros dos nossos últimos trabalhos</p>
+        </motion.div>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {galeriaData.map((g) => (
+            <motion.div key={g.casa} variants={fadeUp} className="space-y-4">
+              <div className="grid grid-cols-3 gap-2 rounded-xl overflow-hidden">
+                {g.fotos.map((foto, i) => (
+                  <img
+                    key={i}
+                    src={foto}
+                    alt={`${g.casa} - foto ${i + 1}`}
+                    className="aspect-square object-cover w-full hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+              <div className="text-center">
+                <Link
+                  to={g.to}
+                  className="inline-flex items-center gap-2 text-cdl-primary hover:text-cdl-primary-light font-label uppercase tracking-widest text-sm transition-colors"
+                >
+                  Ver galeria de {g.casa} →
+                </Link>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
