@@ -25,6 +25,7 @@ function HomePage() {
       <MissaoSection />
       <RadioSection />
       <GaleriaHomeSection />
+      <AniversariantesDoMes />
       <CTASection />
     </div>
   );
