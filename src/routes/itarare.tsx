@@ -5,6 +5,7 @@ import { Instagram, MessageCircle, MapPin } from "lucide-react";
 import { TrabalhoCard } from "@/components/TrabalhoCard";
 import { EventCalendar } from "@/components/EventCalendar";
 import { GaleriaPreview } from "@/components/GaleriaPreview";
+import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 
 export const Route = createFileRoute("/itarare")({
   head: () => ({
@@ -90,6 +91,8 @@ function ItararePage() {
           ]} />
         </div>
       </section>
+
+      <AniversariantesDoMes casa="Itararé" />
 
       <section className="py-20 bg-cdl-bg-dark grain-overlay relative text-center">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mx-auto max-w-xl px-4">

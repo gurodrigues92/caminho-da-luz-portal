@@ -4,6 +4,7 @@ import { fadeUp } from "@/lib/animations";
 import { Instagram, MessageCircle } from "lucide-react";
 import { TrabalhoCard } from "@/components/TrabalhoCard";
 import { GaleriaPreview } from "@/components/GaleriaPreview";
+import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 
 export const Route = createFileRoute("/recife")({
   head: () => ({
@@ -73,6 +74,8 @@ function RecifePage() {
           ]} />
         </div>
       </section>
+
+      <AniversariantesDoMes casa="Recife" />
 
       <section className="py-20 bg-cdl-bg-dark grain-overlay relative text-center">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mx-auto max-w-xl px-4">

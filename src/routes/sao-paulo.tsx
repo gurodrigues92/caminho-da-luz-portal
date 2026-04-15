@@ -5,6 +5,7 @@ import { Instagram, MessageCircle, MapPin } from "lucide-react";
 import { TrabalhoCard } from "@/components/TrabalhoCard";
 import { EventCalendar } from "@/components/EventCalendar";
 import { GaleriaPreview } from "@/components/GaleriaPreview";
+import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 
 export const Route = createFileRoute("/sao-paulo")({
   head: () => ({
@@ -86,6 +87,8 @@ function SaoPauloPage() {
           ]} />
         </div>
       </section>
+
+      <AniversariantesDoMes casa="São Paulo" />
 
       <section className="py-20 bg-muted/50">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
