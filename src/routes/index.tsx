@@ -71,7 +71,7 @@ function HeroSection() {
         </motion.p>
         <motion.p
           variants={fadeUp}
-          className="mt-8 text-cdl-text-light/85 italic max-w-xl mx-auto text-base md:text-lg leading-relaxed"
+          className="mt-8 text-cdl-primary-light italic max-w-xl mx-auto text-base md:text-lg leading-relaxed"
         >
           "Mudar o mundo é uma tarefa que se inicia mudando a cada um de nós."
         </motion.p>
