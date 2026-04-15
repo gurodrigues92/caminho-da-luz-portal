@@ -9,19 +9,43 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SorocabaRouteImport } from './routes/sorocaba'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as SaoPauloRouteImport } from './routes/sao-paulo'
+import { Route as RecifeRouteImport } from './routes/recife'
 import { Route as RadioRouteImport } from './routes/radio'
+import { Route as ItarareRouteImport } from './routes/itarare'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as IndexRouteImport } from './routes/index'
 
+const SorocabaRoute = SorocabaRouteImport.update({
+  id: '/sorocaba',
+  path: '/sorocaba',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SaoPauloRoute = SaoPauloRouteImport.update({
+  id: '/sao-paulo',
+  path: '/sao-paulo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecifeRoute = RecifeRouteImport.update({
+  id: '/recife',
+  path: '/recife',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RadioRoute = RadioRouteImport.update({
   id: '/radio',
   path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ItarareRoute = ItarareRouteImport.update({
+  id: '/itarare',
+  path: '/itarare',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaqRoute = FaqRouteImport.update({
@@ -38,39 +62,87 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
+  '/itarare': typeof ItarareRoute
   '/radio': typeof RadioRoute
+  '/recife': typeof RecifeRoute
+  '/sao-paulo': typeof SaoPauloRoute
   '/sobre': typeof SobreRoute
+  '/sorocaba': typeof SorocabaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
+  '/itarare': typeof ItarareRoute
   '/radio': typeof RadioRoute
+  '/recife': typeof RecifeRoute
+  '/sao-paulo': typeof SaoPauloRoute
   '/sobre': typeof SobreRoute
+  '/sorocaba': typeof SorocabaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
+  '/itarare': typeof ItarareRoute
   '/radio': typeof RadioRoute
+  '/recife': typeof RecifeRoute
+  '/sao-paulo': typeof SaoPauloRoute
   '/sobre': typeof SobreRoute
+  '/sorocaba': typeof SorocabaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/faq' | '/radio' | '/sobre'
+  fullPaths:
+    | '/'
+    | '/faq'
+    | '/itarare'
+    | '/radio'
+    | '/recife'
+    | '/sao-paulo'
+    | '/sobre'
+    | '/sorocaba'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/faq' | '/radio' | '/sobre'
-  id: '__root__' | '/' | '/faq' | '/radio' | '/sobre'
+  to:
+    | '/'
+    | '/faq'
+    | '/itarare'
+    | '/radio'
+    | '/recife'
+    | '/sao-paulo'
+    | '/sobre'
+    | '/sorocaba'
+  id:
+    | '__root__'
+    | '/'
+    | '/faq'
+    | '/itarare'
+    | '/radio'
+    | '/recife'
+    | '/sao-paulo'
+    | '/sobre'
+    | '/sorocaba'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FaqRoute: typeof FaqRoute
+  ItarareRoute: typeof ItarareRoute
   RadioRoute: typeof RadioRoute
+  RecifeRoute: typeof RecifeRoute
+  SaoPauloRoute: typeof SaoPauloRoute
   SobreRoute: typeof SobreRoute
+  SorocabaRoute: typeof SorocabaRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sorocaba': {
+      id: '/sorocaba'
+      path: '/sorocaba'
+      fullPath: '/sorocaba'
+      preLoaderRoute: typeof SorocabaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -78,11 +150,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sao-paulo': {
+      id: '/sao-paulo'
+      path: '/sao-paulo'
+      fullPath: '/sao-paulo'
+      preLoaderRoute: typeof SaoPauloRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recife': {
+      id: '/recife'
+      path: '/recife'
+      fullPath: '/recife'
+      preLoaderRoute: typeof RecifeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/radio': {
       id: '/radio'
       path: '/radio'
       fullPath: '/radio'
       preLoaderRoute: typeof RadioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/itarare': {
+      id: '/itarare'
+      path: '/itarare'
+      fullPath: '/itarare'
+      preLoaderRoute: typeof ItarareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/faq': {
@@ -105,8 +198,12 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FaqRoute: FaqRoute,
+  ItarareRoute: ItarareRoute,
   RadioRoute: RadioRoute,
+  RecifeRoute: RecifeRoute,
+  SaoPauloRoute: SaoPauloRoute,
   SobreRoute: SobreRoute,
+  SorocabaRoute: SorocabaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
