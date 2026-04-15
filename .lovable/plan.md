@@ -1,39 +1,39 @@
 
 
-## Three Changes: WhatsApp FAB Color, Gallery Section on Home, Birthday Section on Sorocaba + Notion DB
+## Add Aniversariantes to Home + All Casa Pages + Update CTA Section
 
-### 1. WhatsApp FAB — Change green to gold/secondary color
+### 1. Fetch all 62 records from Notion and update `public/data/aniversariantes.json`
 
-In `src/routes/__root.tsx`, change the WhatsApp FAB background from `bg-[#25D366]` to `bg-cdl-secondary` (the site's gold/amber color). Also update the SVG fill to dark (`fill-cdl-bg-dark` or similar) for contrast on gold.
+The current JSON has only 25 entries. I'll fetch all pages from the Notion "Estrelados Aniversariantes" database (62 records) and rebuild the JSON with complete data. Each record has: Nome, Dia, Mes, Casa.
 
-### 2. Add Gallery Preview section on Home page
+The Notion DB uses month names (Janeiro, Fevereiro...) which need mapping to numbers, and Casa values (Sorocaba, São Paulo, Recife, Itararé) stay as-is.
 
-Add a new section to `src/routes/index.tsx` (between RadioSection and CTASection) showing a grid of recent event photos from all casas with links to each casa's gallery. Will use the existing `useGaleria` hook to fetch recent photos from Supabase, or a simpler static approach showing curated photos from each casa with "Ver galeria" links.
+### 2. Add `AniversariantesDoMes` to Home page (`src/routes/index.tsx`)
 
-### 3. Birthday celebrants section on Sorocaba page + Notion database
+Add `<AniversariantesDoMes />` (without `casa` prop) between `GaleriaHomeSection` and `CTASection`. Without a `casa` prop, the component already shows all casas (the existing filter logic handles `!casa` by showing all). It will display the casa name next to each entry.
 
-**Step A — Create Notion database** with columns:
-- Nome (title)
-- Data de Aniversário (date)
-- Casa (select: Sorocaba, São Paulo, Recife, Itararé)
+### 3. Add `AniversariantesDoMes` to all casa pages
 
-This gives you a manageable place to add/edit birthday data.
+Add the component with the corresponding `casa` prop to:
+- `src/routes/sorocaba.tsx` — `casa="Sorocaba"` (already there)
+- `src/routes/sao-paulo.tsx` — `casa="São Paulo"`
+- `src/routes/recife.tsx` — `casa="Recife"`
+- `src/routes/itarare.tsx` — `casa="Itararé"`
 
-**Step B — Fetch from Notion in the app**: Since the Notion MCP is connected, we can query the database. However, for the website to display this data dynamically at runtime, we need an approach that works without server-side Notion API calls (Worker runtime). Options:
-- **Recommended**: Create a simple static JSON file (`public/data/aniversariantes.json`) that you periodically export from Notion. The Sorocaba page reads this file and filters by current month.
-- **Alternative**: Use a Supabase table `aniversariantes` and sync from Notion.
+Position: between Galeria and CTA WhatsApp sections on each page.
 
-**Step C — UI Component**: Add an `AniversariantesDoMes` section on the Sorocaba page showing birthday celebrants for the current month with a celebratory design — star icons, gold accents, names displayed in cards.
+### 4. Update CTA section in `src/routes/index.tsx`
 
-### 4. Fix hydration mismatch
-
-The hydration error in CasasSection comes from `aspect-[16/9] md:aspect-[21/9]` — Tailwind's arbitrary values with `/` can conflict with oklch color opacity syntax. Will normalize these class names.
+- Generate `/public/images/bg/cta-section.jpg` — light blue/white ethereal abstract
+- Change overlay from `bg-black/60` to `bg-white/30`
+- Change text colors: headings and body from light to dark (`text-cdl-text`, `text-cdl-text-muted`)
+- Update anamnese link hover to `hover:text-cdl-text`
 
 ### Files Changed
-- `src/routes/__root.tsx` — WhatsApp FAB color
-- `src/routes/index.tsx` — new GaleriaSection + hydration fix
-- `src/routes/sorocaba.tsx` — new AniversariantesDoMes section
-- `src/components/AniversariantesDoMes.tsx` — new component
-- `public/data/aniversariantes.json` — birthday data file
-- Notion — create "Aniversariantes" database
+- `public/data/aniversariantes.json` — updated with all 62 Notion records
+- `src/routes/index.tsx` — add AniversariantesDoMes + update CTA section
+- `src/routes/sao-paulo.tsx` — add AniversariantesDoMes
+- `src/routes/recife.tsx` — add AniversariantesDoMes
+- `src/routes/itarare.tsx` — add AniversariantesDoMes
+- `/public/images/bg/cta-section.jpg` — regenerated light blue abstract
 
