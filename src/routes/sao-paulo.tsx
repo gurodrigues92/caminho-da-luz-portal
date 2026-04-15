@@ -24,7 +24,7 @@ function SaoPauloPage() {
   return (
     <div className="pt-16">
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188749/caminhodaluz/ipiranga.jpg')" }} />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/images/bg/hero-sp.jpg')" }} />
         <div className="absolute inset-0 bg-black/50" />
         <motion.div initial="hidden" animate="visible" variants={fadeUp} className="relative z-10 text-center px-4 max-w-3xl mx-auto">
           <h1 className="font-heading text-3xl md:text-5xl text-cdl-text-light font-semibold mb-3">Caminho da Luz — São Paulo</h1>
