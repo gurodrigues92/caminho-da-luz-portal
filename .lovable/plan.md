@@ -1,41 +1,30 @@
 
 
-## Update Brand Colors: Green → Blue & Regenerate Hero Image
+## Recreate Hero Images in Blue Tones + Adjust Home Hero Style
 
-### Problem
-Current color tokens use forest green (hue 155 in oklch). Caminho da Luz's actual brand colors are blue and white.
+### What Changes
 
-### Step 1: Update CSS Color Tokens in `src/styles.css`
+**1. Regenerate 4 casa hero background images** (`/public/images/bg/`) replacing green-toned abstracts with blue-toned ones:
+- `hero-main.jpg` — lighter, ethereal blue abstract (less dark overlay, more visible)
+- `hero-sp.jpg` — blue abstract for São Paulo
+- `hero-recife.jpg` — blue abstract for Recife
+- `hero-itarare.jpg` — blue abstract for Itararé
 
-Replace green-hued tokens with blue equivalents:
+All images: abstract, minimal elements, blue/white palette, spiritual atmosphere.
 
-| Token | Current (green, hue ~155) | New (blue, hue ~250) |
-|-------|--------------------------|----------------------|
-| `--cdl-primary` | `oklch(0.28 0.05 155)` | `oklch(0.30 0.08 250)` — deep navy blue |
-| `--cdl-primary-light` | `oklch(0.40 0.06 155)` | `oklch(0.45 0.10 250)` — medium blue |
-| `--cdl-bg-dark` | `oklch(0.18 0.03 155)` | `oklch(0.18 0.04 250)` — dark navy |
-| `--cdl-accent` | `oklch(0.52 0.14 40)` (terracotta) | Keep or shift to a lighter blue accent `oklch(0.55 0.12 240)` |
+**2. Adjust Home Hero section** (`src/routes/index.tsx`):
+- Reduce the dark overlay from `bg-black/50` to `bg-black/20` so the lighter background shows through more
+- Change heading text color from white (`text-cdl-text-light`) to blue (`text-cdl-primary`)
+- Change logo tinting or keep as-is if already blue
+- Adjust the gold/yellow subtitle (`text-cdl-secondary`) — darken the `--cdl-secondary` token from `oklch(0.72 0.12 85)` to a deeper amber like `oklch(0.58 0.12 75)` (darker, warmer gold)
 
-Keep `--cdl-secondary` (gold) and `--cdl-bg-light` (cream/white) as-is — they complement blue well.
-
-Also update derived tokens that reference the green hue:
-- `--sidebar-border: oklch(0.3 0.03 250)` (was 155)
-- `--card`, `--border`, `--input` — keep neutral
-
-### Step 2: Regenerate Hero Background Image
-
-Replace `/public/images/bg/hero-main.jpg` with a new abstract image:
-- Lighter overall tone
-- Blue tones instead of green — soft gradients, light washes, ethereal
-- Minimal abstract elements (light rays, subtle geometric forms)
-- Spiritual/sacred atmosphere maintained
-
-### Step 3: Update Memory
-
-Update the design tokens memory to reflect blue instead of green.
+**3. Update `--cdl-secondary` in `src/styles.css`** to a deeper amber/gold tone.
 
 ### Files Changed
-- `src/styles.css` — color token values
-- `/public/images/bg/hero-main.jpg` — regenerated image
-- `mem://design/tokens` and `mem://index.md` — updated brand color description
+- `/public/images/bg/hero-main.jpg` — regenerated (light blue abstract)
+- `/public/images/bg/hero-sp.jpg` — regenerated (blue abstract)
+- `/public/images/bg/hero-recife.jpg` — regenerated (blue abstract)
+- `/public/images/bg/hero-itarare.jpg` — regenerated (blue abstract)
+- `src/routes/index.tsx` — hero overlay + text color adjustments
+- `src/styles.css` — `--cdl-secondary` darker gold
 
