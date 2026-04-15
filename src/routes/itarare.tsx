@@ -49,7 +49,7 @@ function ItararePage() {
             <TrabalhoCard
               title="Original"
               description="Um trabalho espiritual universalista de expansão de consciência através da consagração da medicina Ayahuasca, pautado no amor e na luz."
-              image="https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188745/caminhodaluz/original.jpg"
+              image="/images/trabalhos/original.jpg"
               horario="18h às 00h"
               contribuicao="R$ 100"
               badge="PRINCIPAL"
@@ -59,7 +59,7 @@ function ItararePage() {
             <TrabalhoCard
               title="Sementes"
               description="O Sementes é um projeto pensado e desenvolvido para quem tem interesse em conhecer esta sagrada medicina. Este projeto acontece em forma de reuniões com audições de elevação da nossa frequência vibratória."
-              image="https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188745/caminhodaluz/sementes.jpg"
+              image="/images/trabalhos/sementes.jpg"
               horario="18h às 21h"
               contribuicao="R$ 60"
               badge="IDEAL PARA INICIANTES"

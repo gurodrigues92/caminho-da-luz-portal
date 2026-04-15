@@ -24,7 +24,7 @@ const trabalhos = [
   {
     title: "Original",
     description: "Um trabalho espiritual universalista de expansão de consciência através da consagração da medicina Ayahuasca, pautado no amor e na luz, guiado por músicas e conteúdos para cura física, espiritual, mudança de hábitos, encontro de propósito, autoconhecimento, conexão com seu eu interior e elevação vibracional.",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188745/caminhodaluz/original.jpg",
+    image: "/images/trabalhos/original.jpg",
     horario: "18h às 00h",
     contribuicao: "R$ 100",
     badge: "PRINCIPAL",
@@ -34,7 +34,7 @@ const trabalhos = [
   {
     title: "Sementes",
     description: "O Sementes é um projeto pensado e desenvolvido para quem tem interesse em conhecer esta sagrada medicina. Este projeto acontece em forma de reuniões com audições de elevação da nossa frequência vibratória. É uma ponte para a conexão com o seu eu interior.",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188745/caminhodaluz/sementes.jpg",
+    image: "/images/trabalhos/sementes.jpg",
     horario: "18h às 21h",
     contribuicao: "R$ 60",
     badge: "IDEAL PARA INICIANTES",
@@ -43,14 +43,14 @@ const trabalhos = [
   {
     title: "Despertar",
     description: "Este é um trabalho em formato de audição chamado Despertar, que consiste em duas cerimônias de consagração de ayahuasca e tem uma duração de quatro horas. Durante o trabalho, são apresentados conteúdos como músicas, áudios, contos e meditações com foco no tema em questão, além de ferramentas práticas para a vida cotidiana.",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188746/caminhodaluz/estudos.jpg",
+    image: "/images/trabalhos/despertar.jpg",
     horario: "18h às 22h",
     contribuicao: "R$ 80",
   },
   {
     title: "Florescer",
     description: "A proposta deste projeto dedicado a participação somente de mulheres, é o resgate e valorização da energia feminina que habita em cada uma delas para a expressão da essência ancestral e harmonização com o masculino.",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188748/caminhodaluz/florescer.jpg",
+    image: "/images/trabalhos/florescer.jpg",
     horario: "8h às 16h",
     badge: "EXCLUSIVO FEMININO",
     badgeColor: "bg-pink-600 text-white",
@@ -58,6 +58,7 @@ const trabalhos = [
   {
     title: "Humano",
     description: "Trabalho exclusivo para homens, focado no resgate e fortalecimento da energia masculina consciente. Acontece periodicamente.",
+    image: "/images/trabalhos/humano.jpg",
     badge: "EXCLUSIVO MASCULINO",
     badgeColor: "bg-cdl-accent text-cdl-text-light",
   },
