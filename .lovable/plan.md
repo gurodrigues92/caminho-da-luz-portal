@@ -1,35 +1,41 @@
 
 
-## Generate AI Images for Work Type Cards
+## Update Brand Colors: Green → Blue & Regenerate Hero Image
 
-### Current State
-6 unique work types across all casa pages. Some have Cloudinary photos, some have none:
-- **Original** — has `original.jpg`
-- **Sementes** — has `sementes.jpg`
-- **Despertar** — has `estudos.jpg`
-- **Florescer** — has `florescer.jpg`
-- **Humano** — no image (shows placeholder)
-- **Encontro Terapêutico** — no image (shows placeholder)
+### Problem
+Current color tokens use forest green (hue 155 in oklch). Caminho da Luz's actual brand colors are blue and white.
 
-### Plan
+### Step 1: Update CSS Color Tokens in `src/styles.css`
 
-**Step 1: Generate 6 images** using AI image generation (Nano banana 2 for quality + speed). Each image will be a spiritual/sacred atmosphere matching the work type:
-- **Original** — Ayahuasca ceremony with candles, sacred circle, warm golden light
-- **Sementes** — Intimate gathering, seeds/nature motifs, soft ambient lighting
-- **Despertar** — Sunrise/awakening energy, meditation, ethereal light
-- **Florescer** — Feminine energy, flowers blooming, soft pink/golden tones
-- **Humano** — Masculine energy, grounding, earth tones, fire
-- **Encontro Terapêutico** — Healing circle, therapeutic setting, calm blue/green tones
+Replace green-hued tokens with blue equivalents:
 
-Style: Atmospheric, warm, spiritual, photographic quality. Dark forest greens and golden tones matching the site's palette.
+| Token | Current (green, hue ~155) | New (blue, hue ~250) |
+|-------|--------------------------|----------------------|
+| `--cdl-primary` | `oklch(0.28 0.05 155)` | `oklch(0.30 0.08 250)` — deep navy blue |
+| `--cdl-primary-light` | `oklch(0.40 0.06 155)` | `oklch(0.45 0.10 250)` — medium blue |
+| `--cdl-bg-dark` | `oklch(0.18 0.03 155)` | `oklch(0.18 0.04 250)` — dark navy |
+| `--cdl-accent` | `oklch(0.52 0.14 40)` (terracotta) | Keep or shift to a lighter blue accent `oklch(0.55 0.12 240)` |
 
-**Step 2: Upload images** to `/public/images/trabalhos/` directory for use in the app.
+Keep `--cdl-secondary` (gold) and `--cdl-bg-light` (cream/white) as-is — they complement blue well.
 
-**Step 3: Update all references** in:
-- `src/routes/sorocaba.tsx` — Original, Sementes, Despertar, Florescer, Humano (5 cards)
-- `src/routes/sao-paulo.tsx` — Original, Encontro Terapêutico (2 cards)
-- `src/routes/recife.tsx` — Original (1 card)
-- `src/routes/itarare.tsx` — Original, Sementes (2 cards)
+Also update derived tokens that reference the green hue:
+- `--sidebar-border: oklch(0.3 0.03 250)` (was 155)
+- `--card`, `--border`, `--input` — keep neutral
 
-Replace all Cloudinary URLs and placeholders with the new generated image paths.
+### Step 2: Regenerate Hero Background Image
+
+Replace `/public/images/bg/hero-main.jpg` with a new abstract image:
+- Lighter overall tone
+- Blue tones instead of green — soft gradients, light washes, ethereal
+- Minimal abstract elements (light rays, subtle geometric forms)
+- Spiritual/sacred atmosphere maintained
+
+### Step 3: Update Memory
+
+Update the design tokens memory to reflect blue instead of green.
+
+### Files Changed
+- `src/styles.css` — color token values
+- `/public/images/bg/hero-main.jpg` — regenerated image
+- `mem://design/tokens` and `mem://index.md` — updated brand color description
 
