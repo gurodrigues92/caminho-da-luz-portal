@@ -20,11 +20,11 @@ function HomePage() {
   return (
     <div>
       <HeroSection />
+      <GaleriaHomeSection />
       <CasasSection />
       <AboutSection />
       <MissaoSection />
       <RadioSection />
-      <GaleriaHomeSection />
       <AniversariantesDoMes />
       <CTASection />
     </div>
@@ -141,7 +141,7 @@ function CasasSection() {
               className={`group relative overflow-hidden rounded-xl shadow-[0_4px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.02] ${casa.sede ? "md:col-span-2" : ""}`}
             >
               <Link to={casa.to} className="block">
-                <div className={`relative ${casa.sede ? "aspect-video md:aspect-[21/9]" : "aspect-[4/3]"}`}>
+                <div className={`relative ${casa.sede ? "aspect-video md:aspect-[2.33/1]" : "aspect-[4/3]"}`}>
                   <img src={casa.image} alt={casa.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
