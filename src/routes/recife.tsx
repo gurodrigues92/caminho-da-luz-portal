@@ -48,7 +48,7 @@ function RecifePage() {
             <TrabalhoCard
               title="Original"
               description="Um trabalho espiritual universalista de expansão de consciência através da consagração da medicina Ayahuasca, pautado no amor e na luz."
-              image="https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188745/caminhodaluz/original.jpg"
+              image="/images/trabalhos/original.jpg"
               badge="PRINCIPAL"
               badgeColor="bg-cdl-secondary text-cdl-bg-dark"
               highlighted

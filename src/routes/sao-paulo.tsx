@@ -49,7 +49,7 @@ function SaoPauloPage() {
             <TrabalhoCard
               title="Original"
               description="Um trabalho espiritual universalista de expansão de consciência através da consagração da medicina Ayahuasca, pautado no amor e na luz, guiado por músicas e conteúdos para cura física, espiritual, mudança de hábitos, encontro de propósito, autoconhecimento, conexão com seu eu interior e elevação vibracional."
-              image="https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188745/caminhodaluz/original.jpg"
+              image="/images/trabalhos/original.jpg"
               horario="18h às 00h"
               contribuicao="R$ 100"
               badge="PRINCIPAL"
@@ -59,6 +59,7 @@ function SaoPauloPage() {
             <TrabalhoCard
               title="Encontro Terapêutico"
               description="Encontro voltado para práticas terapêuticas integrativas, proporcionando cura e equilíbrio através de técnicas complementares aliadas ao uso sacramental da ayahuasca."
+              image="/images/trabalhos/encontro-terapeutico.jpg"
               badge="TERAPÊUTICO"
               badgeColor="bg-cdl-primary-light text-cdl-text-light"
             />
