@@ -286,7 +286,7 @@ function CTASection() {
     <section className="relative py-24">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188744/caminhodaluz/caminho-da-luz.jpg')" }}
+        style={{ backgroundImage: "url('/images/bg/cta-section.jpg')" }}
       />
       <div className="absolute inset-0 bg-black/60" />
       <motion.div
