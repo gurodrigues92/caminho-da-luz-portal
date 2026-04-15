@@ -17,6 +17,10 @@ import { Route as RadioRouteImport } from './routes/radio'
 import { Route as ItarareRouteImport } from './routes/itarare'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SorocabaGaleriaRouteImport } from './routes/sorocaba.galeria'
+import { Route as SaoPauloGaleriaRouteImport } from './routes/sao-paulo.galeria'
+import { Route as RecifeGaleriaRouteImport } from './routes/recife.galeria'
+import { Route as ItarareGaleriaRouteImport } from './routes/itarare.galeria'
 
 const SorocabaRoute = SorocabaRouteImport.update({
   id: '/sorocaba',
@@ -58,37 +62,69 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SorocabaGaleriaRoute = SorocabaGaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => SorocabaRoute,
+} as any)
+const SaoPauloGaleriaRoute = SaoPauloGaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => SaoPauloRoute,
+} as any)
+const RecifeGaleriaRoute = RecifeGaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => RecifeRoute,
+} as any)
+const ItarareGaleriaRoute = ItarareGaleriaRouteImport.update({
+  id: '/galeria',
+  path: '/galeria',
+  getParentRoute: () => ItarareRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
-  '/itarare': typeof ItarareRoute
+  '/itarare': typeof ItarareRouteWithChildren
   '/radio': typeof RadioRoute
-  '/recife': typeof RecifeRoute
-  '/sao-paulo': typeof SaoPauloRoute
+  '/recife': typeof RecifeRouteWithChildren
+  '/sao-paulo': typeof SaoPauloRouteWithChildren
   '/sobre': typeof SobreRoute
-  '/sorocaba': typeof SorocabaRoute
+  '/sorocaba': typeof SorocabaRouteWithChildren
+  '/itarare/galeria': typeof ItarareGaleriaRoute
+  '/recife/galeria': typeof RecifeGaleriaRoute
+  '/sao-paulo/galeria': typeof SaoPauloGaleriaRoute
+  '/sorocaba/galeria': typeof SorocabaGaleriaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
-  '/itarare': typeof ItarareRoute
+  '/itarare': typeof ItarareRouteWithChildren
   '/radio': typeof RadioRoute
-  '/recife': typeof RecifeRoute
-  '/sao-paulo': typeof SaoPauloRoute
+  '/recife': typeof RecifeRouteWithChildren
+  '/sao-paulo': typeof SaoPauloRouteWithChildren
   '/sobre': typeof SobreRoute
-  '/sorocaba': typeof SorocabaRoute
+  '/sorocaba': typeof SorocabaRouteWithChildren
+  '/itarare/galeria': typeof ItarareGaleriaRoute
+  '/recife/galeria': typeof RecifeGaleriaRoute
+  '/sao-paulo/galeria': typeof SaoPauloGaleriaRoute
+  '/sorocaba/galeria': typeof SorocabaGaleriaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
-  '/itarare': typeof ItarareRoute
+  '/itarare': typeof ItarareRouteWithChildren
   '/radio': typeof RadioRoute
-  '/recife': typeof RecifeRoute
-  '/sao-paulo': typeof SaoPauloRoute
+  '/recife': typeof RecifeRouteWithChildren
+  '/sao-paulo': typeof SaoPauloRouteWithChildren
   '/sobre': typeof SobreRoute
-  '/sorocaba': typeof SorocabaRoute
+  '/sorocaba': typeof SorocabaRouteWithChildren
+  '/itarare/galeria': typeof ItarareGaleriaRoute
+  '/recife/galeria': typeof RecifeGaleriaRoute
+  '/sao-paulo/galeria': typeof SaoPauloGaleriaRoute
+  '/sorocaba/galeria': typeof SorocabaGaleriaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +137,10 @@ export interface FileRouteTypes {
     | '/sao-paulo'
     | '/sobre'
     | '/sorocaba'
+    | '/itarare/galeria'
+    | '/recife/galeria'
+    | '/sao-paulo/galeria'
+    | '/sorocaba/galeria'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +151,10 @@ export interface FileRouteTypes {
     | '/sao-paulo'
     | '/sobre'
     | '/sorocaba'
+    | '/itarare/galeria'
+    | '/recife/galeria'
+    | '/sao-paulo/galeria'
+    | '/sorocaba/galeria'
   id:
     | '__root__'
     | '/'
@@ -121,17 +165,21 @@ export interface FileRouteTypes {
     | '/sao-paulo'
     | '/sobre'
     | '/sorocaba'
+    | '/itarare/galeria'
+    | '/recife/galeria'
+    | '/sao-paulo/galeria'
+    | '/sorocaba/galeria'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FaqRoute: typeof FaqRoute
-  ItarareRoute: typeof ItarareRoute
+  ItarareRoute: typeof ItarareRouteWithChildren
   RadioRoute: typeof RadioRoute
-  RecifeRoute: typeof RecifeRoute
-  SaoPauloRoute: typeof SaoPauloRoute
+  RecifeRoute: typeof RecifeRouteWithChildren
+  SaoPauloRoute: typeof SaoPauloRouteWithChildren
   SobreRoute: typeof SobreRoute
-  SorocabaRoute: typeof SorocabaRoute
+  SorocabaRoute: typeof SorocabaRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -192,18 +240,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sorocaba/galeria': {
+      id: '/sorocaba/galeria'
+      path: '/galeria'
+      fullPath: '/sorocaba/galeria'
+      preLoaderRoute: typeof SorocabaGaleriaRouteImport
+      parentRoute: typeof SorocabaRoute
+    }
+    '/sao-paulo/galeria': {
+      id: '/sao-paulo/galeria'
+      path: '/galeria'
+      fullPath: '/sao-paulo/galeria'
+      preLoaderRoute: typeof SaoPauloGaleriaRouteImport
+      parentRoute: typeof SaoPauloRoute
+    }
+    '/recife/galeria': {
+      id: '/recife/galeria'
+      path: '/galeria'
+      fullPath: '/recife/galeria'
+      preLoaderRoute: typeof RecifeGaleriaRouteImport
+      parentRoute: typeof RecifeRoute
+    }
+    '/itarare/galeria': {
+      id: '/itarare/galeria'
+      path: '/galeria'
+      fullPath: '/itarare/galeria'
+      preLoaderRoute: typeof ItarareGaleriaRouteImport
+      parentRoute: typeof ItarareRoute
+    }
   }
 }
+
+interface ItarareRouteChildren {
+  ItarareGaleriaRoute: typeof ItarareGaleriaRoute
+}
+
+const ItarareRouteChildren: ItarareRouteChildren = {
+  ItarareGaleriaRoute: ItarareGaleriaRoute,
+}
+
+const ItarareRouteWithChildren =
+  ItarareRoute._addFileChildren(ItarareRouteChildren)
+
+interface RecifeRouteChildren {
+  RecifeGaleriaRoute: typeof RecifeGaleriaRoute
+}
+
+const RecifeRouteChildren: RecifeRouteChildren = {
+  RecifeGaleriaRoute: RecifeGaleriaRoute,
+}
+
+const RecifeRouteWithChildren =
+  RecifeRoute._addFileChildren(RecifeRouteChildren)
+
+interface SaoPauloRouteChildren {
+  SaoPauloGaleriaRoute: typeof SaoPauloGaleriaRoute
+}
+
+const SaoPauloRouteChildren: SaoPauloRouteChildren = {
+  SaoPauloGaleriaRoute: SaoPauloGaleriaRoute,
+}
+
+const SaoPauloRouteWithChildren = SaoPauloRoute._addFileChildren(
+  SaoPauloRouteChildren,
+)
+
+interface SorocabaRouteChildren {
+  SorocabaGaleriaRoute: typeof SorocabaGaleriaRoute
+}
+
+const SorocabaRouteChildren: SorocabaRouteChildren = {
+  SorocabaGaleriaRoute: SorocabaGaleriaRoute,
+}
+
+const SorocabaRouteWithChildren = SorocabaRoute._addFileChildren(
+  SorocabaRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FaqRoute: FaqRoute,
-  ItarareRoute: ItarareRoute,
+  ItarareRoute: ItarareRouteWithChildren,
   RadioRoute: RadioRoute,
-  RecifeRoute: RecifeRoute,
-  SaoPauloRoute: SaoPauloRoute,
+  RecifeRoute: RecifeRouteWithChildren,
+  SaoPauloRoute: SaoPauloRouteWithChildren,
   SobreRoute: SobreRoute,
-  SorocabaRoute: SorocabaRoute,
+  SorocabaRoute: SorocabaRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
