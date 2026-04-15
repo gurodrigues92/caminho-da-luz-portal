@@ -87,7 +87,7 @@ function SorocabaPage() {
     <div className="pt-16">
       {/* Hero */}
       <section className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188744/caminhodaluz/caminho-da-luz.jpg')" }} />
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/images/bg/hero-main.jpg')" }} />
         <div className="absolute inset-0 bg-black/50" />
         <motion.div initial="hidden" animate="visible" variants={fadeUp} className="relative z-10 text-center px-4 max-w-3xl mx-auto">
           <span className="inline-block mb-4 px-3 py-1 bg-cdl-secondary text-cdl-bg-dark text-xs font-label uppercase tracking-widest rounded">
