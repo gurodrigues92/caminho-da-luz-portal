@@ -3,6 +3,18 @@ import { motion } from "framer-motion";
 import { ChevronDown, Instagram, MessageCircle } from "lucide-react";
 import { fadeUp, stagger } from "@/lib/animations";
 
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
+      { name: "description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé. Expansão de consciência através do uso religioso do Santo Daime." },
+      { property: "og:title", content: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
+      { property: "og:description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé." },
+    ],
+  }),
+  component: HomePage,
+});
+
 function HomePage() {
   return (
     <div>

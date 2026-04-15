@@ -29,10 +29,6 @@ export const Route = createFileRoute("/faq")({
   component: FAQPage,
 });
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
 
 const faqData = [
   { question: "O que é o Santo Daime?", answer: "O Santo Daime é uma doutrina espiritual que teve origem na floresta amazônica, fundada por Raimundo Irineu Serra (Mestre Irineu). Utiliza a ayahuasca como sacramento para expansão da consciência, cura espiritual e autoconhecimento." },
