@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
 import { MessageCircle } from "lucide-react";
+import { useCalendario } from "@/hooks/useCalendario";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export interface Evento {
   data: string;
@@ -12,6 +14,7 @@ export interface Evento {
 interface EventCalendarProps {
   title: string;
   eventos: Evento[];
+  casa?: string;
   emptyMessage?: string;
 }
 
@@ -25,8 +28,21 @@ const tipoBadgeColor: Record<string, string> = {
   "Clínica": "bg-cdl-accent text-cdl-text-light",
 };
 
-export function EventCalendar({ title, eventos, emptyMessage }: EventCalendarProps) {
-  const futureEventos = eventos.filter((e) => {
+export function EventCalendar({ title, eventos: staticEventos, casa, emptyMessage }: EventCalendarProps) {
+  const { eventos: dbEventos, loading } = casa
+    ? useCalendario(casa)
+    : { eventos: [] as any[], loading: false };
+
+  const rawEventos = dbEventos.length > 0
+    ? dbEventos.map((e: any) => ({
+        data: new Date(e.data_evento).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }),
+        nome: e.nome,
+        tipo: e.tipo_trabalho,
+        whatsappLink: e.link_whatsapp || undefined,
+      }))
+    : staticEventos;
+
+  const futureEventos = rawEventos.filter((e) => {
     const parts = e.data.split("/");
     if (parts.length === 2) {
       const eventDate = new Date(2026, parseInt(parts[1]) - 1, parseInt(parts[0]));
@@ -38,7 +54,13 @@ export function EventCalendar({ title, eventos, emptyMessage }: EventCalendarPro
   return (
     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
       <h2 className="font-heading text-3xl md:text-4xl text-cdl-text font-semibold mb-8 text-center">{title}</h2>
-      {futureEventos.length === 0 ? (
+      {loading ? (
+        <div className="space-y-3">
+          {[1, 2, 3].map((i) => (
+            <Skeleton key={i} className="h-16 w-full rounded-xl" />
+          ))}
+        </div>
+      ) : futureEventos.length === 0 ? (
         <p className="text-cdl-text-muted text-center">{emptyMessage || "Calendário sendo atualizado. Entre em contato pelo WhatsApp."}</p>
       ) : (
         <div className="space-y-3">

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://caminhodaluzdaime.com.br/sitemap.xml

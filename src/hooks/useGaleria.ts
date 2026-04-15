@@ -30,10 +30,13 @@ export function useGaleria(casa: string, trabalhoSlug: string | null = null, lim
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetch() {
+    async function fetchData() {
+      if (!supabase) {
+        setLoading(false);
+        return;
+      }
       setLoading(true);
       try {
-        // Fetch trabalhos for filter tabs
         const { data: trabalhosData } = await supabase
           .from("eventos")
           .select("tipo_trabalho, tipo_trabalho_slug")
@@ -45,7 +48,6 @@ export function useGaleria(casa: string, trabalhoSlug: string | null = null, lim
           : [];
         setTrabalhos(uniqueTrabalhos);
 
-        // Fetch eventos with fotos
         let query = supabase
           .from("eventos")
           .select("*, evento_fotos(id, url_imagem, url_thumbnail, ordem)")
@@ -73,7 +75,7 @@ export function useGaleria(casa: string, trabalhoSlug: string | null = null, lim
         setLoading(false);
       }
     }
-    fetch();
+    fetchData();
   }, [casa, trabalhoSlug, limit]);
 
   return { eventos, trabalhos, loading, error };
