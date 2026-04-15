@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as RadioRouteImport } from './routes/radio'
 import { Route as FaqRouteImport } from './routes/faq'
-import { Route as IndexRouteImport } from './routes/index'
 
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
@@ -29,41 +28,32 @@ const FaqRoute = FaqRouteImport.update({
   path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/faq': typeof FaqRoute
   '/radio': typeof RadioRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/faq': typeof FaqRoute
   '/radio': typeof RadioRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
   '/faq': typeof FaqRoute
   '/radio': typeof RadioRoute
   '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/faq' | '/radio' | '/sobre'
+  fullPaths: '/faq' | '/radio' | '/sobre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/faq' | '/radio' | '/sobre'
-  id: '__root__' | '/' | '/faq' | '/radio' | '/sobre'
+  to: '/faq' | '/radio' | '/sobre'
+  id: '__root__' | '/faq' | '/radio' | '/sobre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   FaqRoute: typeof FaqRoute
   RadioRoute: typeof RadioRoute
   SobreRoute: typeof SobreRoute
@@ -92,18 +82,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   FaqRoute: FaqRoute,
   RadioRoute: RadioRoute,
   SobreRoute: SobreRoute,
