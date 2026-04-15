@@ -34,7 +34,7 @@ function HeroSection() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: "url('https://res.cloudinary.com/dtt7egwkk/image/upload/v1776188744/caminhodaluz/caminho-da-luz.jpg')" }}
+        style={{ backgroundImage: "url('/images/bg/hero-main.jpg')" }}
       />
       <div className="absolute inset-0 bg-black/50" />
       <motion.div
