@@ -354,7 +354,7 @@ function CTASection() {
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('/images/bg/cta-section.jpg')" }}
       />
-      <div className="absolute inset-0 bg-black/60" />
+      <div className="absolute inset-0 bg-white/30" />
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -362,10 +362,10 @@ function CTASection() {
         variants={fadeUp}
         className="relative z-10 text-center px-4 max-w-2xl mx-auto"
       >
-        <h2 className="font-heading text-3xl md:text-5xl text-cdl-text-light font-semibold mb-4">
+        <h2 className="font-heading text-3xl md:text-5xl text-cdl-text font-semibold mb-4">
           Pronto para expandir sua consciência?
         </h2>
-        <p className="text-cdl-text-light/80 mb-8">Reserve sua vaga para o próximo trabalho</p>
+        <p className="text-cdl-text-muted mb-8">Reserve sua vaga para o próximo trabalho</p>
         <a
           href="https://api.whatsapp.com/send?phone=5515974011072&text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Caminho%20da%20Luz."
           target="_blank"
@@ -374,13 +374,13 @@ function CTASection() {
         >
           Fale conosco no WhatsApp
         </a>
-        <p className="text-cdl-text-light/60 text-sm mt-6">
+        <p className="text-cdl-text-muted text-sm mt-6">
           Primeira vez?{" "}
           <a
             href="/docs/Anamnese_Formulario.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-cdl-text-light transition-colors"
+            className="underline hover:text-cdl-text transition-colors"
           >
             Preencha a anamnese antes da sua participação.
           </a>

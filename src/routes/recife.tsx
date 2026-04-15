@@ -4,6 +4,7 @@ import { fadeUp } from "@/lib/animations";
 import { Instagram, MessageCircle } from "lucide-react";
 import { TrabalhoCard } from "@/components/TrabalhoCard";
 import { GaleriaPreview } from "@/components/GaleriaPreview";
+import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 
 export const Route = createFileRoute("/recife")({
   head: () => ({
