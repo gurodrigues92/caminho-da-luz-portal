@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ChevronDown, Instagram, MessageCircle, Camera } from "lucide-react";
 import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
+import { UltimosVideosSection } from "@/components/UltimosVideosSection";
 import { fadeUp, stagger } from "@/lib/animations";
 
 export const Route = createFileRoute("/")({
