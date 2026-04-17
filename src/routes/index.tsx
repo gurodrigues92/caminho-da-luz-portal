@@ -31,6 +31,7 @@ function HomePage() {
       <AboutSection />
       <MissaoSection />
       <RadioSection />
+      <UltimosVideosSection />
       <AniversariantesDoMes />
       <CTASection />
     </div>
