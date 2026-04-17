@@ -145,28 +145,28 @@ function CasasSection() {
               variants={fadeUp}
               className={`group relative overflow-hidden rounded-xl shadow-[0_4px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:scale-[1.02] ${casa.sede ? "md:col-span-2" : ""}`}
             >
-              <Link to={casa.to} className="block">
-                <div className={`relative ${casa.sede ? "aspect-video md:aspect-[2.33]" : "aspect-[4/3]"}`}>
+              <div className={`relative ${casa.sede ? "aspect-video md:aspect-[2.33]" : "aspect-[4/3]"}`}>
+                <Link to={casa.to} className="block absolute inset-0 z-10" aria-label={`Visitar página de ${casa.name}`}>
                   <img src={casa.image} alt={casa.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    {casa.sede && (
-                      <span className="inline-block mb-2 px-3 py-1 bg-cdl-secondary text-cdl-bg-dark text-xs font-label uppercase tracking-widest rounded">
-                        Sede Principal
-                      </span>
-                    )}
-                    <p className="text-cdl-text-light/80 text-sm">{casa.subtitle}</p>
-                    <div className="flex items-center gap-3 mt-3">
-                      <a href={casa.instagram} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-cdl-text-light/60 hover:text-cdl-text-light transition-colors">
-                        <Instagram className="h-4 w-4" />
-                      </a>
-                      <a href={`https://api.whatsapp.com/send?phone=${casa.whatsapp}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-cdl-text-light/60 hover:text-cdl-text-light transition-colors">
-                        <MessageCircle className="h-4 w-4" />
-                      </a>
-                    </div>
+                </Link>
+                <div className="absolute bottom-0 left-0 right-0 p-6 z-20 pointer-events-none">
+                  {casa.sede && (
+                    <span className="inline-block mb-2 px-3 py-1 bg-cdl-secondary text-cdl-bg-dark text-xs font-label uppercase tracking-widest rounded">
+                      Sede Principal
+                    </span>
+                  )}
+                  <p className="text-cdl-text-light/80 text-sm">{casa.subtitle}</p>
+                  <div className="flex items-center gap-3 mt-3 pointer-events-auto">
+                    <a href={casa.instagram} target="_blank" rel="noopener noreferrer" className="text-cdl-text-light/60 hover:text-cdl-text-light transition-colors">
+                      <Instagram className="h-4 w-4" />
+                    </a>
+                    <a href={`https://api.whatsapp.com/send?phone=${casa.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-cdl-text-light/60 hover:text-cdl-text-light transition-colors">
+                      <MessageCircle className="h-4 w-4" />
+                    </a>
                   </div>
                 </div>
-              </Link>
+              </div>
             </motion.div>
           ))}
         </motion.div>

@@ -2,8 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, stagger } from "@/lib/animations";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export const Route = createFileRoute("/sorocaba/galeria")({
   head: () => ({
@@ -60,6 +60,7 @@ function GaleriaPage({ casa, casaSlug }: { casa: string; casaSlug: string }) {
       {/* Lightbox */}
       <Dialog open={lightboxIndex !== null} onOpenChange={() => setLightboxIndex(null)}>
         <DialogContent className="max-w-4xl bg-black/95 border-none p-0">
+          <DialogTitle className="sr-only">Foto ampliada</DialogTitle>
           {lightboxIndex !== null && (
             <div className="relative">
               <img src={fotos[lightboxIndex]} alt="" className="w-full h-auto max-h-[80vh] object-contain mx-auto" />
