@@ -1,40 +1,27 @@
 
-User wants a new section on the home page showing the 3 latest videos from a YouTube channel as cards.
+## Diagnóstico
 
-## Options to fetch latest videos
+O feed RSS oficial do YouTube (`/feeds/videos.xml?channel_id=...`) retorna **404** para este canal — provavelmente por ser uma conta legada (sufixo `6191`). Testei `channel_id`, `user`, `playlist_id` (`UU...` uploads) — todas falham. Por isso a seção mostra "Nenhum vídeo disponível".
 
-1. **YouTube Data API v3** — official, requires API key, real-time data, quota limits
-2. **RSS feed** (`https://www.youtube.com/feeds/videos.xml?channel_id=XXX`) — no auth, no quota, public, returns latest 15 videos
-3. **Hardcoded video IDs** — manual update each time
+A página pública `https://www.youtube.com/@institutocaminhodaluz6191/videos` **funciona** e expõe os vídeos em JSON embutido (`ytInitialData`). Confirmei que dá pra extrair `videoId` + `title` dos últimos uploads.
 
-Best approach: **RSS feed via server function** — no API key needed, free, always fresh. Parse XML on server, return JSON to client, cache with TanStack Query.
+## Solução
 
-## Need from user
+Trocar a estratégia do `getLatestVideos` em `src/lib/youtube.ts`:
 
-I need the YouTube channel ID or handle (e.g., `@caminhodaluz` or `UCxxxxxxxxxx`). The RSS feed needs the channel ID. If they only have a handle/URL, I can extract it.
+1. Buscar `https://www.youtube.com/@institutocaminhodaluz6191/videos` (com `User-Agent` de browser).
+2. Localizar o bloco `var ytInitialData = {...};` no HTML.
+3. Navegar `contents.twoColumnBrowseResultsRenderer.tabs[].tabRenderer` até a tab "Videos" → `richGridRenderer.contents[]` → `richItemRenderer.content.videoRenderer` (ou `shortsLockupViewModel` — filtrar só `videoRenderer`).
+4. Extrair `videoId`, `title.runs[0].text`, `publishedTimeText.simpleText` (ex.: "há 3 dias"), e montar `thumbnail = https://i.ytimg.com/vi/${id}/hqdefault.jpg`.
+5. Retornar os 3 primeiros. Manter o fallback `{ videos: [], error }` em caso de erro.
 
-## Plan
+Cache continua via TanStack Query (1h staleTime). O componente `UltimosVideosSection` não muda — só o backend.
 
-### New section: "Últimos Vídeos"
-Place between `RadioSection` and `AniversariantesDoMes` on home (`src/routes/index.tsx`).
+### Alternativa (caso a estrutura mude no futuro)
+Fallback regex robusto: extrair pares `"videoId":"XXX"` + `"title":{"runs":[{"text":"..."}]}` sequenciais via regex no HTML, deduplicar por id, pegar 3 primeiros. Vou implementar regex como caminho principal (mais resiliente que navegar a árvore JSON do YouTube, que muda com frequência).
 
-Layout:
-- Section title "Últimos Vídeos" with YouTube icon + subtitle
-- Grid 1 col mobile / 3 cols desktop
-- Each card: thumbnail (16:9) with play overlay → click opens YouTube video in new tab (or lightbox with embedded iframe)
-- "Ver canal completo no YouTube →" link below
-- Visual style matches existing sections (cdl-bg-light, rounded-xl, hover scale)
+### Arquivo
+- `src/lib/youtube.ts` — reescrever `getLatestVideos` para fazer scrape do HTML do canal em vez de RSS.
 
-### Data fetching
-- Server function `getLatestVideos` in `src/lib/youtube.ts` using `createServerFn`
-- Fetches `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`
-- Parses XML (use simple regex or `fast-xml-parser`), extracts top 3 entries: videoId, title, thumbnail, publishedAt
-- Returns JSON
-- Client uses TanStack Query (`useQuery`) with 1h staleTime + fallback to skeleton/empty state on error
-
-### Files
-- `src/lib/youtube.ts` — new server function
-- `src/routes/index.tsx` — add `UltimosVideosSection` component + insert in `HomePage`
-
-### Question for user
-Need the YouTube channel ID/handle to wire the RSS URL.
+### Observação
+Scraping de HTML é mais frágil que RSS oficial — se o YouTube mudar o layout, precisará de ajuste. A função vai degradar graciosamente (mostrando o link "Visite nosso canal") se a extração falhar.
