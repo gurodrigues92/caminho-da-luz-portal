@@ -95,7 +95,7 @@ const casasData = [
   {
     name: "Sorocaba",
     subtitle: "R. Paulo Varchavtchik, 365 — Brigadeiro Tobias",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg",
+    image: "/images/casas/sorocaba-card.jpg",
     to: "/sorocaba" as const,
     sede: true,
     whatsapp: "5515974011072",
@@ -104,7 +104,7 @@ const casasData = [
   {
     name: "São Paulo",
     subtitle: "Rua Medeiros Furtado, 642 — Vila Formosa",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188749/caminhodaluz/ipiranga.jpg",
+    image: "/images/casas/sao-paulo-card.jpg",
     to: "/sao-paulo" as const,
     sede: false,
     whatsapp: "5511916652879",
@@ -113,7 +113,7 @@ const casasData = [
   {
     name: "Recife",
     subtitle: "Pernambuco",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188750/caminhodaluz/recife.jpg",
+    image: "/images/casas/recife-card.jpg",
     to: "/recife" as const,
     sede: false,
     whatsapp: "5581992038383",
@@ -122,7 +122,7 @@ const casasData = [
   {
     name: "Itararé",
     subtitle: "Rua XV de Novembro, 156 — Centro",
-    image: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188749/caminhodaluz/itarare.jpg",
+    image: "/images/casas/itarare-card.jpg",
     to: "/itarare" as const,
     sede: false,
     whatsapp: "5515996751934",
@@ -155,8 +155,7 @@ function CasasSection() {
                         Sede Principal
                       </span>
                     )}
-                    <h3 className="font-heading text-2xl md:text-3xl text-cdl-text-light font-semibold">{casa.name}</h3>
-                    <p className="text-cdl-text-light/70 text-sm mt-1">{casa.subtitle}</p>
+                    <p className="text-cdl-text-light/80 text-sm">{casa.subtitle}</p>
                     <div className="flex items-center gap-3 mt-3">
                       <a href={casa.instagram} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="text-cdl-text-light/60 hover:text-cdl-text-light transition-colors">
                         <Instagram className="h-4 w-4" />
