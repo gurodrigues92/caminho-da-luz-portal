@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { fadeUp, stagger } from "@/lib/animations";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -16,46 +14,35 @@ export function GaleriaCasa({ casa, fotos }: GaleriaCasaProps) {
     <div className="pt-16">
       <section className="py-20 bg-cdl-bg-light">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeUp}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12">
             <h1 className="font-heading text-3xl md:text-5xl text-cdl-text font-semibold">
               Galeria — {casa}
             </h1>
             <p className="text-cdl-text-muted mt-3">Registros dos nossos trabalhos</p>
-          </motion.div>
+          </div>
 
           {fotos.length === 0 ? (
             <p className="text-cdl-text-muted text-center">
               Galeria em breve. Acompanhe nosso Instagram.
             </p>
           ) : (
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={stagger}
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
-            >
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {fotos.map((foto, i) => (
-                <motion.div
+                <div
                   key={i}
-                  variants={fadeUp}
                   className="relative aspect-square rounded-xl overflow-hidden cursor-pointer group"
                   onClick={() => setLightboxIndex(i)}
                 >
                   <img
                     src={foto}
                     alt={`Foto ${casa} ${i + 1}`}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           )}
         </div>
       </section>
