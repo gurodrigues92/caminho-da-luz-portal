@@ -87,16 +87,11 @@ export function UltimosVideosSection() {
                     loading="lazy"
                     className="absolute inset-0 w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
                     <span className="rounded-full bg-cdl-secondary/95 text-cdl-bg-dark p-4 shadow-lg group-hover:scale-110 transition-transform">
                       <Play className="h-6 w-6 fill-current" />
                     </span>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="font-heading text-cdl-text-light text-base md:text-lg leading-snug line-clamp-2">
-                      {v.title}
-                    </h3>
                   </div>
                 </div>
               </motion.button>
