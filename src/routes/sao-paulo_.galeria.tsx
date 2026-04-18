@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GaleriaCasa, PLACEHOLDER_FOTOS } from "@/components/GaleriaCasa";
 
-export const Route = createFileRoute("/sao-paulo/galeria")({
+export const Route = createFileRoute("/sao-paulo_/galeria")({
   head: () => ({
     meta: [
       { title: "Galeria — Caminho da Luz São Paulo" },
