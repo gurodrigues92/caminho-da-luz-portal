@@ -2,65 +2,61 @@
 
 ## Pedido
 
-Padronizar TODOS os botões do site com:
-1. Cor azul em **degradê** (usando tons do `cdl-primary`).
-2. **Texto branco**.
-3. Cantos **mais arredondados**.
-4. **Hover elegante** com efeito de "espelho" (shimmer/shine passando pelo botão).
-5. Aplicar globalmente — começando pela seção CTA "Pronto para expandir sua consciência?".
+1. Remover badge "Sede Principal" do card de Sorocaba na seção "Em Nossas Casas" (home).
+2. Aumentar área de toque dos botões de Instagram e WhatsApp nos cards das casas (mobile) — ícones pequenos demais para touch preciso.
+3. Trocar ícone genérico de balão (`MessageCircle`) pelo **logo oficial do WhatsApp** (SVG já usado em `WhatsAppFAB.tsx`).
+4. Aplicar em **todo o site** — não só na home.
 
-## Investigação rápida necessária
+## Investigação necessária
 
-Preciso confirmar:
-- Tons exatos de azul disponíveis em `mem://design/tokens` (cdl-primary e variações).
-- Variantes do `Button` (`button.tsx`) atualmente usadas no projeto (default, outline, secondary, etc.) para garantir cobertura.
-- Como o CTA atual está estilizado em `src/routes/index.tsx`.
+Preciso ler:
+- `src/routes/index.tsx` — seção "Em Nossas Casas" para localizar os cards das casas e confirmar uso de `MessageCircle` + badge "Sede Principal".
+- `src/components/CasaPage.tsx` — já vi: usa `MessageCircle` no hero das páginas individuais das casas (4 ocorrências em /sorocaba, /sao-paulo, /recife, /itarare).
+- `src/components/layout/Footer.tsx` — pode ter ícones de contato.
+- `src/components/layout/Navbar.tsx` — idem.
+- Buscar globalmente por `MessageCircle` para mapear todas as ocorrências.
 
-## Abordagem
+## Plano
 
-**Estratégia: alterar a base do componente `Button`** em `src/components/ui/button.tsx` — assim todos os botões do site (Navbar, Hero, CTAs, cards de Casa, formulários etc.) herdam o novo padrão automaticamente, sem precisar editar dezenas de arquivos.
+### 1. Criar componente reutilizável `WhatsAppIcon`
+Novo arquivo `src/components/icons/WhatsAppIcon.tsx` exportando o SVG oficial (mesmo path já usado no `WhatsAppFAB`), aceita `className` para tamanho/cor — evita duplicar o path SVG longo em vários lugares.
 
-### Mudanças em `button.tsx`
-
-1. **Base shape**: trocar `rounded-md` por `rounded-full` (pill) para todos os tamanhos — visual mais elegante e arredondado.
-
-2. **Variant `default`** (a principal — usada na maioria dos CTAs):
-   - Fundo: `bg-gradient-to-r from-cdl-primary via-cdl-primary to-cdl-primary/80` (degradê azul sutil).
-   - Texto: `text-white` (forçado, ignora `primary-foreground`).
-   - Sombra: `shadow-lg shadow-cdl-primary/30`.
-   - **Efeito shimmer** no hover: pseudo-elemento (`before:`) com gradiente diagonal branco translúcido que desliza da esquerda para a direita ao passar o mouse — usando `overflow-hidden` no botão e `before:translate-x-[-150%] hover:before:translate-x-[150%] before:transition-transform before:duration-700`.
-   - Hover: leve `brightness-110` + scale opcional muito sutil.
-
-3. **Variant `outline`**: fundo transparente com borda azul em degradê, texto azul → no hover preenche com o degradê azul e texto fica branco. Mantém shimmer.
-
-4. **Variant `secondary`**: usar gradiente `cdl-secondary` (dourado) mantendo coerência mas ainda com texto branco e mesmo efeito shimmer — para botões de acento.
-
-5. **Variant `ghost` / `link`**: mantidas como estão (sem degradê faz sentido para esses casos discretos).
-
-6. **Sizes**: aumentar levemente o padding horizontal (`px-6` no default, `px-8` no `lg`) para acomodar bem o shape pill.
-
-### CSS shimmer (técnica)
-
-Usar Tailwind arbitrary values diretamente nas classes da variant — não precisa adicionar keyframes ao `styles.css`. O efeito é baseado em transição de `translate-x` de um pseudo-elemento com gradient branco diagonal, totalmente CSS puro:
-
-```
-relative overflow-hidden
-before:absolute before:inset-0 before:-translate-x-full
-before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent
-hover:before:translate-x-full before:transition-transform before:duration-700 before:ease-out
+```tsx
+export function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149..." />
+    </svg>
+  );
+}
 ```
 
-### CTA específico (seção "Pronto para expandir sua consciência?")
+### 2. Home (`src/routes/index.tsx`) — seção "Em Nossas Casas"
+- Remover badge/marcação "Sede Principal" do card de Sorocaba.
+- Substituir `<MessageCircle />` por `<WhatsAppIcon />` nos botões de contato dos cards.
+- **Touch targets mobile**: garantir que os links de Instagram e WhatsApp tenham área clicável mínima de **44×44px** (recomendação Apple HIG / WCAG). Aplicar `min-h-[44px] min-w-[44px] p-2` nos `<a>` e centralizar ícone interno. Em desktop pode reduzir via `md:` se necessário, mas 44px é confortável em ambos.
 
-Após atualizar o `Button` base, o CTA já vai herdar o novo visual. Vou verificar `src/routes/index.tsx` para garantir que o botão dessa seção usa o componente `<Button>` (não um `<a>` cru ou classes custom que sobrescrevem) — se estiver com classes manuais sobrepondo, removo.
+### 3. CasaPage (`src/components/CasaPage.tsx`)
+- Hero das casas individuais: trocar `<MessageCircle />` por `<WhatsAppIcon />` no link do WhatsApp.
+- Mesmos targets de toque (44×44) para os 3 links: Instagram, WhatsApp, Maps.
+- Considerar empilhar verticalmente ou dar `gap-3`/`gap-4` em vez de `gap-4` apertado no mobile para evitar toques cruzados.
+
+### 4. Footer (`src/components/layout/Footer.tsx`)
+- Verificar se há `MessageCircle` representando WhatsApp → trocar por `WhatsAppIcon`.
+- Garantir touch target dos ícones sociais.
+
+### 5. Busca global
+- `code--search_files` por `MessageCircle` em `src/**/*.tsx` para pegar qualquer ocorrência restante (CTAs, FABs já corretos, etc.) e padronizar.
+- O `WhatsAppFAB.tsx` já usa o SVG correto inline → refatorar para usar o novo componente `WhatsAppIcon` (DRY, opcional).
+
+### 6. Touch target — padrão do projeto
+Aplicar a regra simples: **todo link/botão de ação social/contato com ícone deve ter `inline-flex items-center justify-center` + `min-h-11 min-w-11` (44px = `h-11`) + `p-2`**. Se o link tem texto ao lado (ex: "@instagram"), usar `min-h-11 px-3 py-2` para área retangular confortável.
 
 ## Arquivos
 
-- `src/components/ui/button.tsx` — atualizar `buttonVariants` (variants `default`, `outline`, `secondary`; base `rounded-full`; shimmer).
-- `src/routes/index.tsx` — verificar/limpar o CTA da seção "Pronto para expandir" se houver classes que conflitam.
-- (Provável) revisar outros locais com `<Button className="...">` que forçam `rounded-md` ou cores próprias e remover overrides para manter consistência.
-
-## Confirmação
-
-- Manter o **dourado (cdl-secondary)** como variante alternativa (`secondary`) com mesmo padrão pill+shimmer, ou eliminar e deixar TUDO azul? Vou assumir **manter dourado como secundária** para casos de destaque (ex: botão de WhatsApp/CTA forte), mas se preferir 100% azul me avise.
+- `src/components/icons/WhatsAppIcon.tsx` (novo)
+- `src/routes/index.tsx` (remover badge sede + trocar ícone + touch targets na seção "Em Nossas Casas")
+- `src/components/CasaPage.tsx` (trocar ícone + touch targets no hero)
+- `src/components/layout/Footer.tsx` (verificar/trocar ícone se houver)
+- `src/components/layout/WhatsAppFAB.tsx` (refatorar para usar `WhatsAppIcon` — opcional, mantém consistência)
 
