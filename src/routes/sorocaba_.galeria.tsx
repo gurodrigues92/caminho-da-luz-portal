@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { GaleriaCasa, PLACEHOLDER_FOTOS } from "@/components/GaleriaCasa";
+import { GaleriaCasa } from "@/components/GaleriaCasa";
 
 export const Route = createFileRoute("/sorocaba_/galeria")({
   head: () => ({
@@ -8,5 +8,5 @@ export const Route = createFileRoute("/sorocaba_/galeria")({
       { name: "description", content: "Fotos dos trabalhos espirituais do Caminho da Luz Sorocaba." },
     ],
   }),
-  component: () => <GaleriaCasa casa="Sorocaba" fotos={PLACEHOLDER_FOTOS} />,
+  component: () => <GaleriaCasa casa="Sorocaba" casaSlug="sorocaba" />,
 });
