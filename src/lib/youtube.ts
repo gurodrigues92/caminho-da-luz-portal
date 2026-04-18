@@ -1,7 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 
 export const YOUTUBE_CHANNEL_HANDLE = "institutocaminhodaluz6191";
+export const YOUTUBE_CHANNEL_ID = "UC91bF7LgjRXXDPMR0G_jUgQ";
 export const YOUTUBE_CHANNEL_URL = `https://www.youtube.com/@${YOUTUBE_CHANNEL_HANDLE}`;
+const YOUTUBE_RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${YOUTUBE_CHANNEL_ID}`;
 
 export type YoutubeVideo = {
   id: string;
@@ -11,73 +13,61 @@ export type YoutubeVideo = {
   url: string;
 };
 
-function extractVideosFromHtml(html: string, limit = 3): YoutubeVideo[] {
+function decodeXmlEntities(s: string): string {
+  return s
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
+}
+
+function parseRssVideos(xml: string, limit = 3): YoutubeVideo[] {
   const videos: YoutubeVideo[] = [];
-  const seen = new Set<string>();
-
-  // Regex que captura blocos de videoRenderer com id + título.
-  // Estrutura típica: "videoId":"XXXX", ... "title":{"runs":[{"text":"..."}]
-  // ou "title":{"simpleText":"..."}
-  const re =
-    /"videoId":"([a-zA-Z0-9_-]{11})"[^}]*?"title":\{(?:"runs":\[\{"text":"([^"]+)"|"simpleText":"([^"]+)")/g;
-
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(html)) && videos.length < limit) {
-    const id = m[1];
-    const rawTitle = m[2] ?? m[3];
-    if (!id || !rawTitle || seen.has(id)) continue;
-    seen.add(id);
-
-    // Decodifica escapes JSON básicos
-    const title = rawTitle
-      .replace(/\\u0026/g, "&")
-      .replace(/\\"/g, '"')
-      .replace(/\\\//g, "/")
-      .replace(/\\n/g, " ")
-      .trim();
-
-    // Tenta extrair publishedTimeText próximo (opcional)
-    const tail = html.slice(m.index, m.index + 2000);
-    const publishedMatch = tail.match(/"publishedTimeText":\{"simpleText":"([^"]+)"/);
-    const publishedAt = publishedMatch?.[1] ?? "";
-
+  // Cada <entry> contém um vídeo
+  const entryRe = /<entry>([\s\S]*?)<\/entry>/g;
+  let match: RegExpExecArray | null;
+  while ((match = entryRe.exec(xml)) && videos.length < limit) {
+    const block = match[1];
+    const id = block.match(/<yt:videoId>([^<]+)<\/yt:videoId>/)?.[1];
+    const rawTitle = block.match(/<title>([\s\S]*?)<\/title>/)?.[1];
+    const publishedAt = block.match(/<published>([^<]+)<\/published>/)?.[1] ?? "";
+    if (!id || !rawTitle) continue;
     videos.push({
       id,
-      title,
+      title: decodeXmlEntities(rawTitle).trim(),
       thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
       publishedAt,
       url: `https://www.youtube.com/watch?v=${id}`,
     });
   }
-
   return videos;
 }
 
 export const getLatestVideos = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ videos: YoutubeVideo[]; error: string | null }> => {
     try {
-      const res = await fetch(`${YOUTUBE_CHANNEL_URL}/videos`, {
+      const res = await fetch(YOUTUBE_RSS_URL, {
         headers: {
           "User-Agent":
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-          "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
-          Accept:
-            "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Mozilla/5.0 (compatible; CaminhoDaLuzBot/1.0; +https://caminhodaluz.org)",
+          Accept: "application/atom+xml, application/xml, text/xml",
         },
       });
       if (!res.ok) {
-        console.error(`YouTube page error: ${res.status} ${res.statusText}`);
+        console.error(`YouTube RSS error: ${res.status} ${res.statusText}`);
         return { videos: [], error: `Canal indisponível (${res.status})` };
       }
-      const html = await res.text();
-      const videos = extractVideosFromHtml(html, 3);
+      const xml = await res.text();
+      const videos = parseRssVideos(xml, 3);
       if (videos.length === 0) {
-        console.error("YouTube scrape: no videos found in HTML");
+        console.error("YouTube RSS: no videos parsed");
         return { videos: [], error: "Nenhum vídeo encontrado" };
       }
       return { videos, error: null };
     } catch (e) {
-      console.error("YouTube scrape failed:", e);
+      console.error("YouTube RSS fetch failed:", e);
       return { videos: [], error: "Falha ao buscar vídeos" };
     }
   },

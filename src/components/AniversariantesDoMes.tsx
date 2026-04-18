@@ -41,12 +41,12 @@ export function AniversariantesDoMes({ casa }: { casa?: string }) {
           <div className="flex items-center justify-center gap-2 mb-3">
             <Star className="h-5 w-5 text-cdl-secondary fill-cdl-secondary" />
             <h2 className="font-heading text-3xl md:text-4xl text-cdl-text font-semibold">
-              Estrelados de {MESES[mesAtual]}
+              Aniversariantes de {MESES[mesAtual]}
             </h2>
             <Star className="h-5 w-5 text-cdl-secondary fill-cdl-secondary" />
           </div>
           <p className="text-cdl-text-muted text-sm">
-            Parabéns aos nossos queridos aniversariantes! ✨
+            Parabéns aos nossos queridos estrelados ✨
           </p>
         </motion.div>
 
