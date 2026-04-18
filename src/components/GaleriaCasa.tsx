@@ -43,11 +43,9 @@ export function GaleriaCasa({ casa, casaSlug, trabalhoSlug }: GaleriaCasaProps) 
   const trabalhoAtivo = trabalhos.find((t) => t.tipo_trabalho_slug === trabalhoSlug);
 
   const goTo = (slug: string | null) => {
-    if (slug) {
-      navigate({ to: "/$casa/galeria/$trabalho" as any, params: { casa: casaSlug, trabalho: slug } });
-    } else {
-      navigate({ to: `/${casaSlug}/galeria` as any });
-    }
+    const base = `/${casaSlug}/galeria`;
+    const target = slug ? `${base}/${slug}` : base;
+    navigate({ to: target as any });
   };
 
   const eventoAtivo = lightbox !== null ? eventos[lightbox.eventoIdx] : null;
