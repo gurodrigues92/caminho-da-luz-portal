@@ -18,8 +18,7 @@ export function GaleriaCasa({ casa, fotos }: GaleriaCasaProps) {
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            animate="visible"
             variants={fadeUp}
             className="text-center mb-12"
           >
@@ -36,8 +35,7 @@ export function GaleriaCasa({ casa, fotos }: GaleriaCasaProps) {
           ) : (
             <motion.div
               initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+              animate="visible"
               variants={stagger}
               className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
             >
