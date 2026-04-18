@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ChevronDown, Instagram, MessageCircle, Camera } from "lucide-react";
 import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 import { UltimosVideosSection } from "@/components/UltimosVideosSection";
+import { Button } from "@/components/ui/button";
 import { fadeUp, stagger } from "@/lib/animations";
 import logoCdl from "@/assets/logo-caminho-da-luz.png";
 import wordmarkCdl from "@/assets/wordmark-caminho-da-luz.png";
