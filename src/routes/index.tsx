@@ -395,14 +395,15 @@ function CTASection() {
           Pronto para expandir sua consciência?
         </h2>
         <p className="text-cdl-text-light/70 mb-8">Reserve sua vaga para o próximo trabalho</p>
-        <a
-          href="https://api.whatsapp.com/send?phone=5515974011072&text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Caminho%20da%20Luz."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-8 py-3 bg-cdl-secondary text-cdl-bg-dark font-label uppercase tracking-widest text-sm rounded-lg hover:bg-cdl-secondary/90 transition-all duration-300 shadow-lg"
-        >
-          Fale conosco no WhatsApp
-        </a>
+        <Button asChild size="lg" className="font-label uppercase tracking-widest">
+          <a
+            href="https://api.whatsapp.com/send?phone=5515974011072&text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Caminho%20da%20Luz."
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Fale conosco no WhatsApp
+          </a>
+        </Button>
         <p className="text-cdl-text-light/60 text-sm mt-6">
           Primeira vez?{" "}
           <a
