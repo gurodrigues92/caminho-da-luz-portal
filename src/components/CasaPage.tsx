@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
-import { Instagram, MessageCircle, MapPin } from "lucide-react";
+import { Instagram, MapPin } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { TrabalhoCard } from "@/components/TrabalhoCard";
 import { EventCalendar, type Evento } from "@/components/EventCalendar";
 import { GaleriaPreview } from "@/components/GaleriaPreview";
@@ -79,16 +80,34 @@ export function CasaPage({
           )}
           <h1 className="font-heading text-3xl md:text-5xl text-cdl-text-light font-semibold mb-3">Caminho da Luz — {nome}</h1>
           <p className="text-cdl-text-light/80 mb-6">{endereco}</p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">
-              <Instagram className="h-4 w-4" /> @{instagramHandle}
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Instagram @${instagramHandle}`}
+              className="inline-flex items-center gap-2 min-h-11 px-3 py-2 rounded-full text-cdl-text-light/80 hover:text-cdl-text-light hover:bg-white/10 text-sm transition-colors"
+            >
+              <Instagram className="h-5 w-5" /> @{instagramHandle}
             </a>
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">
-              <MessageCircle className="h-4 w-4" /> {phoneDisplay}
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`WhatsApp ${phoneDisplay}`}
+              className="inline-flex items-center gap-2 min-h-11 px-3 py-2 rounded-full text-cdl-text-light/80 hover:text-cdl-text-light hover:bg-white/10 text-sm transition-colors"
+            >
+              <WhatsAppIcon className="h-5 w-5" /> {phoneDisplay}
             </a>
             {mapsQuery && (
-              <a href={`https://maps.google.com/?q=${mapsQuery}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">
-                <MapPin className="h-4 w-4" /> Mapa
+              <a
+                href={`https://maps.google.com/?q=${mapsQuery}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Abrir no Google Maps"
+                className="inline-flex items-center gap-2 min-h-11 px-3 py-2 rounded-full text-cdl-text-light/80 hover:text-cdl-text-light hover:bg-white/10 text-sm transition-colors"
+              >
+                <MapPin className="h-5 w-5" /> Mapa
               </a>
             )}
           </div>

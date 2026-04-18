@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
-import { MessageCircle } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { useCalendario } from "@/hooks/useCalendario";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -83,9 +83,10 @@ export function EventCalendar({ title, eventos: staticEventos, casa, emptyMessag
                   href={evento.whatsappLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-cdl-primary hover:text-cdl-primary-light transition-colors"
+                  aria-label="Reservar via WhatsApp"
+                  className="inline-flex items-center justify-center min-h-11 min-w-11 p-2 rounded-full text-cdl-primary hover:text-cdl-primary-light hover:bg-cdl-primary/10 transition-colors"
                 >
-                  <MessageCircle className="h-5 w-5" />
+                  <WhatsAppIcon className="h-5 w-5" />
                 </a>
               )}
             </div>
