@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ChevronDown, Instagram, MessageCircle, Camera } from "lucide-react";
+import { ChevronDown, Instagram, Camera } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 import { UltimosVideosSection } from "@/components/UltimosVideosSection";
 import { Button } from "@/components/ui/button";
@@ -177,18 +178,25 @@ function CasasSection() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 </Link>
                 <div className="absolute bottom-0 left-0 right-0 p-6 z-20 pointer-events-none">
-                  {casa.sede && (
-                    <span className="inline-block mb-2 px-3 py-1 bg-cdl-secondary text-cdl-bg-dark text-xs font-label uppercase tracking-widest rounded">
-                      Sede Principal
-                    </span>
-                  )}
                   <p className="text-cdl-text-light/80 text-sm">{casa.subtitle}</p>
-                  <div className="flex items-center gap-3 mt-3 pointer-events-auto">
-                    <a href={casa.instagram} target="_blank" rel="noopener noreferrer" className="text-cdl-text-light/60 hover:text-cdl-text-light transition-colors">
-                      <Instagram className="h-4 w-4" />
+                  <div className="flex items-center gap-2 mt-2 pointer-events-auto">
+                    <a
+                      href={casa.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Instagram ${casa.name}`}
+                      className="inline-flex items-center justify-center min-h-11 min-w-11 p-2 rounded-full text-cdl-text-light/80 hover:text-cdl-text-light hover:bg-white/10 transition-colors"
+                    >
+                      <Instagram className="h-5 w-5" />
                     </a>
-                    <a href={`https://api.whatsapp.com/send?phone=${casa.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-cdl-text-light/60 hover:text-cdl-text-light transition-colors">
-                      <MessageCircle className="h-4 w-4" />
+                    <a
+                      href={`https://api.whatsapp.com/send?phone=${casa.whatsapp}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`WhatsApp ${casa.name}`}
+                      className="inline-flex items-center justify-center min-h-11 min-w-11 p-2 rounded-full text-cdl-text-light/80 hover:text-cdl-text-light hover:bg-white/10 transition-colors"
+                    >
+                      <WhatsAppIcon className="h-5 w-5" />
                     </a>
                   </div>
                 </div>
