@@ -32,10 +32,10 @@ function HomePage() {
       <CasasSection />
       <AboutSection />
       <MissaoSection />
-      <RadioSection />
       <UltimosVideosSection />
       <AniversariantesDoMes />
       <CTASection />
+      <RadioSection />
     </div>
   );
 }

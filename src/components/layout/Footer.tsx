@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import wordmarkFooter from "@/assets/wordmark-caminho-da-luz-footer.png";
 
 export function Footer() {
   return (
@@ -7,9 +8,9 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <img
-              src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_200/v1776188742/caminhodaluz/logo.png"
+              src={wordmarkFooter}
               alt="Caminho da Luz"
-              className="h-12 w-auto mb-4"
+              className="h-10 md:h-12 w-auto mb-4"
             />
             <p className="text-cdl-text-light/70 text-sm">
               Centro Espiritual Universalista · Santo Daime
