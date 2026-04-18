@@ -1,27 +1,66 @@
 
+
 ## Pedido
 
-1. Trocar o logo do footer pela nova imagem (wordmark branco).
-2. Mover a seção da Rádio (Spotify) para ser a **última seção antes do footer** na home.
+Padronizar TODOS os botões do site com:
+1. Cor azul em **degradê** (usando tons do `cdl-primary`).
+2. **Texto branco**.
+3. Cantos **mais arredondados**.
+4. **Hover elegante** com efeito de "espelho" (shimmer/shine passando pelo botão).
+5. Aplicar globalmente — começando pela seção CTA "Pronto para expandir sua consciência?".
 
-## Investigação
+## Investigação rápida necessária
 
-- Footer atual (`src/components/layout/Footer.tsx`): usa logo do Cloudinary (`logo.png`), height `h-12`. Como a imagem é branca sobre fundo escuro (`bg-cdl-bg-dark`), funciona sem filtro.
-- Home (`src/routes/index.tsx`): preciso confirmar a ordem atual das seções para reposicionar a Rádio. Já existe uma rota `/radio`, mas o usuário falou em "sessão da rádio" — provavelmente há uma seção embed do Spotify na home que precisa ser movida. Preciso ver o `index.tsx` para confirmar.
+Preciso confirmar:
+- Tons exatos de azul disponíveis em `mem://design/tokens` (cdl-primary e variações).
+- Variantes do `Button` (`button.tsx`) atualmente usadas no projeto (default, outline, secondary, etc.) para garantir cobertura.
+- Como o CTA atual está estilizado em `src/routes/index.tsx`.
 
-## Plano
+## Abordagem
 
-### 1. Footer — trocar logo
-- Copiar `user-uploads://Logo_Caminho_da_Luz_2-2.png` para `src/assets/wordmark-caminho-da-luz-footer.png` (mesmo wordmark já usado na hero, mas como o footer tem fundo escuro `bg-cdl-bg-dark`, mantém branco — sem máscara/filtro).
-- Em `Footer.tsx`: substituir `<img src="https://res.cloudinary.com/.../logo.png" />` por `<img src={wordmark} />`.
-- Ajustar altura: `h-12` → `h-10 md:h-12` (wordmark é mais largo que o símbolo redondo atual; provavelmente cabe bem).
+**Estratégia: alterar a base do componente `Button`** em `src/components/ui/button.tsx` — assim todos os botões do site (Navbar, Hero, CTAs, cards de Casa, formulários etc.) herdam o novo padrão automaticamente, sem precisar editar dezenas de arquivos.
 
-### 2. Home — mover seção Rádio/Spotify para o final
-- Ler `src/routes/index.tsx` para localizar a seção do Spotify embed e identificar a ordem atual.
-- Mover o bloco `<section>` do Spotify para ser o **último filho** antes do `<Footer />` (que vem do `__root.tsx`, então basta ser a última seção do componente da home).
-- Manter conteúdo, estilos e animações intactos — apenas reposicionar.
+### Mudanças em `button.tsx`
+
+1. **Base shape**: trocar `rounded-md` por `rounded-full` (pill) para todos os tamanhos — visual mais elegante e arredondado.
+
+2. **Variant `default`** (a principal — usada na maioria dos CTAs):
+   - Fundo: `bg-gradient-to-r from-cdl-primary via-cdl-primary to-cdl-primary/80` (degradê azul sutil).
+   - Texto: `text-white` (forçado, ignora `primary-foreground`).
+   - Sombra: `shadow-lg shadow-cdl-primary/30`.
+   - **Efeito shimmer** no hover: pseudo-elemento (`before:`) com gradiente diagonal branco translúcido que desliza da esquerda para a direita ao passar o mouse — usando `overflow-hidden` no botão e `before:translate-x-[-150%] hover:before:translate-x-[150%] before:transition-transform before:duration-700`.
+   - Hover: leve `brightness-110` + scale opcional muito sutil.
+
+3. **Variant `outline`**: fundo transparente com borda azul em degradê, texto azul → no hover preenche com o degradê azul e texto fica branco. Mantém shimmer.
+
+4. **Variant `secondary`**: usar gradiente `cdl-secondary` (dourado) mantendo coerência mas ainda com texto branco e mesmo efeito shimmer — para botões de acento.
+
+5. **Variant `ghost` / `link`**: mantidas como estão (sem degradê faz sentido para esses casos discretos).
+
+6. **Sizes**: aumentar levemente o padding horizontal (`px-6` no default, `px-8` no `lg`) para acomodar bem o shape pill.
+
+### CSS shimmer (técnica)
+
+Usar Tailwind arbitrary values diretamente nas classes da variant — não precisa adicionar keyframes ao `styles.css`. O efeito é baseado em transição de `translate-x` de um pseudo-elemento com gradient branco diagonal, totalmente CSS puro:
+
+```
+relative overflow-hidden
+before:absolute before:inset-0 before:-translate-x-full
+before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent
+hover:before:translate-x-full before:transition-transform before:duration-700 before:ease-out
+```
+
+### CTA específico (seção "Pronto para expandir sua consciência?")
+
+Após atualizar o `Button` base, o CTA já vai herdar o novo visual. Vou verificar `src/routes/index.tsx` para garantir que o botão dessa seção usa o componente `<Button>` (não um `<a>` cru ou classes custom que sobrescrevem) — se estiver com classes manuais sobrepondo, removo.
 
 ## Arquivos
-- `src/assets/wordmark-caminho-da-luz-footer.png` (novo)
-- `src/components/layout/Footer.tsx` (trocar logo)
-- `src/routes/index.tsx` (reordenar seções — mover Rádio para o final)
+
+- `src/components/ui/button.tsx` — atualizar `buttonVariants` (variants `default`, `outline`, `secondary`; base `rounded-full`; shimmer).
+- `src/routes/index.tsx` — verificar/limpar o CTA da seção "Pronto para expandir" se houver classes que conflitam.
+- (Provável) revisar outros locais com `<Button className="...">` que forçam `rounded-md` ou cores próprias e remover overrides para manter consistência.
+
+## Confirmação
+
+- Manter o **dourado (cdl-secondary)** como variante alternativa (`secondary`) com mesmo padrão pill+shimmer, ou eliminar e deixar TUDO azul? Vou assumir **manter dourado como secundária** para casos de destaque (ex: botão de WhatsApp/CTA forte), mas se preferir 100% azul me avise.
+
