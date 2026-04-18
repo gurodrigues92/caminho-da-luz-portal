@@ -5,6 +5,7 @@ import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 import { UltimosVideosSection } from "@/components/UltimosVideosSection";
 import { fadeUp, stagger } from "@/lib/animations";
 import logoCdl from "@/assets/logo-caminho-da-luz.png";
+import wordmarkCdl from "@/assets/wordmark-caminho-da-luz.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -54,18 +55,39 @@ function HeroSection() {
         variants={stagger}
         className="relative z-10 text-center px-4 max-w-3xl"
       >
-        <motion.img
+        <motion.div
           variants={fadeUp}
-          src={logoCdl}
-          alt="Caminho da Luz"
-          className="h-24 w-auto mx-auto mb-6"
+          className="mx-auto mb-6 h-24 w-24 bg-cdl-primary"
+          style={{
+            maskImage: `url(${logoCdl})`,
+            WebkitMaskImage: `url(${logoCdl})`,
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+          }}
+          role="img"
+          aria-label="Símbolo Caminho da Luz"
         />
-        <motion.h1
+        <motion.div
           variants={fadeUp}
-          className="font-heading text-4xl md:text-7xl text-cdl-primary font-semibold"
-        >
-          Caminho da Luz
-        </motion.h1>
+          className="mx-auto h-16 md:h-24 w-full max-w-md bg-cdl-primary"
+          style={{
+            maskImage: `url(${wordmarkCdl})`,
+            WebkitMaskImage: `url(${wordmarkCdl})`,
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+          }}
+          role="img"
+          aria-label="Caminho da Luz"
+        />
+        <h1 className="sr-only">Caminho da Luz</h1>
         <motion.p
           variants={fadeUp}
           className="font-label uppercase tracking-[0.2em] text-cdl-secondary text-sm md:text-base mt-4"
