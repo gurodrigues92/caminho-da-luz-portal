@@ -1,47 +1,46 @@
 
-## Entendi o pedido
 
-Usuário quer:
-1. Substituir o texto "Caminho da Luz" (h1) na hero pela nova imagem `Logo_Caminho_da_Luz_2.png` (wordmark/escrito).
-2. Como ambas as imagens (símbolo já no topo + novo wordmark) são brancas e o background da hero também é claro, aplicar um filtro azul (cdl-primary) para criar contraste.
+## Parte 1 — Renomear seção "Estrelados"
 
-## Verificação rápida
+Em `src/components/AniversariantesDoMes.tsx`:
+- Título: `Estrelados de {MES}` → **`Aniversariantes de {MES}`**
+- Subtítulo: `Parabéns aos nossos queridos aniversariantes! ✨` → **`Parabéns aos nossos queridos estrelados ✨`**
+- Manter ícones de estrela e layout intactos.
 
-Hero atual (`src/routes/index.tsx`):
-- `<motion.img src={logoCdl} className="h-24 ..." />` — símbolo
-- `<motion.h1 ...>Caminho da Luz</motion.h1>` — texto a substituir
+## Parte 2 — Por que a seção do YouTube não funciona
 
-Token de azul: `cdl-primary` (forest green per memory, mas o usuário diz "azul que estamos usando" — o token primary é o que está em uso, vou aplicar via CSS filter para igualar `--cdl-primary`).
+A implementação atual (`src/lib/youtube.ts`) faz **scraping do HTML** de `youtube.com/@institutocaminhodaluz6191/videos` em uma server function. Isso falha por dois motivos previsíveis:
 
-## Plano
+1. **YouTube bloqueia requisições server-side** sem cookies/JS — retorna uma página de "consent" (cookie wall da UE/bot detection) em vez do HTML com vídeos. Os regex não encontram `videoId` e a função retorna `videos: []` → UI mostra "Nenhum vídeo disponível".
+2. **Mesmo quando passa**, o layout do YouTube muda com frequência e quebra o scraper em semanas.
 
-1. **Copiar** `user-uploads://Logo_Caminho_da_Luz_2.png` para `src/assets/wordmark-caminho-da-luz.png`.
-2. **Editar `src/routes/index.tsx`**:
-   - Importar `wordmarkCdl` do novo asset.
-   - Substituir o `<motion.h1>Caminho da Luz</motion.h1>` por `<motion.img src={wordmarkCdl} alt="Caminho da Luz" className="h-16 md:h-24 w-auto mx-auto" style={{ filter: '...' }} />`.
-   - Aplicar filtro CSS que converte branco → azul cdl-primary em **ambas** as imagens (símbolo + wordmark) na hero.
+Scraping não é um caminho viável. Precisamos de uma fonte oficial.
 
-3. **Técnica de coloração**: PNG branco com transparência → usar `filter` CSS. Como `filter: hue-rotate` não funciona em branco puro, vou usar a técnica `brightness(0) saturate(100%) invert(...) sepia(...) saturate(...) hue-rotate(...) brightness(...) contrast(...)` calibrada para o azul do projeto. Alternativa mais simples e robusta: aplicar `mask-image` com `background-color: hsl(var(--cdl-primary))` — mantém a forma do PNG e pinta na cor exata do token.
+### Opções para resolver (precisa sua escolha)
 
-   Vou usar **mask-image** (mais preciso, casa exatamente com o token CSS):
-   ```tsx
-   <div
-     className="h-24 w-auto mx-auto bg-cdl-primary"
-     style={{
-       maskImage: `url(${logoCdl})`,
-       WebkitMaskImage: `url(${logoCdl})`,
-       maskRepeat: 'no-repeat',
-       maskPosition: 'center',
-       maskSize: 'contain',
-       width: '120px', // precisa de width fixo pois div não tem dimensão intrínseca
-     }}
-   />
-   ```
-   
-   Como mask precisa de width definido, vou usar containers com aspect-ratio adequado (símbolo ~1:1, wordmark ~5:1 baseado no preview).
+**Opção A — YouTube Data API v3 (recomendado, robusto e grátis)**
+- Você cria um projeto no Google Cloud Console → ativa "YouTube Data API v3" → gera uma **API Key**.
+- Você me passa a API key (eu adiciono como secret `YOUTUBE_API_KEY`).
+- Eu reescrevo `getLatestVideos` para chamar `https://www.googleapis.com/youtube/v3/search?channelId=...&order=date&part=snippet&maxResults=3&key=...`.
+- Antes preciso descobrir o **channelId real** (formato `UCxxxxxxxx`) — consigo via uma chamada única à API ou você me envia (aparece em youtube.com → configurações avançadas do canal).
+- Cota gratuita: 10.000 unidades/dia. Cada `search` custa 100 → ~100 chamadas/dia. Com cache de 1h (já configurado no React Query) é mais que suficiente.
 
-4. **Manter** subtitle, citação e atribuição como estão.
+**Opção B — RSS oficial do YouTube (grátis, sem API key, mais simples)**
+- URL: `https://www.youtube.com/feeds/videos.xml?channel_id=UCxxxx`
+- Limitação: precisa do **channelId** (UC...), não funciona com handle `@institutocaminhodaluz6191`.
+- Já testamos antes e retornou 404 — provavelmente porque tentamos com handle/user em vez do ID UC. Se descobrirmos o channelId correto, o RSS deve funcionar (retorna os 15 vídeos mais recentes em XML).
+- Como descobrir o channelId: abrir o canal no navegador → ver código-fonte → procurar `"channelId":"UC...` ou usar https://commentpicker.com/youtube-channel-id.php.
 
-## Arquivos
-- `src/assets/wordmark-caminho-da-luz.png` (novo)
-- `src/routes/index.tsx` (hero: trocar h1 por wordmark + colorir ambas via mask)
+**Opção C — Embed do canal (mais simples de todas, sem backend)**
+- Substituir os 3 cards por um iframe oficial: lista de uploads do canal embedada.
+- Zero manutenção, mas estética menos integrada (player do YouTube com branding deles).
+
+### Recomendação
+
+**Opção B primeiro** (gratuita, sem API key, sem cota). Se você me enviar o channelId UC do canal — ou me autorizar a tentar descobrir via uma busca rápida — eu reescrevo o scraper para consumir o RSS feed XML, parseando com regex/DOMParser. Caímos para Opção A apenas se o RSS continuar 404.
+
+## Decisão necessária
+
+1. Confirmo a renomeação da seção "Estrelados" → "Aniversariantes" (Parte 1)?
+2. Qual opção do YouTube seguimos: **A** (API key), **B** (RSS — preciso do channelId UC) ou **C** (embed simples)?
+
