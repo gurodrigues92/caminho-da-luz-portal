@@ -36,7 +36,7 @@ export interface CasaPageProps {
   calendarTitle?: string;
   calendarEmptyMessage?: string;
   showCalendario?: boolean;
-  galeriaFotos: string[];
+  galeriaFotos?: string[];
   mapsQuery?: string;
   mapsAddress?: string;
   clinicaSection?: ReactNode;
@@ -59,7 +59,6 @@ export function CasaPage({
   calendarTitle,
   calendarEmptyMessage,
   showCalendario = true,
-  galeriaFotos,
   mapsQuery,
   mapsAddress,
   clinicaSection,
@@ -160,7 +159,7 @@ export function CasaPage({
       {/* Galeria Preview */}
       <section className="py-20 bg-muted/50">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-          <GaleriaPreview casa={nome} casaSlug={slug} fotos={galeriaFotos} />
+          <GaleriaPreview casa={nome} casaSlug={slug} />
         </div>
       </section>
 
