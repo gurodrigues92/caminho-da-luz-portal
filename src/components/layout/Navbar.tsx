@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, ChevronDown } from "lucide-react";
+import logoCdl from "@/assets/logo-caminho-da-luz.png";
 
 const casas = [
   { name: "Sorocaba (Sede)", to: "/sorocaba" as const },
@@ -26,7 +27,7 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <img
-              src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_200/v1776188742/caminhodaluz/logo.png"
+              src={logoCdl}
               alt="Caminho da Luz"
               className="h-10 md:h-12 w-auto"
             />

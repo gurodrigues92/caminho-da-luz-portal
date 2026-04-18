@@ -4,6 +4,7 @@ import { ChevronDown, Instagram, MessageCircle, Camera } from "lucide-react";
 import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
 import { UltimosVideosSection } from "@/components/UltimosVideosSection";
 import { fadeUp, stagger } from "@/lib/animations";
+import logoCdl from "@/assets/logo-caminho-da-luz.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -55,7 +56,7 @@ function HeroSection() {
       >
         <motion.img
           variants={fadeUp}
-          src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_200/v1776188742/caminhodaluz/logo.png"
+          src={logoCdl}
           alt="Caminho da Luz"
           className="h-24 w-auto mx-auto mb-6"
         />
