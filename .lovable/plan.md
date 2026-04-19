@@ -1,73 +1,34 @@
 
 
-## Pedido
-Adicionar efeito "Aurora" (luzes animadas em degradê) ao fundo da hero da home, **mantendo a imagem de fundo atual** por baixo. Texto e elementos da hero ficam intactos.
+## Problema
 
-## Investigação
-Preciso confirmar a estrutura atual da hero da home.
-- Tailwind v4 (CSS-first via `src/styles.css`) — não há `tailwind.config.js`. Keyframes e animações vão direto no `@theme` do CSS.
-- Projeto já tem `cn` em `src/lib/utils.ts` e usa `framer-motion`.
+O efeito Aurora está quase invisível na hero. Causas prováveis (sem precisar inspecionar mais — código já está em contexto):
 
-## Adaptações necessárias ao snippet original
-1. **Tailwind v4**: ignorar o `tailwind.config.js` proposto. Adicionar o keyframe `aurora` e a animação no `src/styles.css` via `@theme` + `@keyframes`.
-2. **Componente `AuroraBackground`**: o snippet veio truncado/quebrado (JSX vazio). Reconstruir baseado no padrão original do Aceternity UI:
-   - Wrapper relativo
-   - Camada interna com gradientes cônicos animados (`--white-gradient`, `--dark-gradient`, `--aurora`) usando CSS vars locais
-   - Filtro de blur + máscara radial opcional
-3. **Manter imagem de fundo**: NÃO usar `AuroraBackground` como container substituto. Em vez disso, sobrepor o efeito aurora **entre** a `background-image` e o overlay escuro existente, com `mix-blend-mode` (lighten/screen) e opacidade reduzida para integrar com a foto.
+1. **`mix-blend-screen` + `opacity-70`** sobre uma imagem clara/média = efeito apaga. `screen` só clareia onde já tem cor escura; em fotos médias os tons azuis somem.
+2. **`opacity-60` interna** no componente + **`blur-[10px]`** muito forte = cores diluem.
+3. **Máscara radial** `radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)` concentra o efeito só no canto superior direito — 70% da hero fica sem aurora.
+4. **`mix-blend-difference`** no `::after` inverte cores e neutraliza saturação quando combinado com screen externo.
 
-## Estrutura final da hero (home)
-```
-<section relative>
-  <div bg-image absolute inset-0 />          ← imagem atual mantida
-  <AuroraLayer absolute inset-0 />           ← novo: luzes animadas
-  <div bg-black/50 absolute inset-0 />       ← overlay escuro existente
-  <motion.div relative z-10>texto/CTAs</>    ← intacto
-</section>
-```
+## Solução
 
-A camada Aurora terá `mix-blend-screen` + `opacity-60` para somar luz à foto sem apagá-la.
+Aumentar visibilidade em duas camadas — no componente e na aplicação:
 
-## Mudanças
+### 1. `src/components/ui/aurora-background.tsx`
+- Subir `opacity-60` → `opacity-100` na camada interna
+- Reduzir `blur-[10px]` → `blur-[8px]` (mantém suavidade sem apagar)
+- Saturar mais as cores aurora: trocar paleta para tons mais vivos (`#60a5fa`, `#818cf8`, `#22d3ee`, `#c4b5fd`, `#3b82f6`)
+- Trocar `mix-blend-difference` do `::after` por `mix-blend-screen` (somar luz em vez de inverter)
+- Tornar `showRadialGradient` opcional já existe — vamos passar `false` na hero pra cobrir a área inteira (ou usar máscara mais ampla)
 
-### 1. `src/styles.css`
-Adicionar dentro do `@theme`:
-```css
---animate-aurora: aurora 60s linear infinite;
-```
-E fora do `@theme`:
-```css
-@keyframes aurora {
-  from { background-position: 50% 50%, 50% 50%; }
-  to   { background-position: 350% 50%, 350% 50%; }
-}
-```
+### 2. `src/routes/index.tsx` (uso na hero)
+- `mix-blend-screen` → `mix-blend-soft-light` ou remover blend e usar opacidade direta (mais visível em fotos médias)
+- `opacity-70` → `opacity-90`
+- Passar `showRadialGradient={false}` para cobrir a hero inteira
+- Opcional: escurecer um tiquinho mais o overlay preto (`bg-black/20` → `bg-black/30`) para contrastar com as luzes mais vivas e manter legibilidade do texto
 
-### 2. `src/components/ui/aurora-background.tsx` (novo)
-Componente reutilizável que renderiza apenas a camada de luzes (sem wrapper de página inteira), aceitando `className` para posicionamento absoluto:
-- Usa CSS vars com gradientes lineares para cores brancas e cores aurora (azul/roxo/violeta — alinhado ao branding `cdl-primary` azul)
-- Dois pseudo-elementos (`::after` via div extra) com `background-image` combinando `--white-gradient` + `--aurora`, `background-size: 300%`, `filter: blur(10px)`, animação `animate-aurora`
-- Prop `showRadialGradient` aplica `[mask-image:radial-gradient(...)]` para suavizar bordas
-
-Exporta também uma versão `<AuroraLayer />` minimal (apenas a camada) para usar como overlay sem ser o wrapper raiz.
-
-### 3. `src/routes/index.tsx`
-Localizar a `<section>` da hero (primeira seção com `bg-cover`/`backgroundImage`) e inserir `<AuroraLayer className="absolute inset-0 mix-blend-screen opacity-60 pointer-events-none" />` entre a div da imagem e a div do overlay preto. Texto/CTAs permanecem inalterados.
-
-## Cores da aurora
-Para combinar com a paleta azul do projeto (`cdl-primary` azul, `cdl-secondary` dourado), usar gradientes em tons de:
-- azul claro `#3b82f6`
-- azul violeta `#6366f1`
-- ciano suave `#22d3ee`
-- branco `#ffffff` (highlights)
+## Resultado esperado
+Luzes azul-violeta-ciano visíveis fluindo por trás do conteúdo da hero, sobrepostas à foto, com movimento suave da animação `aurora`. Texto e CTAs continuam legíveis pelo overlay escuro.
 
 ## Arquivos
-**Criar:** `src/components/ui/aurora-background.tsx`
-**Editar:** `src/styles.css` (keyframe + animation token), `src/routes/index.tsx` (inserir camada na hero)
-
-## Restrições respeitadas
-- Tailwind v4 (sem `tailwind.config.js`)
-- Sem novas dependências (`framer-motion`, `cn` já existem)
-- Imagem de fundo atual preservada
-- Texto e CTAs da hero intocados
+**Editar:** `src/components/ui/aurora-background.tsx`, `src/routes/index.tsx`
 
