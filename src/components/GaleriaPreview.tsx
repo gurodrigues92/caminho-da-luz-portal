@@ -30,8 +30,7 @@ export function GaleriaPreview({ casa, casaSlug }: GaleriaPreviewProps) {
   }
 
   const fotos = eventos.flatMap((e) => e.fotos).slice(0, 6);
-
-  if (fotos.length === 0) return null;
+  const galeriaHref = `/${casaSlug}/galeria`;
 
   return (
     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
@@ -39,31 +38,40 @@ export function GaleriaPreview({ casa, casaSlug }: GaleriaPreviewProps) {
         Galeria
       </h2>
       <p className="text-cdl-text-muted text-center mb-8">Registros dos nossos trabalhos</p>
-      <motion.div variants={stagger} className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {fotos.map((foto, i) => (
-          <motion.div
-            key={foto.id}
-            variants={fadeUp}
-            className="relative aspect-square rounded-xl overflow-hidden group cursor-pointer"
-          >
-            <img
-              src={foto.url_thumbnail ?? foto.url_imagem}
-              alt={`Galeria ${casa} ${i + 1}`}
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-              <Expand className="h-6 w-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+
+      {fotos.length > 0 ? (
+        <motion.div variants={stagger} className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {fotos.map((foto, i) => (
+            <motion.div
+              key={foto.id}
+              variants={fadeUp}
+              className="relative aspect-square rounded-xl overflow-hidden group cursor-pointer"
+            >
+              <img
+                src={foto.url_thumbnail ?? foto.url_imagem}
+                alt={`Galeria ${casa} ${i + 1}`}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
+                <Expand className="h-6 w-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      ) : (
+        <p className="text-center text-cdl-text-muted italic mb-2">
+          Em breve, novos registros dos nossos trabalhos.
+        </p>
+      )}
+
       <div className="text-center mt-8">
         <Link
-          to={`/${casaSlug}/galeria` as any}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-cdl-primary text-cdl-text-light font-label uppercase tracking-widest text-sm rounded-lg hover:bg-cdl-primary-light transition-all duration-300"
+          to={galeriaHref as any}
+          className="inline-flex items-center gap-2 px-8 py-3 bg-cdl-primary text-cdl-text-light font-label uppercase tracking-widest text-sm rounded-lg hover:bg-cdl-primary-light transition-all duration-300 shadow-md hover:shadow-lg"
         >
-          Ver galeria completa
+          Ver galeria completa de {casa}
+          <Expand className="h-4 w-4" />
         </Link>
       </div>
     </motion.div>
