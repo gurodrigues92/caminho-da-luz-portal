@@ -86,16 +86,21 @@ function HeroSection() {
           role="img"
           aria-label="Símbolo Caminho da Luz"
         />
-        <motion.img
+        <motion.div
           variants={fadeUp}
-          src={wordmarkCdl}
-          alt="Caminho da Luz"
-          width={448}
-          height={96}
-          fetchPriority="high"
-          loading="eager"
-          decoding="async"
-          className="mx-auto h-16 md:h-24 w-auto max-w-md object-contain"
+          role="img"
+          aria-label="Caminho da Luz"
+          className="mx-auto h-16 md:h-24 w-full max-w-md bg-cdl-primary"
+          style={{
+            maskImage: `url(${wordmarkCdl})`,
+            WebkitMaskImage: `url(${wordmarkCdl})`,
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
+            maskPosition: "center",
+            WebkitMaskPosition: "center",
+            maskSize: "contain",
+            WebkitMaskSize: "contain",
+          }}
         />
         <h1 className="sr-only">Caminho da Luz</h1>
         <motion.p
