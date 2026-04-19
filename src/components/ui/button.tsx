@@ -21,7 +21,7 @@ const buttonVariants = cva(
         destructive:
           "text-white bg-gradient-to-r from-destructive via-destructive to-destructive/80 shadow-lg shadow-destructive/30 hover:brightness-110",
         outline:
-          "text-cdl-primary border-2 border-cdl-primary bg-transparent hover:text-white hover:bg-gradient-to-r hover:from-cdl-primary hover:via-cdl-primary-light hover:to-cdl-primary hover:shadow-lg hover:shadow-cdl-primary/30",
+          "before:hidden text-cdl-primary border-2 border-cdl-primary bg-transparent hover:text-white hover:bg-gradient-to-r hover:from-cdl-primary hover:via-cdl-primary-light hover:to-cdl-primary hover:shadow-lg hover:shadow-cdl-primary/30",
         secondary:
           "text-white bg-gradient-to-r from-cdl-secondary via-cdl-secondary to-cdl-secondary/80 shadow-lg shadow-cdl-secondary/30 hover:brightness-110",
         ghost:
