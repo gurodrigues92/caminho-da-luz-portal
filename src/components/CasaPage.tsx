@@ -199,7 +199,7 @@ export function CasaPage({
       <section className="py-20 bg-cdl-bg-dark grain-overlay relative text-center">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="mx-auto max-w-xl px-4">
           <h2 className="font-heading text-3xl text-cdl-text-light font-semibold mb-4">Reserve sua vaga para o próximo trabalho</h2>
-          <Button asChild variant="secondary" size="lg" className="font-label uppercase tracking-widest">
+          <Button asChild variant="default" size="lg" className="font-label uppercase tracking-widest">
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon className="h-4 w-4" />
               Chamar no WhatsApp
