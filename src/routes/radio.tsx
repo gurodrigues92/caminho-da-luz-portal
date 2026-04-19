@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/radio")({
   head: () => ({
@@ -58,14 +59,11 @@ function RadioPage() {
                 className="rounded-xl"
               />
             </div>
-            <a
-              href="https://youtube.com/@institutocaminhodaluz6191"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-cdl-primary text-cdl-text-light font-label uppercase tracking-widest text-sm rounded-lg hover:bg-cdl-primary-light transition-all duration-300"
-            >
-              Assistir no YouTube
-            </a>
+            <Button asChild variant="default" size="lg" className="mt-8 font-label uppercase tracking-widest">
+              <a href="https://youtube.com/@institutocaminhodaluz6191" target="_blank" rel="noopener noreferrer">
+                Assistir no YouTube
+              </a>
+            </Button>
           </motion.div>
         </div>
       </section>
