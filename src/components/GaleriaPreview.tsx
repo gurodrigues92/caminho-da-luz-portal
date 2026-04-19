@@ -67,7 +67,7 @@ export function GaleriaPreview({ casa, casaSlug }: GaleriaPreviewProps) {
       )}
 
       <div className="text-center mt-8">
-        <Button asChild variant="default" size="lg" className="font-label uppercase tracking-widest">
+        <Button asChild variant="outline" size="lg" className="font-label uppercase tracking-widest">
           <Link to={galeriaHref as any}>
             Ver galeria completa de {casa}
             <Expand className="h-4 w-4" />
