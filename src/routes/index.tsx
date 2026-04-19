@@ -46,14 +46,13 @@ function HomePage() {
 // ─── Hero ───
 function HeroSection() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0" />
       <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed brightness-110"
+        className="absolute inset-0 bg-cover bg-center bg-fixed mix-blend-overlay opacity-90"
         style={{ backgroundImage: "url('/images/bg/hero-main.jpg')" }}
       />
-      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-100 mix-blend-screen" />
-      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-80 mix-blend-color-dodge" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
       <motion.div
         initial="hidden"
         animate="visible"
