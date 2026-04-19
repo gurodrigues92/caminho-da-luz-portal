@@ -31,7 +31,6 @@ export const AuroraLayer = ({
            after:content-[''] after:absolute after:inset-0
            after:[background-image:var(--white-gradient),var(--aurora)]
            after:[background-size:200%,_100%]
-           after:[background-attachment:fixed]
            after:mix-blend-screen
            animate-aurora`,
           showRadialGradient &&
