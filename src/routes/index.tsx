@@ -22,6 +22,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: "https://caminhodaluzdaime.com.br/" },
+      { rel: "preload", as: "image", href: wordmarkCdl, fetchpriority: "high" },
     ],
   }),
   component: HomePage,
