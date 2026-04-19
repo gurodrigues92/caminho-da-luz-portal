@@ -78,7 +78,7 @@ function HeroSection() {
       <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-70" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
       <motion.div
-        initial="hidden"</motion.div>
+        initial="hidden"
         animate="visible"
         variants={stagger}
         className="relative z-10 text-center px-4 max-w-3xl"
