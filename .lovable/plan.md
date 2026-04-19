@@ -1,36 +1,38 @@
 
 
 ## Pedido
-O botão CTA novo (com gradiente, shimmer, etc.) que existe na home não está sendo usado nas páginas das casas. Os botões "antigos" nas páginas das casas precisam ser atualizados para usar o mesmo estilo.
+O botão "Chamar no WhatsApp" na seção "Reserve sua vaga para o próximo trabalho" (e potencialmente outros pelo site) está usando a cor `secondary` (dourado/gold), mas deve usar o **azul degradê padrão** (variant `default` = gradiente cdl-primary). Aplicar isso em todas as páginas das casas e em todo o site.
 
 ## Análise
 
-Preciso identificar quais botões nas páginas das casas estão com estilo antigo (provavelmente `<a>` ou `<Link>` com classes Tailwind hardcoded) em vez de usar o componente `<Button>` de `src/components/ui/button.tsx` (que já tem o gradiente + shimmer da identidade nova).
+No `CasaPage.tsx` (CTA final) o botão está como `variant="secondary"` — preciso trocar para `variant="default"` (azul degradê com shimmer).
 
-**Locais suspeitos a inspecionar:**
-1. `src/components/CasaPage.tsx` — tem 3 CTAs hardcoded:
-   - Botão "Chamar no WhatsApp" (linha do CTA final) — usa `bg-cdl-secondary` direto, não usa `<Button>`
-   - Link "Baixe a anamnese antes" — link de texto, ok deixar
-   - Links de Instagram/WhatsApp/Mapa no hero — chips, estilo diferente OK
-2. `src/components/GaleriaPreview.tsx` — botão "Ver galeria completa de {casa}" usa `<Link>` com classes hardcoded `bg-cdl-primary` (estilo antigo, sem shimmer/gradiente)
-3. `src/routes/index.tsx` — confirmar qual botão é o "novo padrão" que o usuário gostou
-4. Possivelmente `TrabalhoCard.tsx` se tiver CTA
+**Problema de contraste:** A seção tem fundo escuro (`bg-cdl-bg-dark`). O `variant="default"` usa `cdl-primary` que segundo a memória é "forest green" — mas o usuário diz que o padrão agora é **azul degradê**. Vou checar `mem://design/tokens` para confirmar a cor real do `cdl-primary` (a memória de cores pode estar desatualizada — o arquivo de tokens menciona "blue/white brand").
+
+**Auditoria de outros botões fora do padrão:** Preciso varrer o site procurando:
+- `<a>` ou `<Link>` com classes hardcoded tipo `bg-cdl-secondary`, `bg-cdl-primary`, `bg-gradient-to-*` que deveriam ser `<Button>`
+- `<Button variant="secondary">` que deveriam ser `variant="default"` (azul)
+- Páginas a checar: `index.tsx`, `sobre.tsx`, `faq.tsx`, `radio.tsx`, `*galeria*.tsx`, `Footer.tsx`, `Navbar.tsx`, `WhatsAppFAB.tsx`, `TrabalhoCard.tsx`, `UltimosVideosSection.tsx`, `AniversariantesDoMes.tsx`, `EventCalendar.tsx`
 
 ## Plano
 
-1. **Inspecionar** rapidamente: `index.tsx` (confirmar padrão novo), `CasaPage.tsx` (CTA WhatsApp final), `GaleriaPreview.tsx` (botão galeria), `TrabalhoCard.tsx`
-2. **Trocar os botões hardcoded por `<Button asChild>`** envolvendo os `<a>`/`<Link>`, herdando o estilo unificado (gradiente + shimmer):
-   - **CasaPage.tsx → CTA "Chamar no WhatsApp"**: usar `<Button asChild variant="secondary" size="lg">` (variante gold/secondary mantém destaque sobre fundo escuro)
-   - **GaleriaPreview.tsx → "Ver galeria completa"**: usar `<Button asChild variant="default" size="lg">` (gradiente cdl-primary com shimmer)
-3. **Manter a identidade Josefin uppercase** com `font-label uppercase tracking-widest` quando precisar — aplicar via `className` extra no `<Button>`
+1. **Confirmar cor**: ler `mem://design/tokens` para ver qual é o azul degradê atual (e se `cdl-primary` já é azul ou se precisa ajustar variável)
+2. **CasaPage.tsx**: trocar CTA "Chamar no WhatsApp" de `variant="secondary"` → `variant="default"` (azul degradê + shimmer)
+3. **Auditoria global** com `code--search_files` por:
+   - `variant="secondary"` (validar caso a caso se deve virar default)
+   - `bg-cdl-secondary`, `bg-cdl-primary` em `<a>`/`<Link>` (migrar para `<Button>`)
+   - `<a className=` com aparência de botão
+4. **Migrar** todos para `<Button asChild variant="default">` mantendo `font-label uppercase tracking-widest` quando aplicável
+5. **Exceções a preservar**: badges, chips do hero (Instagram/WhatsApp/Mapa pequenos), links de texto puro, links do footer, link "Baixe a anamnese"
 
-## Arquivos a editar
-- `src/components/CasaPage.tsx` — substituir `<a>` do CTA final por `<Button asChild>`
-- `src/components/GaleriaPreview.tsx` — substituir `<Link>` do botão por `<Button asChild>` com `<Link>` dentro
+## Arquivos prováveis a editar
+- `src/components/CasaPage.tsx` (CTA WhatsApp final)
+- + qualquer arquivo encontrado na auditoria com botão visualmente "antigo" ou cor errada
 
 ## Restrições
-- Manter as fontes da identidade (Cormorant/Source Sans/Josefin)
-- Não trocar cores da paleta — só unificar usando o componente `<Button>` existente
-- Sem mudar estrutura/layout, só o componente do botão
-- Aplicar a mesma mudança em todas as 4 casas automaticamente (ambos componentes são compartilhados, então o fix é centralizado)
+- Manter componente `<Button>` como única fonte de estilo
+- Não trocar fontes (Cormorant/Source Sans/Josefin)
+- Não mexer em chips pequenos do hero (Instagram/WhatsApp/Mapa) — são links de info, não CTAs
+- Não tocar links de texto inline (anamnese, footer, etc.)
+- Garantir contraste do azul degradê sobre fundo escuro `bg-cdl-bg-dark` (azul + shimmer + sombra cdl-primary/30 deve funcionar; se ficar fraco, adicionar `shadow-xl` extra)
 
