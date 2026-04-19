@@ -62,6 +62,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Centro Espiritual Universalista de Santo Daime. Casas em Sorocaba, São Paulo, Recife e Itararé." },
       { name: "author", content: "Instituto Caminho da Luz" },
       { name: "twitter:card", content: "summary" },
+      { property: "og:title", content: "Instituto Caminho da Luz — Santo Daime" },
+      { name: "twitter:title", content: "Instituto Caminho da Luz — Santo Daime" },
+      { property: "og:description", content: "Centro Espiritual Universalista de Santo Daime. Casas em Sorocaba, São Paulo, Recife e Itararé." },
+      { name: "twitter:description", content: "Centro Espiritual Universalista de Santo Daime. Casas em Sorocaba, São Paulo, Recife e Itararé." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/ebc46a8e-4d00-41dd-8e5a-8dccd8a7c7b6" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/ebc46a8e-4d00-41dd-8e5a-8dccd8a7c7b6" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
