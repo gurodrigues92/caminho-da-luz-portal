@@ -1,35 +1,22 @@
 
 ## Pedido
-Usar as 2 imagens enviadas como background da Hero (substituindo `hero-main.jpg`) e da seção CTA "Pronto para expandir sua consciência?" (substituindo `cta-section.jpg`). Versão horizontal para desktop, vertical para mobile. Manter os efeitos de luz (AuroraLayer, gradientes, overlays).
+Deixar a imagem de fundo da hero um pouco mais visível, reduzindo levemente a intensidade dos efeitos de luz (aurora + gradiente preto + mix-blend).
 
 ## Solução
+Em `src/routes/index.tsx`, dentro de `HeroSection`, ajustes pequenos:
 
-### 1. Salvar as imagens
-Copiar para `public/images/bg/`:
-- `user-uploads://image-backgroud-horizontal.png` → `public/images/bg/hero-desktop.png`
-- `user-uploads://image-backgrou-cl.png` → `public/images/bg/hero-mobile.png`
+1. **Imagens de background (mobile + desktop)**: aumentar opacidade de `opacity-90` para `opacity-100` e remover (ou suavizar) o `mix-blend-overlay` que escurece/dessatura. Vou trocar `mix-blend-overlay opacity-90` por apenas (sem blend) — deixa a imagem aparecer no tom original.
 
-(mesmas imagens reaproveitadas tanto para hero quanto para CTA, evitando duplicar ~MB extras de assets)
+2. **Gradiente preto sobreposto**: reduzir de `from-black/30 ... to-black/40` para `from-black/20 ... to-black/25` (mantém leve vinheta para legibilidade do wordmark sem escurecer demais).
 
-### 2. Trocar background da Hero (`HeroSection`)
-Atualmente usa um único `<div>` com `background-image` inline. Vou trocar por duas `<img>` absolutas com `object-cover`, alternando via classes responsivas:
-- `<img src="/images/bg/hero-mobile.png" className="md:hidden absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />`
-- `<img src="/images/bg/hero-desktop.png" className="hidden md:block absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />`
-- Ambas com `loading="eager"` + `fetchpriority="high"` (LCP da hero)
-- Mantém: `bg-slate-900` base, `AuroraLayer`, gradiente preto top/bottom, wordmark azul, etc.
+3. **AuroraLayer**: manter, mas envolver em wrapper com `opacity-70` (estava 100%) para suavizar sem remover o efeito de luz.
 
-### 3. Trocar background do CTA (`CTASection`)
-Mesmo padrão, mas com `loading="lazy"` (está abaixo da dobra):
-- mobile: `image-backgrou-cl.png`
-- desktop: `image-backgroud-horizontal.png`
-- Mantém o overlay `bg-black/65` para legibilidade do texto branco.
+Tudo o mais (wordmark azul, textos, chevron, animações) permanece intacto.
 
-## Arquivos
-- `public/images/bg/hero-desktop.png` (novo, copiado)
-- `public/images/bg/hero-mobile.png` (novo, copiado)
-- `src/routes/index.tsx` — apenas blocos de background da `HeroSection` e `CTASection`
+## Arquivo
+- `src/routes/index.tsx` — apenas o bloco de background da `HeroSection`.
 
 ## Restrições
-- Aurora, gradientes escuros, wordmark, conteúdo e animações permanecem idênticos.
-- `bg-fixed` (parallax) é removido só na hero, pois `<img>` substitui o `bg-cover bg-fixed` — em troca o efeito funciona melhor em mobile (iOS quebra `bg-fixed`).
-- Sem mudança de tipografia, cores ou layout.
+- CTA section não muda.
+- Sem alterar tipografia, cores ou layout.
+- Ajustes conservadores ("pouca coisa") conforme pedido.
