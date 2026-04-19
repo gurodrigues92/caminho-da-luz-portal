@@ -1,71 +1,56 @@
 
 
-## Passo 1 — Reconhecimento da infraestrutura
+## Pedido
+Na página `/sobre`, seção hero "Sobre o Caminho da Luz", reorganizar a ordem no mobile:
+1. Título "Sobre o Caminho da Luz" + parágrafos de texto
+2. Foto do Pedrão
+3. Frase final ("Somos filhos do Céu Sagrado...") + badge "Desde 2014"
 
-Vou ler tudo via MCP/Supabase antes de propor mudanças. O resultado desse reconhecimento determina parte do Passo 2 (sync do JSON de aniversariantes é condicional).
+No desktop manter o layout atual (2 colunas: foto à esquerda, texto à direita).
 
-### 1A. Notion (read-only)
-Buscar via `mcp_01kjfwamqbfvxacefka2gqm27a--notion-fetch`:
-- Página mãe `3427de9fb5e281e79f92ce2ec158d6bb` — convenções gerais e formato `YYYY-MM-DD — Descrição`.
-- Database "Calendário Caminho da Luz" — schema + alguns registros (data source `4444e612-14e0-46b6-bd7a-58fbd59e6f23`).
-- Database "Estrelados Aniversariantes" — schema + listagem completa (data source `1c3c1ae5-fe44-4c5f-a5ce-65a784e07fae`).
-- Comparar nomes/casas/mes/dia com `public/data/aniversariantes.json` (atualmente 86 registros) → relatar diff.
+## Diagnóstico
+Hoje em `src/routes/sobre.tsx` o hero é um `grid md:grid-cols-2` com:
+- Coluna 1: `<motion.img>` (foto)
+- Coluna 2: `<motion.div>` com h1 + 2 parágrafos + badge "Desde 2014"
 
-### 1B. n8n (read-only)
-- `search_workflows` para listar todos.
-- `get_workflow_details` em `2uIpuxFRFaHPmqSb`, `2X2jrc98OOGsZbLa`, `i20zzyz49ZhXpdu7`.
-- Comparar lógica e identificar qual é o canônico (o que rodou em 14/04/2026). Reportar duplicatas — **sem arquivar**.
-- Reportar se há workflows de sync Notion→Supabase ou Drive→Supabase.
+No mobile (single column) a foto aparece primeiro, depois todo o texto junto. O usuário quer dividir o bloco de texto em duas partes, com a foto no meio.
 
-### 1C. Supabase
-- Confirmar credenciais (`.env` já em contexto: `api.supabase.altavance.media`).
-- Via `psql` (se `PGHOST` disponível) ou via `security--get_table_schema`: verificar existência das tabelas `calendario`, `eventos`, `evento_fotos`, `aniversariantes` e contagem de registros em `calendario`.
+## Solução
+Reestruturar o hero usando classes responsivas de `order` do Tailwind para reordenar no mobile sem quebrar o desktop:
 
-→ **Vou reportar tudo isso ao usuário antes de aplicar o Passo 2.**
+- **Bloco A (texto principal)**: h1 + primeiro parágrafo ("O Instituto Caminho da Luz nasceu...") → `order-1 md:order-2` (mobile: 1º; desktop: coluna direita)
+- **Bloco B (foto)**: imagem do Pedrão → `order-2 md:order-1` (mobile: 2º; desktop: coluna esquerda)
+- **Bloco C (rodapé)**: segundo parágrafo ("Somos filhos do Céu Sagrado...") + badge "Desde 2014" → `order-3 md:col-span-2` no mobile vai ao final; no desktop fica abaixo das duas colunas, ocupando largura total **OU** mover apenas o badge "Desde 2014" + a frase curta para baixo da foto no mobile
 
----
+**Decisão de implementação**: usar 3 itens no grid com `order` no mobile, e no desktop forçar Bloco C a ficar dentro da coluna do texto (junto com Bloco A) via reagrupamento. Mais simples: separar em **2 wrappers responsivos** — no mobile renderizar 3 blocos em ordem; no desktop reagrupar A+C dentro da coluna direita.
 
-## Passo 2 — Correções (após reconhecimento)
+Abordagem mais limpa: usar `flex flex-col md:grid md:grid-cols-2` com:
+- Wrapper texto principal (A) — `order-1 md:order-2`
+- Foto (B) — `order-2 md:order-1 md:row-span-2`
+- Wrapper rodapé (C: frase Céu Sagrado + badge) — `order-3 md:order-3` (fica abaixo da foto no desktop, abaixo do tudo no mobile)
 
-### Correção 1 — Rules of Hooks em `EventCalendar`
-**`src/components/EventCalendar.tsx`** linhas ~32-44:
-- Substituir chamada condicional por chamada incondicional: `const { eventos: dbEventos, loading } = useCalendario(casa || '');`
-- Ajustar `rawEventos` para checar `casa && dbEventos.length > 0`.
+Para manter o desktop EXATAMENTE como está (frase Céu Sagrado + badge na coluna direita junto com o resto), uso uma duplicação condicional:
+- No desktop: layout original intacto (foto | texto completo com badge)
+- No mobile: ocultar o bloco rodapé original e renderizar uma versão reordenada
 
-**`src/hooks/useCalendario.ts`** dentro do `fetchData`:
-- Early return: `if (!supabase || !casa) { setLoading(false); return; }`
+**Mais simples ainda**: dividir em 3 itens de grid com `order`, e no desktop usar `md:contents` no wrapper do texto para que A e C apareçam empilhados na coluna direita. Não — `contents` complica.
 
-### Correção 2 — Cloudinary `f_auto,q_auto,w_800`
-- Buscar com `code--search_files` por `res.cloudinary.com/dtt7egwkk/image/upload/v` em todo o projeto.
-- Em `src/routes/index.tsx` array `casasData`: aplicar `w_800` nas 4 imagens (caminho-da-luz, ipiranga, recife, itarare).
-- Aplicar tamanhos por contexto em qualquer outra ocorrência sem otimização: logo `w_200`, cards `w_800`, hero/og `w_1200`, Pedrão `w_800`.
+**Solução final escolhida**: usar `flex flex-col md:grid md:grid-cols-2 md:gap-10 md:items-center`:
+- Bloco A (h1 + 1º parágrafo): `order-1 md:order-2`
+- Foto: `order-2 md:order-1`
+- Bloco C (2º parágrafo + badge): `order-3 md:order-2` → no desktop cai como 2º item após a foto, mas grid 2-col só tem 2 colunas → vira 3ª célula (linha 2, coluna esquerda). **Quebra desktop.**
 
-### Correção 3 — Proteger `.env`
-- `.gitignore`: adicionar bloco `.env`, `.env.local`, `.env.production`.
-- **Não rodo `git rm --cached`** — comandos git stateful são proibidos pelo ambiente. Vou reportar isso ao usuário e pedir que rode manualmente no terminal local:
-  ```bash
-  git rm --cached .env
-  git rm --cached .env.local 2>/dev/null || true
-  git rm --cached .env.production 2>/dev/null || true
-  ```
+Por isso vou usar **renderização duplicada** com `hidden`/`md:hidden`:
+- Versão mobile (`md:hidden`): 3 blocos empilhados na ordem pedida
+- Versão desktop (`hidden md:grid`): layout original 2 colunas intacto
 
-### Correção 4 (condicional) — Sync `aniversariantes.json`
-Só executo se o Passo 1A revelar diferença entre Notion e o JSON atual. Se houver diff:
-- Reescrever `public/data/aniversariantes.json` espelhando o Notion (mapeando mês PT→número 1-12, mantendo casa exata).
-- Se Notion = JSON atual, **não toco no arquivo** e reporto "já sincronizado".
+Isso garante zero impacto no desktop e atende exatamente o pedido no mobile. Conteúdo duplicado em JSX, mas é o caminho mais seguro e legível.
 
----
+## Arquivos
+**Editar:** `src/routes/sobre.tsx` (apenas o `<section>` hero, linhas ~30-58)
 
 ## Restrições respeitadas
-- Sem mudança visual, de texto, layout, cor, tipografia, animação ou rotas.
-- n8n e Notion: apenas leitura.
-- Não mexer em galeria/`useGaleria` (escopo do outro prompt).
-- `git rm --cached` será solicitado ao usuário (ambiente não permite git stateful).
-
-## Arquivos a editar (Passo 2)
-- `src/components/EventCalendar.tsx`
-- `src/hooks/useCalendario.ts`
-- `src/routes/index.tsx` (e quaisquer outros com Cloudinary não otimizado)
-- `.gitignore`
-- `public/data/aniversariantes.json` (condicional)
+- Sem mudança de texto, cores, tipografia, animações ou imagens
+- Desktop 100% intacto
+- Sem novas dependências
 
