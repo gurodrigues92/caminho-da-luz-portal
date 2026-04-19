@@ -27,7 +27,8 @@ function SobrePage() {
       {/* Hero */}
       <section className="relative py-24 bg-cdl-bg-dark grain-overlay">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+          {/* Desktop: layout original 2 colunas */}
+          <div className="hidden md:grid grid-cols-2 gap-10 items-center">
             <motion.img
               initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
               src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
@@ -40,6 +41,31 @@ function SobrePage() {
               <p className="text-cdl-text-light/80 leading-relaxed mb-4">
                 O Instituto Caminho da Luz nasceu com o propósito de mudar o mundo. A princípio, essa afirmação pode parecer ousada, impossível ou prepotente. Na verdade, mudar o mundo é uma tarefa que se inicia mudando a cada um de nós. Se eu melhoro, o mundo melhora junto. Se você sorri, o mundo sorri junto. Se uma família se une, o mundo fica mais unido. Então, expandindo a consciência, com o uso religioso e de estudos do Santo Daime/Ayahuasca, vamos procurando essa mudança, que se dá muito mais no campo das ações, do que nas palavras.
               </p>
+              <p className="text-cdl-text-light/80 leading-relaxed mb-4">
+                Somos filhos do Céu Sagrado, uma das linhas do Santo Daime que busca a expansão da consciência através do uso sacramental da ayahuasca, aliado a práticas de cura, estudo e autoconhecimento.
+              </p>
+              <span className="inline-block mt-2 px-3 py-1 bg-cdl-secondary/20 text-cdl-secondary text-xs font-label uppercase tracking-widest rounded">
+                Desde 2014
+              </span>
+            </motion.div>
+          </div>
+
+          {/* Mobile: título + texto, foto, frase final + badge */}
+          <div className="md:hidden flex flex-col gap-6">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+              <h1 className="font-heading text-3xl text-cdl-text-light font-semibold mb-6">Sobre o Caminho da Luz</h1>
+              <p className="text-cdl-text-light/80 leading-relaxed">
+                O Instituto Caminho da Luz nasceu com o propósito de mudar o mundo. A princípio, essa afirmação pode parecer ousada, impossível ou prepotente. Na verdade, mudar o mundo é uma tarefa que se inicia mudando a cada um de nós. Se eu melhoro, o mundo melhora junto. Se você sorri, o mundo sorri junto. Se uma família se une, o mundo fica mais unido. Então, expandindo a consciência, com o uso religioso e de estudos do Santo Daime/Ayahuasca, vamos procurando essa mudança, que se dá muito mais no campo das ações, do que nas palavras.
+              </p>
+            </motion.div>
+            <motion.img
+              initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+              src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
+              alt="João Carlos Pedrão"
+              className="rounded-xl aspect-[3/4] object-cover w-full max-w-md mx-auto"
+              loading="lazy"
+            />
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
               <p className="text-cdl-text-light/80 leading-relaxed mb-4">
                 Somos filhos do Céu Sagrado, uma das linhas do Santo Daime que busca a expansão da consciência através do uso sacramental da ayahuasca, aliado a práticas de cura, estudo e autoconhecimento.
               </p>
