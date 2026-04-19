@@ -428,7 +428,7 @@ function CTASection() {
         loading="lazy"
         className="hidden md:block absolute inset-0 w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/65 to-white/75" />
       <motion.div
         initial="hidden"
         whileInView="visible"
