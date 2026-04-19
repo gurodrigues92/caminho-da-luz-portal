@@ -22,7 +22,7 @@ export function useCalendario(casa: string, limit = 6) {
 
   useEffect(() => {
     async function fetchData() {
-      if (!supabase) {
+      if (!supabase || !casa) {
         setLoading(false);
         return;
       }

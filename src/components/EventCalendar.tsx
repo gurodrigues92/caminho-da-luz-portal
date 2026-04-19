@@ -29,11 +29,9 @@ const tipoBadgeColor: Record<string, string> = {
 };
 
 export function EventCalendar({ title, eventos: staticEventos, casa, emptyMessage }: EventCalendarProps) {
-  const { eventos: dbEventos, loading } = casa
-    ? useCalendario(casa)
-    : { eventos: [] as any[], loading: false };
+  const { eventos: dbEventos, loading } = useCalendario(casa || '');
 
-  const rawEventos = dbEventos.length > 0
+  const rawEventos = (casa && dbEventos.length > 0)
     ? dbEventos.map((e: any) => ({
         data: new Date(e.data_evento).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }),
         nome: e.nome,
