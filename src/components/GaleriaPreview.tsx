@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { fadeUp, stagger } from "@/lib/animations";
 import { Expand } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { useGaleria } from "@/hooks/useGaleria";
 
 interface GaleriaPreviewProps {
@@ -66,13 +67,12 @@ export function GaleriaPreview({ casa, casaSlug }: GaleriaPreviewProps) {
       )}
 
       <div className="text-center mt-8">
-        <Link
-          to={galeriaHref as any}
-          className="inline-flex items-center gap-2 px-8 py-3 bg-cdl-primary text-cdl-text-light font-label uppercase tracking-widest text-sm rounded-lg hover:bg-cdl-primary-light transition-all duration-300 shadow-md hover:shadow-lg"
-        >
-          Ver galeria completa de {casa}
-          <Expand className="h-4 w-4" />
-        </Link>
+        <Button asChild variant="default" size="lg" className="font-label uppercase tracking-widest">
+          <Link to={galeriaHref as any}>
+            Ver galeria completa de {casa}
+            <Expand className="h-4 w-4" />
+          </Link>
+        </Button>
       </div>
     </motion.div>
   );
