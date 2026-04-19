@@ -428,7 +428,6 @@ function CTASection() {
         loading="lazy"
         className="hidden md:block absolute inset-0 w-full h-full object-cover"
       />
-      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-70" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
       <motion.div
         initial="hidden"
