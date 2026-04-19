@@ -22,9 +22,9 @@ export const AuroraLayer = ({
     >
       <div
         className={cn(
-          `absolute -inset-[10px] opacity-100 blur-[8px] invert-0
+          `absolute -inset-[10px] opacity-100 blur-[4px] invert-0
            [--white-gradient:repeating-linear-gradient(100deg,#fff_0%,#fff_7%,transparent_10%,transparent_12%,#fff_16%)]
-           [--aurora:repeating-linear-gradient(100deg,#60a5fa_10%,#818cf8_15%,#22d3ee_20%,#c4b5fd_25%,#3b82f6_30%)]
+           [--aurora:repeating-linear-gradient(100deg,#3b82f6_10%,#6366f1_15%,#06b6d4_20%,#a855f7_25%,#2563eb_30%)]
            [background-image:var(--white-gradient),var(--aurora)]
            [background-size:300%,_200%]
            [background-position:50%_50%,50%_50%]
