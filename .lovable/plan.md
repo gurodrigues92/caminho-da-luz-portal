@@ -1,34 +1,46 @@
 
 
-## Problema
+## Diagnóstico
+A imagem de fundo não está por cima do efeito. Pela estrutura atual da hero, a ordem é:
 
-O efeito Aurora está quase invisível na hero. Causas prováveis (sem precisar inspecionar mais — código já está em contexto):
+```text
+imagem de fundo
+→ AuroraLayer
+→ overlay preto
+→ conteúdo
+```
 
-1. **`mix-blend-screen` + `opacity-70`** sobre uma imagem clara/média = efeito apaga. `screen` só clareia onde já tem cor escura; em fotos médias os tons azuis somem.
-2. **`opacity-60` interna** no componente + **`blur-[10px]`** muito forte = cores diluem.
-3. **Máscara radial** `radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)` concentra o efeito só no canto superior direito — 70% da hero fica sem aurora.
-4. **`mix-blend-difference`** no `::after` inverte cores e neutraliza saturação quando combinado com screen externo.
+Então o problema principal não é a foto sobrepor a aurora, e sim:
+- o `overlay` escuro acima da aurora está escurecendo tudo;
+- `mix-blend-soft-light` é sutil demais sobre foto;
+- a própria aurora ainda está muito “lavada” para aparecer bem.
 
-## Solução
+## Ajuste proposto
+Vou deixar a hero mais clara e fazer a aurora aparecer de verdade, sem mexer no conteúdo.
 
-Aumentar visibilidade em duas camadas — no componente e na aplicação:
+### 1. `src/routes/index.tsx`
+Na hero:
+- reduzir o escurecimento do overlay: `bg-black/30` → algo como `bg-black/10` ou um gradiente mais leve;
+- deixar a imagem um pouco mais clara com classes tipo `brightness-110` / `contrast-105`;
+- trocar o uso da aurora de `mix-blend-soft-light` para uma abordagem mais visível:
+  - remover o blend mode, ou
+  - usar `mix-blend-screen` com opacidade alta só se o resultado ficar melhor;
+- manter a aurora entre a foto e o overlay, mas com menos bloqueio visual por cima.
 
-### 1. `src/components/ui/aurora-background.tsx`
-- Subir `opacity-60` → `opacity-100` na camada interna
-- Reduzir `blur-[10px]` → `blur-[8px]` (mantém suavidade sem apagar)
-- Saturar mais as cores aurora: trocar paleta para tons mais vivos (`#60a5fa`, `#818cf8`, `#22d3ee`, `#c4b5fd`, `#3b82f6`)
-- Trocar `mix-blend-difference` do `::after` por `mix-blend-screen` (somar luz em vez de inverter)
-- Tornar `showRadialGradient` opcional já existe — vamos passar `false` na hero pra cobrir a área inteira (ou usar máscara mais ampla)
-
-### 2. `src/routes/index.tsx` (uso na hero)
-- `mix-blend-screen` → `mix-blend-soft-light` ou remover blend e usar opacidade direta (mais visível em fotos médias)
-- `opacity-70` → `opacity-90`
-- Passar `showRadialGradient={false}` para cobrir a hero inteira
-- Opcional: escurecer um tiquinho mais o overlay preto (`bg-black/20` → `bg-black/30`) para contrastar com as luzes mais vivas e manter legibilidade do texto
+### 2. `src/components/ui/aurora-background.tsx`
+Fortalecer o efeito:
+- aumentar ainda mais a presença das cores;
+- reduzir o quanto o blur apaga as luzes;
+- remover comportamentos que suavizam demais o efeito;
+- se necessário, duplicar a camada visual da aurora para criar mais volume de luz.
 
 ## Resultado esperado
-Luzes azul-violeta-ciano visíveis fluindo por trás do conteúdo da hero, sobrepostas à foto, com movimento suave da animação `aurora`. Texto e CTAs continuam legíveis pelo overlay escuro.
+- hero mais clara;
+- imagem de fundo continua visível;
+- aurora finalmente perceptível em movimento;
+- texto continua legível.
 
 ## Arquivos
-**Editar:** `src/components/ui/aurora-background.tsx`, `src/routes/index.tsx`
+- `src/routes/index.tsx`
+- `src/components/ui/aurora-background.tsx`
 
