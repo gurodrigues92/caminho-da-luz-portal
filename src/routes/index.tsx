@@ -241,20 +241,20 @@ function AboutSection() {
     <section className="relative bg-cdl-bg-dark grain-overlay py-20">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-          <motion.div className="order-2 md:order-1" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          <motion.div className="order-2 md:order-1 flex flex-col items-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <img
               src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
               alt="João Carlos Pedrão"
               className="rounded-xl aspect-[3/4] object-cover w-full max-w-md mx-auto"
               loading="lazy"
             />
+            <p className="text-cdl-text-muted text-sm italic mt-4 text-center">— João Carlos Pedrão, Dirigente</p>
           </motion.div>
           <motion.div className="order-1 md:order-2" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <h2 className="font-heading text-3xl md:text-4xl text-cdl-text-light font-semibold mb-6">O Instituto Caminho da Luz</h2>
             <p className="text-cdl-text-light/80 leading-relaxed mb-6">
               O Instituto Caminho da Luz nasceu com o propósito de mudar o mundo. A princípio, essa afirmação pode parecer ousada, impossível ou prepotente. Na verdade, mudar o mundo é uma tarefa que se inicia mudando a cada um de nós. Se eu melhoro, o mundo melhora junto. Se você sorri, o mundo sorri junto. Se uma família se une, o mundo fica mais unido. Então, expandindo a consciência, com o uso religioso e de estudos do Santo Daime/Ayahuasca, vamos procurando essa mudança, que se dá muito mais no campo das ações, do que nas palavras.
             </p>
-            <p className="text-cdl-text-muted text-sm italic">— João Carlos Pedrão, Dirigente</p>
             <span className="inline-block mt-4 px-3 py-1 bg-cdl-secondary/20 text-cdl-secondary text-xs font-label uppercase tracking-widest rounded">
               Desde 2014
             </span>
