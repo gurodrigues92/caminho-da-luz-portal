@@ -1,46 +1,28 @@
 
 
+## Pedido
+No mobile, melhorar a distribuição/layout dos cards de aniversariantes em `AniversariantesDoMes.tsx`.
+
 ## Diagnóstico
-A imagem de fundo não está por cima do efeito. Pela estrutura atual da hero, a ordem é:
+Hoje o container usa `flex flex-wrap justify-center gap-4` e cada card tem padding `px-5 py-3` + ícone 40px + textos. Em 390px de largura:
+- cards têm largura natural variável → quebram desalinhados, sobrando espaço/órfãos no fim das linhas
+- com nomes longos (ex: "Carol Quintiliano", "João Carlos (Pedrão)") um card sozinho ocupa quase toda a linha enquanto outros ficam apertados ao lado
+- visualmente fica irregular e desperdiça espaço vertical
 
-```text
-imagem de fundo
-→ AuroraLayer
-→ overlay preto
-→ conteúdo
-```
+## Solução
+Trocar o layout para **grid responsivo de 2 colunas no mobile**, mantendo flex-wrap centralizado em telas maiores (onde já funciona bem):
 
-Então o problema principal não é a foto sobrepor a aurora, e sim:
-- o `overlay` escuro acima da aurora está escurecendo tudo;
-- `mix-blend-soft-light` é sutil demais sobre foto;
-- a própria aurora ainda está muito “lavada” para aparecer bem.
-
-## Ajuste proposto
-Vou deixar a hero mais clara e fazer a aurora aparecer de verdade, sem mexer no conteúdo.
-
-### 1. `src/routes/index.tsx`
-Na hero:
-- reduzir o escurecimento do overlay: `bg-black/30` → algo como `bg-black/10` ou um gradiente mais leve;
-- deixar a imagem um pouco mais clara com classes tipo `brightness-110` / `contrast-105`;
-- trocar o uso da aurora de `mix-blend-soft-light` para uma abordagem mais visível:
-  - remover o blend mode, ou
-  - usar `mix-blend-screen` com opacidade alta só se o resultado ficar melhor;
-- manter a aurora entre a foto e o overlay, mas com menos bloqueio visual por cima.
-
-### 2. `src/components/ui/aurora-background.tsx`
-Fortalecer o efeito:
-- aumentar ainda mais a presença das cores;
-- reduzir o quanto o blur apaga as luzes;
-- remover comportamentos que suavizam demais o efeito;
-- se necessário, duplicar a camada visual da aurora para criar mais volume de luz.
-
-## Resultado esperado
-- hero mais clara;
-- imagem de fundo continua visível;
-- aurora finalmente perceptível em movimento;
-- texto continua legível.
+- Mobile (`< sm`): `grid grid-cols-2 gap-3` → cards uniformes, 2 por linha, ocupam toda a largura disponível
+- `sm+`: voltar a `flex flex-wrap justify-center gap-4` (comportamento atual preservado em tablet/desktop)
+- Reduzir levemente padding interno no mobile (`px-3 py-2.5`) e ícone (`h-9 w-9`) para caberem 2 por linha confortavelmente em 390px sem cortar nomes
+- Adicionar `min-w-0` + `truncate` no bloco de texto para nomes longos não estourarem o card
+- Reduzir `text-lg` → `text-base` no nome em mobile (`text-base sm:text-lg`)
 
 ## Arquivos
-- `src/routes/index.tsx`
-- `src/components/ui/aurora-background.tsx`
+**Editar:** `src/components/AniversariantesDoMes.tsx` (apenas o container `motion.div` da grid + classes do card interno)
+
+## Restrições respeitadas
+- Sem mudança de dados, animações ou cores
+- Comportamento desktop/tablet intacto
+- Sem novas dependências
 
