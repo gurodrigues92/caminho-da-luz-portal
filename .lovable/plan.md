@@ -1,24 +1,36 @@
 
 ## Pedido
-Deixar a Hero com o mesmo estilo de fundo do CTA "Pronto para expandir sua consciência?" — mesmas imagens (já são), mesmo tratamento de overlay/luzes.
+Inverter o que foi feito: ao invés de simplificar a Hero para o estilo do CTA, agora aplicar o estilo original da Hero (com AuroraLayer + gradiente suave + imagem mais visível) no CTA "Pronto para expandir sua consciência?".
 
-## Observação
-O CTA hoje usa apenas um overlay sólido `bg-black/65` sobre as imagens — **não tem AuroraLayer nem gradiente**. A Hero tem AuroraLayer + gradiente preto suave. Então "igualar" significa simplificar a Hero para o mesmo padrão do CTA.
+## Estado atual
+- **Hero**: imagens responsivas + `<div className="absolute inset-0 bg-black/65" />` (overlay sólido escuro)
+- **CTA**: imagens responsivas + `<div className="absolute inset-0 bg-black/65" />` (overlay sólido escuro)
+
+## Estado desejado
+Ambas com o estilo "rico" que a Hero tinha antes:
+- Imagens responsivas (mantém)
+- `AuroraLayer` com `opacity-70` (efeito de luz)
+- Gradiente preto suave `from-black/20 via-transparent to-black/25` (vinheta leve)
+- Sem o overlay sólido `bg-black/65`
 
 ## Solução
-Em `src/routes/index.tsx`, dentro de `HeroSection` (linhas ~60-78):
+Em `src/routes/index.tsx`:
 
-- **Remover** o `<AuroraLayer ... />` (linha 77)
-- **Remover** o gradiente `bg-gradient-to-b from-black/20 ... to-black/25` (linha 78)
-- **Substituir** por um único `<div className="absolute inset-0 bg-black/65" />` (idêntico ao CTA)
-- **Remover** o import `AuroraLayer` se não for mais usado em outro lugar do arquivo (não é).
+1. **HeroSection**: trocar `<div className="absolute inset-0 bg-black/65" />` por:
+   ```tsx
+   <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-70" />
+   <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
+   ```
 
-Resultado: Hero e CTA com o mesmo tratamento visual de fundo (mesmas imagens responsivas + mesmo véu preto a 65%).
+2. **CTASection**: aplicar exatamente o mesmo tratamento — trocar `bg-black/65` pelos mesmos 2 elementos (AuroraLayer + gradiente suave).
+
+3. **Reimportar** `AuroraLayer` no topo do arquivo (foi removido na última edição).
+
+4. **Atenção ao CTA**: o texto do CTA é branco sobre fundo. Com overlay mais leve, vou verificar se a legibilidade segue ok — se o usuário achar que ficou claro demais, ajustamos depois (mas o pedido é "deixar igual à Hero original", então sigo isso).
 
 ## Arquivo
-- `src/routes/index.tsx` — apenas `HeroSection` + remoção do import.
+- `src/routes/index.tsx` — apenas blocos de overlay da `HeroSection` e `CTASection` + 1 import.
 
 ## Restrições
-- Wordmark azul, logo, textos, chevron e animações permanecem.
-- CTA não muda.
-- Sem alterar tipografia, cores ou layout.
+- Imagens responsivas, wordmark, textos, botões e animações permanecem.
+- Sem mudança de tipografia, cores ou layout.
