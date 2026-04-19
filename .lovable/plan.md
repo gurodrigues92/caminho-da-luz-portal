@@ -1,76 +1,73 @@
 
 
-## Resumo
+## Pedido
+Adicionar efeito "Aurora" (luzes animadas em degradê) ao fundo da hero da home, **mantendo a imagem de fundo atual** por baixo. Texto e elementos da hero ficam intactos.
 
-Conectar a galeria ao Supabase via hook `useGaleria` (já existente), adicionar filtro por tipo de trabalho com deep-link, agrupar fotos por evento/data, e remover todo o placeholder estático. Zero integração com Google Drive — isso é responsabilidade do n8n externo.
+## Investigação
+Preciso confirmar a estrutura atual da hero da home.
+- Tailwind v4 (CSS-first via `src/styles.css`) — não há `tailwind.config.js`. Keyframes e animações vão direto no `@theme` do CSS.
+- Projeto já tem `cn` em `src/lib/utils.ts` e usa `framer-motion`.
 
-## Arquitetura
+## Adaptações necessárias ao snippet original
+1. **Tailwind v4**: ignorar o `tailwind.config.js` proposto. Adicionar o keyframe `aurora` e a animação no `src/styles.css` via `@theme` + `@keyframes`.
+2. **Componente `AuroraBackground`**: o snippet veio truncado/quebrado (JSX vazio). Reconstruir baseado no padrão original do Aceternity UI:
+   - Wrapper relativo
+   - Camada interna com gradientes cônicos animados (`--white-gradient`, `--dark-gradient`, `--aurora`) usando CSS vars locais
+   - Filtro de blur + máscara radial opcional
+3. **Manter imagem de fundo**: NÃO usar `AuroraBackground` como container substituto. Em vez disso, sobrepor o efeito aurora **entre** a `background-image` e o overlay escuro existente, com `mix-blend-mode` (lighten/screen) e opacidade reduzida para integrar com a foto.
 
+## Estrutura final da hero (home)
 ```
-URL: /sorocaba/galeria              → todos eventos
-URL: /sorocaba/galeria/original     → filtrado por trabalho
-            ↓
-GaleriaCasa(casaSlug, trabalhoSlug?)
-            ↓
-useGaleria(casa, trabalhoSlug, limit)
-            ↓
-Supabase: eventos + evento_fotos
+<section relative>
+  <div bg-image absolute inset-0 />          ← imagem atual mantida
+  <AuroraLayer absolute inset-0 />           ← novo: luzes animadas
+  <div bg-black/50 absolute inset-0 />       ← overlay escuro existente
+  <motion.div relative z-10>texto/CTAs</>    ← intacto
+</section>
 ```
+
+A camada Aurora terá `mix-blend-screen` + `opacity-60` para somar luz à foto sem apagá-la.
 
 ## Mudanças
 
-### 1. `src/components/GaleriaCasa.tsx` (refatorar)
-- Nova assinatura: `{ casa, casaSlug, trabalhoSlug? }`
-- Usa `useGaleria(casaSlug, trabalhoSlug ?? null)`
-- **Tabs/pills de filtro** no topo: "Todos" + um pill por `tipo_trabalho` retornado pelo hook. Clicar navega via `useNavigate` para `/[casaSlug]/galeria` ou `/[casaSlug]/galeria/[slug]`. Pill ativo: `bg-cdl-primary text-cdl-text-light`; inativo: `border border-cdl-primary/20 text-cdl-text-muted`
-- **Renderização agrupada por evento**: cada evento vira um card com:
-  - Header: data formatada em pt-BR ("11 de abril de 2026") + badge colorido do tipo (mapa de cores: Original→cdl-primary, Sementes→cdl-secondary, Despertar→cdl-accent, Florescer→pink-500, Humano→cdl-primary, Fogueira→orange-500, Clínica→cdl-accent, Encontro Terapêutico→cdl-secondary)
-  - Grid 2/3/4 cols de thumbnails (usar `url_thumbnail ?? url_imagem`)
-  - Click em thumb abre lightbox **dentro do escopo do evento** (state `{ eventoIdx, fotoIdx }`)
-- **Lightbox**: navegação com setas circula apenas pelas fotos do evento ativo
-- **Estados**:
-  - Loading: 3 skeleton cards (`<Skeleton>` shimmer da UI lib)
-  - Empty sem filtro: "Galeria em breve. Acompanhe nosso Instagram." com link
-  - Empty com filtro: "Nenhum registro de [tipo] ainda. Ver todas as fotos." com link
-  - Erro: "Não foi possível carregar a galeria. Tente novamente em instantes."
-- Remover export de `PLACEHOLDER_FOTOS`
+### 1. `src/styles.css`
+Adicionar dentro do `@theme`:
+```css
+--animate-aurora: aurora 60s linear infinite;
+```
+E fora do `@theme`:
+```css
+@keyframes aurora {
+  from { background-position: 50% 50%, 50% 50%; }
+  to   { background-position: 350% 50%, 350% 50%; }
+}
+```
 
-### 2. `src/components/GaleriaPreview.tsx` (refatorar)
-- Nova assinatura: `{ casa, casaSlug }` (remove `fotos`)
-- Usa `useGaleria(casaSlug, null, 6)`
-- Achata `eventos.flatMap(e => e.fotos).slice(0, 6)` para ter até 6 thumbs no preview
-- Se `eventos.length === 0` → retorna `null` (some a seção)
-- Loading: 6 skeletons no grid
-- Botão "Ver galeria completa" preservado
+### 2. `src/components/ui/aurora-background.tsx` (novo)
+Componente reutilizável que renderiza apenas a camada de luzes (sem wrapper de página inteira), aceitando `className` para posicionamento absoluto:
+- Usa CSS vars com gradientes lineares para cores brancas e cores aurora (azul/roxo/violeta — alinhado ao branding `cdl-primary` azul)
+- Dois pseudo-elementos (`::after` via div extra) com `background-image` combinando `--white-gradient` + `--aurora`, `background-size: 300%`, `filter: blur(10px)`, animação `animate-aurora`
+- Prop `showRadialGradient` aplica `[mask-image:radial-gradient(...)]` para suavizar bordas
 
-### 3. Rotas existentes — atualizar (4 arquivos)
-`sorocaba_.galeria.tsx`, `sao-paulo_.galeria.tsx`, `recife_.galeria.tsx`, `itarare_.galeria.tsx`:
-- Remover import de `PLACEHOLDER_FOTOS`
-- Passar apenas `casa` + `casaSlug` para `<GaleriaCasa>`
+Exporta também uma versão `<AuroraLayer />` minimal (apenas a camada) para usar como overlay sem ser o wrapper raiz.
 
-### 4. Rotas novas com filtro — criar (4 arquivos)
-- `src/routes/sorocaba_.galeria.$trabalho.tsx`
-- `src/routes/sao-paulo_.galeria.$trabalho.tsx`
-- `src/routes/recife_.galeria.$trabalho.tsx`
-- `src/routes/itarare_.galeria.$trabalho.tsx`
+### 3. `src/routes/index.tsx`
+Localizar a `<section>` da hero (primeira seção com `bg-cover`/`backgroundImage`) e inserir `<AuroraLayer className="absolute inset-0 mix-blend-screen opacity-60 pointer-events-none" />` entre a div da imagem e a div do overlay preto. Texto/CTAs permanecem inalterados.
 
-Cada uma lê `params.trabalho` via `Route.useParams()` e passa como `trabalhoSlug`. `head()` dinâmico com o nome do trabalho no title.
-
-### 5. Páginas das casas — limpar prop `fotos`
-Em `src/routes/sorocaba.tsx`, `sao-paulo.tsx`, `recife.tsx`, `itarare.tsx`:
-- Remover `fotos={PLACEHOLDER_FOTOS}` de `<GaleriaPreview>`
-- Remover import órfão de `PLACEHOLDER_FOTOS`
-
-### 6. routeTree.gen.ts
-Auto-regenerado pelo Vite plugin ao salvar — não editar manualmente.
-
-## Restrições respeitadas
-- ✅ Zero código Google Drive / OAuth / googleapis
-- ✅ `useGaleria.ts` e `lib/supabase.ts` intocados
-- ✅ Design system `cdl-*` preservado
-- ✅ Sem UI de upload no site
+## Cores da aurora
+Para combinar com a paleta azul do projeto (`cdl-primary` azul, `cdl-secondary` dourado), usar gradientes em tons de:
+- azul claro `#3b82f6`
+- azul violeta `#6366f1`
+- ciano suave `#22d3ee`
+- branco `#ffffff` (highlights)
 
 ## Arquivos
-**Editar:** `src/components/GaleriaCasa.tsx`, `src/components/GaleriaPreview.tsx`, `src/routes/sorocaba_.galeria.tsx`, `src/routes/sao-paulo_.galeria.tsx`, `src/routes/recife_.galeria.tsx`, `src/routes/itarare_.galeria.tsx`, `src/routes/sorocaba.tsx`, `src/routes/sao-paulo.tsx`, `src/routes/recife.tsx`, `src/routes/itarare.tsx`
-**Criar:** `src/routes/sorocaba_.galeria.$trabalho.tsx`, `src/routes/sao-paulo_.galeria.$trabalho.tsx`, `src/routes/recife_.galeria.$trabalho.tsx`, `src/routes/itarare_.galeria.$trabalho.tsx`
+**Criar:** `src/components/ui/aurora-background.tsx`
+**Editar:** `src/styles.css` (keyframe + animation token), `src/routes/index.tsx` (inserir camada na hero)
+
+## Restrições respeitadas
+- Tailwind v4 (sem `tailwind.config.js`)
+- Sem novas dependências (`framer-motion`, `cn` já existem)
+- Imagem de fundo atual preservada
+- Texto e CTAs da hero intocados
 
