@@ -1,14 +1,20 @@
+import { lazy, Suspense } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ChevronDown, Instagram, Camera } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
-import { AniversariantesDoMes } from "@/components/AniversariantesDoMes";
-import { UltimosVideosSection } from "@/components/UltimosVideosSection";
 import { Button } from "@/components/ui/button";
 import { AuroraLayer } from "@/components/ui/aurora-background";
 import { fadeUp, stagger } from "@/lib/animations";
 import logoCdl from "@/assets/logo-caminho-da-luz.png";
 import wordmarkCdl from "@/assets/wordmark-caminho-da-luz.png";
+
+const UltimosVideosSection = lazy(() =>
+  import("@/components/UltimosVideosSection").then((m) => ({ default: m.UltimosVideosSection })),
+);
+const AniversariantesDoMes = lazy(() =>
+  import("@/components/AniversariantesDoMes").then((m) => ({ default: m.AniversariantesDoMes })),
+);
 
 export const Route = createFileRoute("/")({
   head: () => ({
