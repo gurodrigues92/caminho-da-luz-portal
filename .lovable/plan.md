@@ -1,22 +1,24 @@
 
 ## Pedido
-Deixar a imagem de fundo da hero um pouco mais visível, reduzindo levemente a intensidade dos efeitos de luz (aurora + gradiente preto + mix-blend).
+Deixar a Hero com o mesmo estilo de fundo do CTA "Pronto para expandir sua consciência?" — mesmas imagens (já são), mesmo tratamento de overlay/luzes.
+
+## Observação
+O CTA hoje usa apenas um overlay sólido `bg-black/65` sobre as imagens — **não tem AuroraLayer nem gradiente**. A Hero tem AuroraLayer + gradiente preto suave. Então "igualar" significa simplificar a Hero para o mesmo padrão do CTA.
 
 ## Solução
-Em `src/routes/index.tsx`, dentro de `HeroSection`, ajustes pequenos:
+Em `src/routes/index.tsx`, dentro de `HeroSection` (linhas ~60-78):
 
-1. **Imagens de background (mobile + desktop)**: aumentar opacidade de `opacity-90` para `opacity-100` e remover (ou suavizar) o `mix-blend-overlay` que escurece/dessatura. Vou trocar `mix-blend-overlay opacity-90` por apenas (sem blend) — deixa a imagem aparecer no tom original.
+- **Remover** o `<AuroraLayer ... />` (linha 77)
+- **Remover** o gradiente `bg-gradient-to-b from-black/20 ... to-black/25` (linha 78)
+- **Substituir** por um único `<div className="absolute inset-0 bg-black/65" />` (idêntico ao CTA)
+- **Remover** o import `AuroraLayer` se não for mais usado em outro lugar do arquivo (não é).
 
-2. **Gradiente preto sobreposto**: reduzir de `from-black/30 ... to-black/40` para `from-black/20 ... to-black/25` (mantém leve vinheta para legibilidade do wordmark sem escurecer demais).
-
-3. **AuroraLayer**: manter, mas envolver em wrapper com `opacity-70` (estava 100%) para suavizar sem remover o efeito de luz.
-
-Tudo o mais (wordmark azul, textos, chevron, animações) permanece intacto.
+Resultado: Hero e CTA com o mesmo tratamento visual de fundo (mesmas imagens responsivas + mesmo véu preto a 65%).
 
 ## Arquivo
-- `src/routes/index.tsx` — apenas o bloco de background da `HeroSection`.
+- `src/routes/index.tsx` — apenas `HeroSection` + remoção do import.
 
 ## Restrições
-- CTA section não muda.
+- Wordmark azul, logo, textos, chevron e animações permanecem.
+- CTA não muda.
 - Sem alterar tipografia, cores ou layout.
-- Ajustes conservadores ("pouca coisa") conforme pedido.
