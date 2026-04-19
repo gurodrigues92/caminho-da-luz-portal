@@ -58,14 +58,13 @@ function HomePage() {
 function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
-      <AuroraLayer showRadialGradient={false} className="absolute inset-0" />
       <img
         src="/images/bg/hero-mobile.png"
         alt=""
         aria-hidden="true"
         loading="eager"
         fetchPriority="high"
-        className="md:hidden absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90"
+        className="md:hidden absolute inset-0 w-full h-full object-cover"
       />
       <img
         src="/images/bg/hero-desktop.png"
@@ -73,9 +72,10 @@ function HeroSection() {
         aria-hidden="true"
         loading="eager"
         fetchPriority="high"
-        className="hidden md:block absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
       <motion.div
         initial="hidden"
         animate="visible"
