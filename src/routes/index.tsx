@@ -59,9 +59,21 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
       <AuroraLayer showRadialGradient={false} className="absolute inset-0" />
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed mix-blend-overlay opacity-90"
-        style={{ backgroundImage: "url('/images/bg/hero-main.jpg')" }}
+      <img
+        src="/images/bg/hero-mobile.png"
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        fetchPriority="high"
+        className="md:hidden absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90"
+      />
+      <img
+        src="/images/bg/hero-desktop.png"
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        fetchPriority="high"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90"
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40" />
       <motion.div
@@ -401,9 +413,19 @@ function GaleriaHomeSection() {
 function CTASection() {
   return (
     <section className="relative py-24">
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/bg/cta-section.jpg')" }}
+      <img
+        src="/images/bg/hero-mobile.png"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="md:hidden absolute inset-0 w-full h-full object-cover"
+      />
+      <img
+        src="/images/bg/hero-desktop.png"
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="hidden md:block absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-black/65" />
       <motion.div
