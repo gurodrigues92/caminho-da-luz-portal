@@ -48,11 +48,12 @@ function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div
-        className="absolute inset-0 bg-cover bg-center bg-fixed"
+        className="absolute inset-0 bg-cover bg-center bg-fixed brightness-110"
         style={{ backgroundImage: "url('/images/bg/hero-main.jpg')" }}
       />
-      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-90 mix-blend-soft-light" />
-      <div className="absolute inset-0 bg-black/30" />
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-100 mix-blend-screen" />
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-80 mix-blend-color-dodge" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20" />
       <motion.div
         initial="hidden"
         animate="visible"
