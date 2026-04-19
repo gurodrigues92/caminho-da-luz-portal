@@ -37,7 +37,7 @@ const saoPauloConfig: CasaPageProps = {
       description: "Um trabalho espiritual universalista de expansão de consciência através da consagração da medicina Ayahuasca, pautado no amor e na luz, guiado por músicas e conteúdos para cura física, espiritual, mudança de hábitos, encontro de propósito, autoconhecimento, conexão com seu eu interior e elevação vibracional.",
       image: "/images/trabalhos/original.jpg",
       horario: "18h às 00h",
-      contribuicao: "R$ 100",
+      contribuicao: "R$ 150 no dia · R$ 120 antecipado",
       badge: "PRINCIPAL",
       badgeColor: "bg-cdl-secondary text-cdl-bg-dark",
       highlighted: true,
