@@ -1,21 +1,35 @@
 
 ## Pedido
-Restaurar a cor azul escuro do wordmark "Caminho da Luz" na hero da home. Na otimização de LCP, troquei o `motion.div` (que usava `mask-image` + `bg-cdl-primary` para colorir) por uma `motion.img`, que renderiza o PNG original (provavelmente preto/transparente), perdendo a cor azul.
+Usar as 2 imagens enviadas como background da Hero (substituindo `hero-main.jpg`) e da seção CTA "Pronto para expandir sua consciência?" (substituindo `cta-section.jpg`). Versão horizontal para desktop, vertical para mobile. Manter os efeitos de luz (AuroraLayer, gradientes, overlays).
 
 ## Solução
-Voltar ao approach de máscara CSS (que aplica `bg-cdl-primary` no elemento), mas mantendo o ganho de SEO/LCP via `<link rel="preload">` que já existe em `links` do route.
 
-Em `src/routes/index.tsx`, na hero, substituir a `motion.img` atual por um `motion.div` com:
-- `role="img"` + `aria-label="Caminho da Luz"` (acessibilidade)
-- `bg-cdl-primary` (cor azul escuro da marca)
-- `mask-image: url(wordmarkCdl)` + `mask-size: contain` + `mask-repeat: no-repeat` + `mask-position: center` (idem versão `-webkit-`)
-- Mesmas classes de tamanho: `mx-auto h-16 md:h-24 w-full max-w-md`
+### 1. Salvar as imagens
+Copiar para `public/images/bg/`:
+- `user-uploads://image-backgroud-horizontal.png` → `public/images/bg/hero-desktop.png`
+- `user-uploads://image-backgrou-cl.png` → `public/images/bg/hero-mobile.png`
 
-O preload no `head` continua apontando para `wordmarkCdl` com `fetchpriority="high"`, então o asset segue sendo descoberto cedo — LCP preservado.
+(mesmas imagens reaproveitadas tanto para hero quanto para CTA, evitando duplicar ~MB extras de assets)
 
-## Arquivo
-- `src/routes/index.tsx` — apenas o bloco do wordmark dentro de `HeroSection`.
+### 2. Trocar background da Hero (`HeroSection`)
+Atualmente usa um único `<div>` com `background-image` inline. Vou trocar por duas `<img>` absolutas com `object-cover`, alternando via classes responsivas:
+- `<img src="/images/bg/hero-mobile.png" className="md:hidden absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />`
+- `<img src="/images/bg/hero-desktop.png" className="hidden md:block absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-90" />`
+- Ambas com `loading="eager"` + `fetchpriority="high"` (LCP da hero)
+- Mantém: `bg-slate-900` base, `AuroraLayer`, gradiente preto top/bottom, wordmark azul, etc.
+
+### 3. Trocar background do CTA (`CTASection`)
+Mesmo padrão, mas com `loading="lazy"` (está abaixo da dobra):
+- mobile: `image-backgrou-cl.png`
+- desktop: `image-backgroud-horizontal.png`
+- Mantém o overlay `bg-black/65` para legibilidade do texto branco.
+
+## Arquivos
+- `public/images/bg/hero-desktop.png` (novo, copiado)
+- `public/images/bg/hero-mobile.png` (novo, copiado)
+- `src/routes/index.tsx` — apenas blocos de background da `HeroSection` e `CTASection`
 
 ## Restrições
-- Não mexer em mais nada (preload, fonts, lazy sections permanecem).
-- Desktop e mobile mantêm tamanho atual (`h-16 md:h-24`).
+- Aurora, gradientes escuros, wordmark, conteúdo e animações permanecem idênticos.
+- `bg-fixed` (parallax) é removido só na hero, pois `<img>` substitui o `bg-cover bg-fixed` — em troca o efeito funciona melhor em mobile (iOS quebra `bg-fixed`).
+- Sem mudança de tipografia, cores ou layout.
