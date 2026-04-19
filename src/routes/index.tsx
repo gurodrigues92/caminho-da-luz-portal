@@ -51,8 +51,8 @@ function HeroSection() {
         className="absolute inset-0 bg-cover bg-center bg-fixed"
         style={{ backgroundImage: "url('/images/bg/hero-main.jpg')" }}
       />
-      <AuroraLayer className="absolute inset-0 mix-blend-screen opacity-70" />
-      <div className="absolute inset-0 bg-black/20" />
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-90 mix-blend-soft-light" />
+      <div className="absolute inset-0 bg-black/30" />
       <motion.div
         initial="hidden"
         animate="visible"
