@@ -1,24 +1,21 @@
 
-
 ## Pedido
-No mobile, na seção "O Instituto Caminho da Luz" (home), a foto do Pedrão aparece acima do título/texto. Mover para baixo no mobile, mantendo desktop como está (foto à esquerda, texto à direita).
-
-## Análise
-
-Em `src/routes/index.tsx`, função `AboutSection`, há um grid 2 colunas. No mobile (1 coluna), a ordem segue o DOM: primeira coluna = imagem, segunda = texto. Por isso a foto aparece em cima.
+Restaurar a cor azul escuro do wordmark "Caminho da Luz" na hero da home. Na otimização de LCP, troquei o `motion.div` (que usava `mask-image` + `bg-cdl-primary` para colorir) por uma `motion.img`, que renderiza o PNG original (provavelmente preto/transparente), perdendo a cor azul.
 
 ## Solução
+Voltar ao approach de máscara CSS (que aplica `bg-cdl-primary` no elemento), mas mantendo o ganho de SEO/LCP via `<link rel="preload">` que já existe em `links` do route.
 
-Inverter a ordem visual no mobile usando `order` do Tailwind, sem mudar o DOM:
-- Coluna da imagem: `order-2 md:order-1`
-- Coluna do texto: `order-1 md:order-2`
+Em `src/routes/index.tsx`, na hero, substituir a `motion.img` atual por um `motion.div` com:
+- `role="img"` + `aria-label="Caminho da Luz"` (acessibilidade)
+- `bg-cdl-primary` (cor azul escuro da marca)
+- `mask-image: url(wordmarkCdl)` + `mask-size: contain` + `mask-repeat: no-repeat` + `mask-position: center` (idem versão `-webkit-`)
+- Mesmas classes de tamanho: `mx-auto h-16 md:h-24 w-full max-w-md`
 
-Assim no mobile o texto vem primeiro e a foto fica abaixo; no desktop (`md:`) volta ao layout original (foto esquerda, texto direita).
+O preload no `head` continua apontando para `wordmarkCdl` com `fetchpriority="high"`, então o asset segue sendo descoberto cedo — LCP preservado.
 
 ## Arquivo
-- `src/routes/index.tsx` — apenas ajuste de classes nas duas `motion.div` filhas do grid em `AboutSection`.
+- `src/routes/index.tsx` — apenas o bloco do wordmark dentro de `HeroSection`.
 
 ## Restrições
-- Nada de mudar fontes, cores ou estrutura
-- Desktop permanece idêntico
-
+- Não mexer em mais nada (preload, fonts, lazy sections permanecem).
+- Desktop e mobile mantêm tamanho atual (`h-16 md:h-24`).
