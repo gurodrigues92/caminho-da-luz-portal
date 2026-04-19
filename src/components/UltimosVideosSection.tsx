@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Youtube, Play, X } from "lucide-react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { fadeUp, stagger } from "@/lib/animations";
 import {
   getLatestVideos,
@@ -100,15 +101,17 @@ export function UltimosVideosSection() {
         )}
 
         <div className="text-center mt-10">
-          <a
-            href={YOUTUBE_CHANNEL_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-cdl-primary hover:text-cdl-primary-light font-label uppercase tracking-widest text-sm transition-colors"
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 rounded-full text-xs"
           >
-            <Youtube className="h-4 w-4" />
-            Ver canal completo no YouTube →
-          </a>
+            <a href={YOUTUBE_CHANNEL_URL} target="_blank" rel="noopener noreferrer">
+              <Youtube className="h-4 w-4" />
+              Ver canal completo no YouTube →
+            </a>
+          </Button>
         </div>
       </div>
 
