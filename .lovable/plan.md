@@ -1,30 +1,24 @@
 
 
 ## Pedido
-1. A seção do YouTube na página `/radio` está com problema (provavelmente o embed `videoseries?list=UU...` não carrega — o ID do canal `UCEq6FzaDeKHSgPRGz-GqHsg` no embed está diferente do `YOUTUBE_CHANNEL_ID` correto em `youtube.ts` que é `UC91bF7LgjRXXDPMR0G_jUgQ`).
-2. Espelhar a seção "Últimos Vídeos" da home (componente `UltimosVideosSection`) na página `/radio`.
-3. Confirmar se os 3 vídeos atualizam automaticamente.
+No mobile, na seção "O Instituto Caminho da Luz" (home), a foto do Pedrão aparece acima do título/texto. Mover para baixo no mobile, mantendo desktop como está (foto à esquerda, texto à direita).
 
 ## Análise
 
-- O componente `UltimosVideosSection` já existe, busca via `getLatestVideos()` (server function que lê o RSS feed do canal).
-- O RSS retorna sempre os vídeos mais recentes — então **sim, atualiza automaticamente** quando novos vídeos são postados (com cache de 1h via `staleTime`, então pode levar até 1h pra refletir).
-- Hoje a `/radio` tem um `<iframe>` manual de `videoseries` que não funciona bem (limitação do YouTube com playlists de uploads `UU...` em embeds + ID de canal aparentemente errado).
+Em `src/routes/index.tsx`, função `AboutSection`, há um grid 2 colunas. No mobile (1 coluna), a ordem segue o DOM: primeira coluna = imagem, segunda = texto. Por isso a foto aparece em cima.
 
-## Plano
+## Solução
 
-1. **Substituir** na `src/routes/radio.tsx` toda a seção atual do YouTube (segundo `<section>`) pelo componente `<UltimosVideosSection />`.
-2. Remover o `<iframe>` antigo e o botão "Assistir no YouTube" duplicado (o componente já tem o link "Ver canal completo no YouTube →" no rodapé).
-3. Manter intacta a seção do Spotify acima.
+Inverter a ordem visual no mobile usando `order` do Tailwind, sem mudar o DOM:
+- Coluna da imagem: `order-2 md:order-1`
+- Coluna do texto: `order-1 md:order-2`
 
-## Arquivos a editar
-- `src/routes/radio.tsx` — trocar segunda `<section>` pelo `<UltimosVideosSection />` e adicionar import.
+Assim no mobile o texto vem primeiro e a foto fica abaixo; no desktop (`md:`) volta ao layout original (foto esquerda, texto direita).
 
-## Resposta sobre atualização automática
-Sim. O componente busca o RSS oficial do canal (`feeds/videos.xml?channel_id=...`), que sempre lista os vídeos mais recentes. Cache de 1h no cliente — após esse tempo (ou refresh forçado) novos vídeos aparecem automaticamente sem precisar editar código.
+## Arquivo
+- `src/routes/index.tsx` — apenas ajuste de classes nas duas `motion.div` filhas do grid em `AboutSection`.
 
 ## Restrições
-- Não mexer na seção Spotify
-- Não trocar fontes/cores
-- Manter padrão de botões (já unificado no componente)
+- Nada de mudar fontes, cores ou estrutura
+- Desktop permanece idêntico
 
