@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/animations";
-import { Button } from "@/components/ui/button";
+import { UltimosVideosSection } from "@/components/UltimosVideosSection";
 
 export const Route = createFileRoute("/radio")({
   head: () => ({
@@ -43,30 +43,7 @@ function RadioPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-cdl-bg-light">
-        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-            <h2 className="font-heading text-3xl md:text-4xl text-cdl-text font-semibold mb-3">Canal no YouTube</h2>
-            <p className="text-cdl-text-muted mb-10">Vídeos, palestras e registros dos nossos trabalhos</p>
-            <div className="max-w-2xl mx-auto rounded-xl overflow-hidden aspect-video">
-              <iframe
-                width="100%"
-                height="100%"
-                src="https://www.youtube.com/embed/videoseries?list=UUEq6FzaDeKHSgPRGz-GqHsg"
-                frameBorder="0"
-                allowFullScreen
-                loading="lazy"
-                className="rounded-xl"
-              />
-            </div>
-            <Button asChild variant="default" size="lg" className="mt-8 font-label uppercase tracking-widest">
-              <a href="https://youtube.com/@institutocaminhodaluz6191" target="_blank" rel="noopener noreferrer">
-                Assistir no YouTube
-              </a>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
+      <UltimosVideosSection />
     </div>
   );
 }
