@@ -55,20 +55,20 @@ export function AniversariantesDoMes({ casa }: { casa?: string }) {
           whileInView="visible"
           viewport={{ once: true }}
           variants={stagger}
-          className="flex flex-wrap justify-center gap-4"
+          className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center sm:gap-4"
         >
           {aniversariantes.map((a, i) => (
             <motion.div
               key={`${a.nome}-${a.dia}-${i}`}
               variants={fadeUp}
-              className="flex items-center gap-3 rounded-xl border border-cdl-secondary/30 bg-cdl-secondary/5 px-5 py-3 shadow-sm"
+              className="flex items-center gap-2.5 rounded-xl border border-cdl-secondary/30 bg-cdl-secondary/5 px-3 py-2.5 shadow-sm sm:gap-3 sm:px-5 sm:py-3"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-cdl-secondary/20">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-cdl-secondary/20 sm:h-10 sm:w-10">
                 <Star className="h-4 w-4 text-cdl-secondary fill-cdl-secondary" />
               </div>
-              <div>
-                <p className="font-heading text-lg text-cdl-text font-semibold">{a.nome}</p>
-                <p className="text-cdl-text-muted text-xs">
+              <div className="min-w-0 flex-1">
+                <p className="font-heading text-base sm:text-lg text-cdl-text font-semibold truncate">{a.nome}</p>
+                <p className="text-cdl-text-muted text-xs truncate">
                   {a.dia}/{String(a.mes).padStart(2, "0")}
                   {!casa && ` · ${a.casa}`}
                 </p>
