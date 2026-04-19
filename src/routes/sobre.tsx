@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Accordion, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import { fadeUp } from "@/lib/animations";
 
 export const Route = createFileRoute("/sobre")({
@@ -139,14 +140,11 @@ function SobrePage() {
           <p className="text-cdl-text-muted mb-6 max-w-md mx-auto text-sm">
             Se é sua primeira vez, preencha a anamnese antes da sua participação.
           </p>
-          <a
-            href="/docs/Anamnese_Formulario.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-cdl-primary text-cdl-text-light font-label uppercase tracking-widest text-sm rounded-lg hover:bg-cdl-primary-light transition-all duration-300"
-          >
-            Baixar Anamnese (PDF)
-          </a>
+          <Button asChild variant="default" size="lg" className="font-label uppercase tracking-widest">
+            <a href="/docs/Anamnese_Formulario.pdf" target="_blank" rel="noopener noreferrer">
+              Baixar Anamnese (PDF)
+            </a>
+          </Button>
         </motion.div>
       </section>
     </div>
