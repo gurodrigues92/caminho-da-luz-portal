@@ -56,6 +56,16 @@
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'Source Sans 3', sans-serif;
   --font-label: 'Josefin Sans', sans-serif;
+  --animate-aurora: aurora 60s linear infinite;
+}
+
+@keyframes aurora {
+  from {
+    background-position: 50% 50%, 50% 50%;
+  }
+  to {
+    background-position: 350% 50%, 350% 50%;
+  }
 }
 
 :root {
