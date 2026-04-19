@@ -437,10 +437,10 @@ function CTASection() {
         variants={fadeUp}
         className="relative z-10 text-center px-4 max-w-2xl mx-auto"
       >
-        <h2 className="font-heading text-4xl md:text-6xl text-white font-semibold mb-5 drop-shadow-lg">
+        <h2 className="font-heading text-4xl md:text-6xl text-cdl-primary font-semibold mb-5">
           Pronto para expandir sua consciência?
         </h2>
-        <p className="text-white/95 text-lg md:text-xl font-medium mb-8 drop-shadow">
+        <p className="text-cdl-primary/80 text-lg md:text-xl font-medium mb-8">
           Reserve sua vaga para o próximo trabalho
         </p>
         <Button asChild size="lg" className="font-label uppercase tracking-widest text-base">
@@ -452,16 +452,22 @@ function CTASection() {
             Fale conosco no WhatsApp
           </a>
         </Button>
-        <p className="text-white/90 text-base mt-6 drop-shadow">
+        <p className="text-cdl-primary/70 text-sm mt-6">
           Primeira vez?{" "}
-          <a
-            href="/docs/Anamnese_Formulario.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium hover:text-cdl-secondary transition-colors"
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="ml-1 border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 hover:text-cdl-primary rounded-full font-label uppercase tracking-wider text-xs"
           >
-            Preencha a anamnese antes da sua participação.
-          </a>
+            <a
+              href="/docs/Anamnese_Formulario.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Preencha a anamnese
+            </a>
+          </Button>
         </p>
       </motion.div>
     </section>
