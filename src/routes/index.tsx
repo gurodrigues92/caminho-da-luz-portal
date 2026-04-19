@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronDown, Instagram, Camera } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
+import { AuroraLayer } from "@/components/ui/aurora-background";
 
 import { fadeUp, stagger } from "@/lib/animations";
 import logoCdl from "@/assets/logo-caminho-da-luz.png";
@@ -74,7 +75,8 @@ function HeroSection() {
         fetchPriority="high"
         className="hidden md:block absolute inset-0 w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-black/65" />
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
       <motion.div
         initial="hidden"
         animate="visible"
@@ -426,7 +428,8 @@ function CTASection() {
         loading="lazy"
         className="hidden md:block absolute inset-0 w-full h-full object-cover"
       />
-      <div className="absolute inset-0 bg-black/65" />
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-70" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
       <motion.div
         initial="hidden"
         whileInView="visible"
