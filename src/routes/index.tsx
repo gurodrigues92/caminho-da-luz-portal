@@ -42,8 +42,12 @@ function HomePage() {
       <CasasSection />
       <AboutSection />
       <MissaoSection />
-      <UltimosVideosSection />
-      <AniversariantesDoMes />
+      <Suspense fallback={null}>
+        <UltimosVideosSection />
+      </Suspense>
+      <Suspense fallback={null}>
+        <AniversariantesDoMes />
+      </Suspense>
       <CTASection />
       <RadioSection />
     </div>
