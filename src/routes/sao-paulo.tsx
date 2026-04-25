@@ -5,12 +5,17 @@ import type { CasaPageProps } from "@/components/CasaPage";
 export const Route = createFileRoute("/sao-paulo")({
   head: () => ({
     meta: [
-      { title: "Caminho da Luz São Paulo — Vila Formosa" },
-      { name: "description", content: "Casa do Caminho da Luz em São Paulo. Trabalhos Original e Encontro Terapêutico." },
-      { property: "og:title", content: "Caminho da Luz São Paulo" },
-      { property: "og:description", content: "Casa do Caminho da Luz em São Paulo." },
+      { title: "Santo Daime São Paulo — Caminho da Luz · Vila Formosa" },
+      { name: "description", content: "Santo Daime em São Paulo — Caminho da Luz na Vila Formosa. Trabalhos Original e Encontro Terapêutico com Ayahuasca para expansão da consciência e cura." },
+      { property: "og:title", content: "Santo Daime São Paulo — Caminho da Luz · Vila Formosa" },
+      { property: "og:description", content: "Casa do Caminho da Luz em São Paulo (Vila Formosa). Trabalhos Original e Encontro Terapêutico com Santo Daime." },
       { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188749/caminhodaluz/ipiranga.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/sao-paulo" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Santo Daime São Paulo — Caminho da Luz" },
+      { name: "twitter:description", content: "Casa do Caminho da Luz em São Paulo — Vila Formosa." },
+      { name: "twitter:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188749/caminhodaluz/ipiranga.jpg" },
     ],
     links: [
       { rel: "canonical", href: "https://caminhodaluzdaime.com.br/sao-paulo" },

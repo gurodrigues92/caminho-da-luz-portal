@@ -7,12 +7,17 @@ import type { CasaPageProps } from "@/components/CasaPage";
 export const Route = createFileRoute("/sorocaba")({
   head: () => ({
     meta: [
-      { title: "Caminho da Luz Sorocaba — Sede Principal" },
-      { name: "description", content: "Casa sede do Instituto Caminho da Luz em Sorocaba. Trabalhos espirituais com Ayahuasca: Original, Sementes, Despertar, Florescer e Humano." },
-      { property: "og:title", content: "Caminho da Luz Sorocaba — Sede Principal" },
-      { property: "og:description", content: "Casa sede em Sorocaba. Trabalhos espirituais com Santo Daime." },
+      { title: "Santo Daime Sorocaba — Caminho da Luz · Sede Principal" },
+      { name: "description", content: "Santo Daime em Sorocaba — Caminho da Luz, sede do instituto. Trabalhos de Ayahuasca para cura, autoconhecimento e expansão da consciência. Agende sua participação." },
+      { property: "og:title", content: "Santo Daime Sorocaba — Caminho da Luz · Sede Principal" },
+      { property: "og:description", content: "Casa sede em Sorocaba. Trabalhos espirituais com Santo Daime: Original, Sementes, Despertar, Florescer e Humano." },
       { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/sorocaba" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Santo Daime Sorocaba — Caminho da Luz" },
+      { name: "twitter:description", content: "Casa sede em Sorocaba. Trabalhos espirituais com Santo Daime." },
+      { name: "twitter:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
     ],
     links: [
       { rel: "canonical", href: "https://caminhodaluzdaime.com.br/sorocaba" },
