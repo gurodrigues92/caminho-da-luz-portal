@@ -81,7 +81,7 @@ function HeroSection() {
         initial="hidden"
         animate="visible"
         variants={stagger}
-        className="relative z-10 text-center px-4 max-w-3xl"
+        className="relative z-10 text-center px-6 sm:px-8 py-8 sm:py-10 max-w-3xl mx-4 rounded-2xl bg-black/40 backdrop-blur-md ring-1 ring-white/10 shadow-2xl"
       >
         <motion.div
           variants={fadeUp}
