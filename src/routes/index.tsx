@@ -75,8 +75,8 @@ function HeroSection() {
         fetchPriority="high"
         className="hidden md:block absolute inset-0 w-full h-full object-cover"
       />
-      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-70" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/25" />
+      <AuroraLayer showRadialGradient={false} className="absolute inset-0 opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40" />
       <motion.div
         initial="hidden"
         animate="visible"
@@ -115,20 +115,31 @@ function HeroSection() {
             WebkitMaskSize: "contain",
           }}
         />
-        <h1 className="sr-only">Caminho da Luz</h1>
+        <motion.h1
+          variants={fadeUp}
+          className="font-heading text-2xl md:text-3xl text-cdl-text-light font-semibold mt-6 drop-shadow-md"
+        >
+          Santo Daime em Sorocaba
+        </motion.h1>
         <motion.p
           variants={fadeUp}
-          className="font-label uppercase tracking-[0.2em] text-cdl-secondary text-sm md:text-base mt-4"
+          className="text-cdl-text-light/90 text-sm md:text-base mt-3 max-w-xl mx-auto leading-relaxed drop-shadow-sm"
+        >
+          O Caminho da Luz é um centro espiritualista universalista que estuda e consagra o Santo Daime (Ayahuasca) como caminho de cura, autoconhecimento e expansão da consciência. Sede em Sorocaba, com casas em São Paulo, Recife e Itararé.
+        </motion.p>
+        <motion.p
+          variants={fadeUp}
+          className="font-label uppercase tracking-[0.2em] text-cdl-secondary text-sm md:text-base mt-6"
         >
           Centro Espiritual Universalista · Santo Daime
         </motion.p>
         <motion.p
           variants={fadeUp}
-          className="mt-8 text-cdl-primary-light italic max-w-xl mx-auto text-base md:text-lg leading-relaxed"
+          className="mt-8 text-cdl-primary-light italic font-semibold drop-shadow-sm max-w-xl mx-auto text-base md:text-lg leading-relaxed"
         >
           "Mudar o mundo é uma tarefa que se inicia mudando a cada um de nós."
         </motion.p>
-        <motion.p variants={fadeUp} className="text-cdl-text-muted text-sm mt-3">
+        <motion.p variants={fadeUp} className="text-cdl-text-light/90 text-sm font-semibold drop-shadow-sm mt-3">
           — João Carlos Pedrão, Dirigente
         </motion.p>
       </motion.div>
@@ -185,9 +196,9 @@ const casasData = [
 
 function CasasSection() {
   return (
-    <section className="py-20 bg-cdl-bg-light">
+    <section className="pt-10 pb-20 bg-cdl-bg-light">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-12">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-8">
           <h2 className="font-heading text-3xl md:text-5xl text-cdl-text font-semibold">Nossas Casas</h2>
           <p className="text-cdl-text-muted mt-3">Escolha a casa mais próxima de você</p>
         </motion.div>
@@ -200,7 +211,7 @@ function CasasSection() {
             >
               <div className="relative aspect-[4/3]">
                 <Link to={casa.to} className="block absolute inset-0 z-10" aria-label={`Visitar página de ${casa.name}`}>
-                  <img src={casa.image} alt={casa.name} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+                  <img src={casa.image} alt={`Casa Caminho da Luz em ${casa.name} — Santo Daime`} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 </Link>
                 <div className="absolute bottom-0 left-0 right-0 p-6 z-20 pointer-events-none">
@@ -244,7 +255,7 @@ function AboutSection() {
           <motion.div className="order-2 md:order-1 flex flex-col items-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <img
               src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
-              alt="João Carlos Pedrão"
+              alt="João Carlos Pedrão, dirigente do Instituto Caminho da Luz"
               className="rounded-xl aspect-[3/4] object-cover w-full max-w-md mx-auto"
               loading="lazy"
             />
@@ -371,7 +382,7 @@ const galeriaData = [
 
 function GaleriaHomeSection() {
   return (
-    <section className="py-20 bg-cdl-bg-light">
+    <section className="pt-20 pb-10 bg-cdl-bg-light">
       <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-2">
@@ -383,17 +394,23 @@ function GaleriaHomeSection() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {galeriaData.map((g) => (
             <motion.div key={g.casa} variants={fadeUp} className="space-y-4">
-              <div className="grid grid-cols-3 gap-2 rounded-xl overflow-hidden">
-                {g.fotos.map((foto, i) => (
-                  <img
-                    key={i}
-                    src={foto}
-                    alt={`${g.casa} - foto ${i + 1}`}
-                    className="aspect-square object-cover w-full hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                  />
-                ))}
-              </div>
+              <Link
+                to={g.to}
+                aria-label={`Ver galeria de ${g.casa}`}
+                className="block group cursor-pointer"
+              >
+                <div className="grid grid-cols-3 gap-2 rounded-xl overflow-hidden transition-opacity duration-300 group-hover:opacity-90">
+                  {g.fotos.map((foto, i) => (
+                    <img
+                      key={i}
+                      src={foto}
+                      alt={`Trabalho de Santo Daime em ${g.casa} - foto ${i + 1}`}
+                      className="aspect-square object-cover w-full transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ))}
+                </div>
+              </Link>
               <div className="text-center">
                 <Link
                   to={g.to}

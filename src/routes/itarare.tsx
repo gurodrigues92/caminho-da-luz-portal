@@ -5,12 +5,17 @@ import type { CasaPageProps } from "@/components/CasaPage";
 export const Route = createFileRoute("/itarare")({
   head: () => ({
     meta: [
-      { title: "Caminho da Luz Itararé — São Paulo" },
-      { name: "description", content: "Casa do Caminho da Luz em Itararé. Trabalhos Original e Sementes." },
-      { property: "og:title", content: "Caminho da Luz Itararé" },
-      { property: "og:description", content: "Casa do Caminho da Luz em Itararé, SP." },
+      { title: "Santo Daime Itararé — Caminho da Luz · São Paulo" },
+      { name: "description", content: "Santo Daime em Itararé (SP) — Caminho da Luz. Trabalhos Original e Sementes com Ayahuasca para cura, autoconhecimento e expansão da consciência." },
+      { property: "og:title", content: "Santo Daime Itararé — Caminho da Luz · São Paulo" },
+      { property: "og:description", content: "Casa do Caminho da Luz em Itararé (SP). Trabalhos Original e Sementes com Santo Daime." },
       { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188749/caminhodaluz/itarare.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/itarare" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Santo Daime Itararé — Caminho da Luz" },
+      { name: "twitter:description", content: "Casa do Caminho da Luz em Itararé, SP." },
+      { name: "twitter:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188749/caminhodaluz/itarare.jpg" },
     ],
     links: [
       { rel: "canonical", href: "https://caminhodaluzdaime.com.br/itarare" },

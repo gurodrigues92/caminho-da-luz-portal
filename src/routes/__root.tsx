@@ -46,6 +46,15 @@ const organizationSchema = JSON.stringify({
     "addressCountry": "BR",
   },
   "telephone": "+5515974011072",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday"],
+      "opens": "17:30",
+      "closes": "22:00",
+      "description": "Clínica Caminho da Luz — atendimento terapêutico"
+    }
+  ],
   "sameAs": [
     "https://www.instagram.com/caminhodaluzdaime",
     "https://youtube.com/@institutocaminhodaluz6191",
