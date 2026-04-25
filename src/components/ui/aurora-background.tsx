@@ -3,15 +3,18 @@ import React from "react";
 
 interface AuroraLayerProps extends React.HTMLAttributes<HTMLDivElement> {
   showRadialGradient?: boolean;
+  disableAnimation?: boolean;
 }
 
 /**
  * Animated aurora light layer. Render as an absolutely-positioned overlay
  * (e.g. on top of a hero background image). Uses CSS vars + animate-aurora.
+ * Pass `disableAnimation` to render a static layer (no GPU cost).
  */
 export const AuroraLayer = ({
   className,
   showRadialGradient = true,
+  disableAnimation = false,
   ...props
 }: AuroraLayerProps) => {
   return (
@@ -31,8 +34,8 @@ export const AuroraLayer = ({
            after:content-[''] after:absolute after:inset-0
            after:[background-image:var(--white-gradient),var(--aurora)]
            after:[background-size:200%,_100%]
-           after:mix-blend-screen
-           animate-aurora`,
+           after:mix-blend-screen`,
+          !disableAnimation && "animate-aurora",
           showRadialGradient &&
             "[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,transparent_70%)]",
         )}
