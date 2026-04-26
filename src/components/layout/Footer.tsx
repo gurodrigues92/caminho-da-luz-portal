@@ -6,20 +6,20 @@ export function Footer() {
     <footer className="bg-cdl-bg-dark grain-overlay relative py-12">
       <div className="mx-auto max-w-[1200px] px-6 sm:px-10 lg:px-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
+          <div className="text-center sm:text-left">
             <img
               src={wordmarkFooter}
               alt="Caminho da Luz"
-              className="h-10 md:h-12 w-auto mb-4"
+              className="h-10 md:h-12 w-auto mb-4 mx-auto sm:mx-0"
             />
             <p className="text-cdl-text-light/70 text-sm">
               Centro Espiritual Universalista · Santo Daime
             </p>
           </div>
 
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="font-label text-xs uppercase tracking-widest text-cdl-secondary mb-4">Casas</h4>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 items-center sm:items-start">
               <Link to="/sorocaba" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">Sorocaba (Sede)</Link>
               <Link to="/sao-paulo" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">São Paulo</Link>
               <Link to="/recife" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">Recife</Link>
@@ -27,7 +27,7 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="font-label text-xs uppercase tracking-widest text-cdl-secondary mb-4">Contato</h4>
             <a
               href="https://api.whatsapp.com/send?phone=5515974011072&text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20o%20Caminho%20da%20Luz."
@@ -39,9 +39,9 @@ export function Footer() {
             </a>
           </div>
 
-          <div>
+          <div className="text-center sm:text-left">
             <h4 className="font-label text-xs uppercase tracking-widest text-cdl-secondary mb-4">Redes Sociais</h4>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 items-center sm:items-start">
               <a href="https://www.instagram.com/caminhodaluzdaime" target="_blank" rel="noopener noreferrer" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">
                 Instagram
               </a>
