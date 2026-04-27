@@ -21,9 +21,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
-      { name: "description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé. Expansão de consciência através do uso religioso do Santo Daime." },
+      { name: "description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Pernambuco e Itararé. Expansão de consciência através do uso religioso do Santo Daime." },
       { property: "og:title", content: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
-      { property: "og:description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Recife e Itararé." },
+      { property: "og:description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Pernambuco e Itararé." },
       { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/" },
     ],
@@ -126,7 +126,7 @@ function HeroSection() {
             variants={fadeUp}
             className="text-cdl-text-light/90 text-sm md:text-base mt-3 max-w-xl mx-auto leading-relaxed drop-shadow-sm"
           >
-            O Caminho da Luz é um centro espiritualista universalista que estuda e consagra o Santo Daime (Ayahuasca) como caminho de cura, autoconhecimento e expansão da consciência. Sede em Sorocaba, com casas em São Paulo, Recife e Itararé.
+            O Caminho da Luz é um centro espiritualista universalista que estuda e consagra o Santo Daime (Ayahuasca) como caminho de cura, autoconhecimento e expansão da consciência. Sede em Sorocaba, com casas em São Paulo, Pernambuco e Itararé.
           </motion.p>
           <motion.p
             variants={fadeUp}
