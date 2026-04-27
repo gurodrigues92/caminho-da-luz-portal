@@ -22,7 +22,7 @@ export function Footer() {
             <div className="flex flex-col gap-2 items-center sm:items-start">
               <Link to="/sorocaba" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">Sorocaba (Sede)</Link>
               <Link to="/sao-paulo" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">São Paulo</Link>
-              <Link to="/recife" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">Recife</Link>
+              <Link to="/pernambuco" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">Pernambuco</Link>
               <Link to="/itarare" className="text-cdl-text-light/70 hover:text-cdl-text-light text-sm transition-colors">Itararé</Link>
             </div>
           </div>

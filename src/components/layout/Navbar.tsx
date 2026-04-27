@@ -7,7 +7,7 @@ import logoCdl from "@/assets/logo-caminho-da-luz.png";
 const casas = [
   { name: "Sorocaba (Sede)", to: "/sorocaba" as const },
   { name: "São Paulo", to: "/sao-paulo" as const },
-  { name: "Recife", to: "/recife" as const },
+  { name: "Pernambuco", to: "/pernambuco" as const },
   { name: "Itararé", to: "/itarare" as const },
 ];
 
