@@ -22,7 +22,7 @@ interface TrabalhoConfig {
 
 export interface CasaPageProps {
   nome: string;
-  slug: "sorocaba" | "sao-paulo" | "recife" | "itarare";
+  slug: "sorocaba" | "sao-paulo" | "pernambuco" | "itarare";
   endereco: string;
   heroImage: string;
   whatsappPhone: string;

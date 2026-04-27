@@ -14,16 +14,19 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SaoPauloRouteImport } from './routes/sao-paulo'
 import { Route as RecifeRouteImport } from './routes/recife'
 import { Route as RadioRouteImport } from './routes/radio'
+import { Route as PernambucoRouteImport } from './routes/pernambuco'
 import { Route as ItarareRouteImport } from './routes/itarare'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SorocabaGaleriaRouteImport } from './routes/sorocaba_.galeria'
 import { Route as SaoPauloGaleriaRouteImport } from './routes/sao-paulo_.galeria'
 import { Route as RecifeGaleriaRouteImport } from './routes/recife_.galeria'
+import { Route as PernambucoGaleriaRouteImport } from './routes/pernambuco_.galeria'
 import { Route as ItarareGaleriaRouteImport } from './routes/itarare_.galeria'
 import { Route as SorocabaGaleriaTrabalhoRouteImport } from './routes/sorocaba_.galeria.$trabalho'
 import { Route as SaoPauloGaleriaTrabalhoRouteImport } from './routes/sao-paulo_.galeria.$trabalho'
 import { Route as RecifeGaleriaTrabalhoRouteImport } from './routes/recife_.galeria.$trabalho'
+import { Route as PernambucoGaleriaTrabalhoRouteImport } from './routes/pernambuco_.galeria.$trabalho'
 import { Route as ItarareGaleriaTrabalhoRouteImport } from './routes/itarare_.galeria.$trabalho'
 
 const SorocabaRoute = SorocabaRouteImport.update({
@@ -49,6 +52,11 @@ const RecifeRoute = RecifeRouteImport.update({
 const RadioRoute = RadioRouteImport.update({
   id: '/radio',
   path: '/radio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PernambucoRoute = PernambucoRouteImport.update({
+  id: '/pernambuco',
+  path: '/pernambuco',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ItarareRoute = ItarareRouteImport.update({
@@ -81,6 +89,11 @@ const RecifeGaleriaRoute = RecifeGaleriaRouteImport.update({
   path: '/recife/galeria',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PernambucoGaleriaRoute = PernambucoGaleriaRouteImport.update({
+  id: '/pernambuco_/galeria',
+  path: '/pernambuco/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ItarareGaleriaRoute = ItarareGaleriaRouteImport.update({
   id: '/itarare_/galeria',
   path: '/itarare/galeria',
@@ -101,6 +114,12 @@ const RecifeGaleriaTrabalhoRoute = RecifeGaleriaTrabalhoRouteImport.update({
   path: '/$trabalho',
   getParentRoute: () => RecifeGaleriaRoute,
 } as any)
+const PernambucoGaleriaTrabalhoRoute =
+  PernambucoGaleriaTrabalhoRouteImport.update({
+    id: '/$trabalho',
+    path: '/$trabalho',
+    getParentRoute: () => PernambucoGaleriaRoute,
+  } as any)
 const ItarareGaleriaTrabalhoRoute = ItarareGaleriaTrabalhoRouteImport.update({
   id: '/$trabalho',
   path: '/$trabalho',
@@ -111,16 +130,19 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
   '/itarare': typeof ItarareRoute
+  '/pernambuco': typeof PernambucoRoute
   '/radio': typeof RadioRoute
   '/recife': typeof RecifeRoute
   '/sao-paulo': typeof SaoPauloRoute
   '/sobre': typeof SobreRoute
   '/sorocaba': typeof SorocabaRoute
   '/itarare/galeria': typeof ItarareGaleriaRouteWithChildren
+  '/pernambuco/galeria': typeof PernambucoGaleriaRouteWithChildren
   '/recife/galeria': typeof RecifeGaleriaRouteWithChildren
   '/sao-paulo/galeria': typeof SaoPauloGaleriaRouteWithChildren
   '/sorocaba/galeria': typeof SorocabaGaleriaRouteWithChildren
   '/itarare/galeria/$trabalho': typeof ItarareGaleriaTrabalhoRoute
+  '/pernambuco/galeria/$trabalho': typeof PernambucoGaleriaTrabalhoRoute
   '/recife/galeria/$trabalho': typeof RecifeGaleriaTrabalhoRoute
   '/sao-paulo/galeria/$trabalho': typeof SaoPauloGaleriaTrabalhoRoute
   '/sorocaba/galeria/$trabalho': typeof SorocabaGaleriaTrabalhoRoute
@@ -129,16 +151,19 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
   '/itarare': typeof ItarareRoute
+  '/pernambuco': typeof PernambucoRoute
   '/radio': typeof RadioRoute
   '/recife': typeof RecifeRoute
   '/sao-paulo': typeof SaoPauloRoute
   '/sobre': typeof SobreRoute
   '/sorocaba': typeof SorocabaRoute
   '/itarare/galeria': typeof ItarareGaleriaRouteWithChildren
+  '/pernambuco/galeria': typeof PernambucoGaleriaRouteWithChildren
   '/recife/galeria': typeof RecifeGaleriaRouteWithChildren
   '/sao-paulo/galeria': typeof SaoPauloGaleriaRouteWithChildren
   '/sorocaba/galeria': typeof SorocabaGaleriaRouteWithChildren
   '/itarare/galeria/$trabalho': typeof ItarareGaleriaTrabalhoRoute
+  '/pernambuco/galeria/$trabalho': typeof PernambucoGaleriaTrabalhoRoute
   '/recife/galeria/$trabalho': typeof RecifeGaleriaTrabalhoRoute
   '/sao-paulo/galeria/$trabalho': typeof SaoPauloGaleriaTrabalhoRoute
   '/sorocaba/galeria/$trabalho': typeof SorocabaGaleriaTrabalhoRoute
@@ -148,16 +173,19 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/faq': typeof FaqRoute
   '/itarare': typeof ItarareRoute
+  '/pernambuco': typeof PernambucoRoute
   '/radio': typeof RadioRoute
   '/recife': typeof RecifeRoute
   '/sao-paulo': typeof SaoPauloRoute
   '/sobre': typeof SobreRoute
   '/sorocaba': typeof SorocabaRoute
   '/itarare_/galeria': typeof ItarareGaleriaRouteWithChildren
+  '/pernambuco_/galeria': typeof PernambucoGaleriaRouteWithChildren
   '/recife_/galeria': typeof RecifeGaleriaRouteWithChildren
   '/sao-paulo_/galeria': typeof SaoPauloGaleriaRouteWithChildren
   '/sorocaba_/galeria': typeof SorocabaGaleriaRouteWithChildren
   '/itarare_/galeria/$trabalho': typeof ItarareGaleriaTrabalhoRoute
+  '/pernambuco_/galeria/$trabalho': typeof PernambucoGaleriaTrabalhoRoute
   '/recife_/galeria/$trabalho': typeof RecifeGaleriaTrabalhoRoute
   '/sao-paulo_/galeria/$trabalho': typeof SaoPauloGaleriaTrabalhoRoute
   '/sorocaba_/galeria/$trabalho': typeof SorocabaGaleriaTrabalhoRoute
@@ -168,16 +196,19 @@ export interface FileRouteTypes {
     | '/'
     | '/faq'
     | '/itarare'
+    | '/pernambuco'
     | '/radio'
     | '/recife'
     | '/sao-paulo'
     | '/sobre'
     | '/sorocaba'
     | '/itarare/galeria'
+    | '/pernambuco/galeria'
     | '/recife/galeria'
     | '/sao-paulo/galeria'
     | '/sorocaba/galeria'
     | '/itarare/galeria/$trabalho'
+    | '/pernambuco/galeria/$trabalho'
     | '/recife/galeria/$trabalho'
     | '/sao-paulo/galeria/$trabalho'
     | '/sorocaba/galeria/$trabalho'
@@ -186,16 +217,19 @@ export interface FileRouteTypes {
     | '/'
     | '/faq'
     | '/itarare'
+    | '/pernambuco'
     | '/radio'
     | '/recife'
     | '/sao-paulo'
     | '/sobre'
     | '/sorocaba'
     | '/itarare/galeria'
+    | '/pernambuco/galeria'
     | '/recife/galeria'
     | '/sao-paulo/galeria'
     | '/sorocaba/galeria'
     | '/itarare/galeria/$trabalho'
+    | '/pernambuco/galeria/$trabalho'
     | '/recife/galeria/$trabalho'
     | '/sao-paulo/galeria/$trabalho'
     | '/sorocaba/galeria/$trabalho'
@@ -204,16 +238,19 @@ export interface FileRouteTypes {
     | '/'
     | '/faq'
     | '/itarare'
+    | '/pernambuco'
     | '/radio'
     | '/recife'
     | '/sao-paulo'
     | '/sobre'
     | '/sorocaba'
     | '/itarare_/galeria'
+    | '/pernambuco_/galeria'
     | '/recife_/galeria'
     | '/sao-paulo_/galeria'
     | '/sorocaba_/galeria'
     | '/itarare_/galeria/$trabalho'
+    | '/pernambuco_/galeria/$trabalho'
     | '/recife_/galeria/$trabalho'
     | '/sao-paulo_/galeria/$trabalho'
     | '/sorocaba_/galeria/$trabalho'
@@ -223,12 +260,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FaqRoute: typeof FaqRoute
   ItarareRoute: typeof ItarareRoute
+  PernambucoRoute: typeof PernambucoRoute
   RadioRoute: typeof RadioRoute
   RecifeRoute: typeof RecifeRoute
   SaoPauloRoute: typeof SaoPauloRoute
   SobreRoute: typeof SobreRoute
   SorocabaRoute: typeof SorocabaRoute
   ItarareGaleriaRoute: typeof ItarareGaleriaRouteWithChildren
+  PernambucoGaleriaRoute: typeof PernambucoGaleriaRouteWithChildren
   RecifeGaleriaRoute: typeof RecifeGaleriaRouteWithChildren
   SaoPauloGaleriaRoute: typeof SaoPauloGaleriaRouteWithChildren
   SorocabaGaleriaRoute: typeof SorocabaGaleriaRouteWithChildren
@@ -269,6 +308,13 @@ declare module '@tanstack/react-router' {
       path: '/radio'
       fullPath: '/radio'
       preLoaderRoute: typeof RadioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pernambuco': {
+      id: '/pernambuco'
+      path: '/pernambuco'
+      fullPath: '/pernambuco'
+      preLoaderRoute: typeof PernambucoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/itarare': {
@@ -313,6 +359,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecifeGaleriaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pernambuco_/galeria': {
+      id: '/pernambuco_/galeria'
+      path: '/pernambuco/galeria'
+      fullPath: '/pernambuco/galeria'
+      preLoaderRoute: typeof PernambucoGaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/itarare_/galeria': {
       id: '/itarare_/galeria'
       path: '/itarare/galeria'
@@ -341,6 +394,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RecifeGaleriaTrabalhoRouteImport
       parentRoute: typeof RecifeGaleriaRoute
     }
+    '/pernambuco_/galeria/$trabalho': {
+      id: '/pernambuco_/galeria/$trabalho'
+      path: '/$trabalho'
+      fullPath: '/pernambuco/galeria/$trabalho'
+      preLoaderRoute: typeof PernambucoGaleriaTrabalhoRouteImport
+      parentRoute: typeof PernambucoGaleriaRoute
+    }
     '/itarare_/galeria/$trabalho': {
       id: '/itarare_/galeria/$trabalho'
       path: '/$trabalho'
@@ -362,6 +422,17 @@ const ItarareGaleriaRouteChildren: ItarareGaleriaRouteChildren = {
 const ItarareGaleriaRouteWithChildren = ItarareGaleriaRoute._addFileChildren(
   ItarareGaleriaRouteChildren,
 )
+
+interface PernambucoGaleriaRouteChildren {
+  PernambucoGaleriaTrabalhoRoute: typeof PernambucoGaleriaTrabalhoRoute
+}
+
+const PernambucoGaleriaRouteChildren: PernambucoGaleriaRouteChildren = {
+  PernambucoGaleriaTrabalhoRoute: PernambucoGaleriaTrabalhoRoute,
+}
+
+const PernambucoGaleriaRouteWithChildren =
+  PernambucoGaleriaRoute._addFileChildren(PernambucoGaleriaRouteChildren)
 
 interface RecifeGaleriaRouteChildren {
   RecifeGaleriaTrabalhoRoute: typeof RecifeGaleriaTrabalhoRoute
@@ -403,12 +474,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FaqRoute: FaqRoute,
   ItarareRoute: ItarareRoute,
+  PernambucoRoute: PernambucoRoute,
   RadioRoute: RadioRoute,
   RecifeRoute: RecifeRoute,
   SaoPauloRoute: SaoPauloRoute,
   SobreRoute: SobreRoute,
   SorocabaRoute: SorocabaRoute,
   ItarareGaleriaRoute: ItarareGaleriaRouteWithChildren,
+  PernambucoGaleriaRoute: PernambucoGaleriaRouteWithChildren,
   RecifeGaleriaRoute: RecifeGaleriaRouteWithChildren,
   SaoPauloGaleriaRoute: SaoPauloGaleriaRouteWithChildren,
   SorocabaGaleriaRoute: SorocabaGaleriaRouteWithChildren,
