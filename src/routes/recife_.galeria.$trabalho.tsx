@@ -1,15 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { GaleriaCasa } from "@/components/GaleriaCasa";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/recife_/galeria/$trabalho")({
-  head: ({ params }) => ({
-    meta: [
-      { title: `Galeria ${params.trabalho} — Caminho da Luz Recife` },
-      { name: "description", content: `Fotos dos trabalhos de ${params.trabalho} no Caminho da Luz Recife.` },
-    ],
-  }),
-  component: function Component() {
-    const { trabalho } = Route.useParams();
-    return <GaleriaCasa casa="Recife" casaSlug="recife" trabalhoSlug={trabalho} />;
+  beforeLoad: ({ params }) => {
+    throw redirect({
+      to: "/pernambuco/galeria/$trabalho",
+      params: { trabalho: params.trabalho },
+      statusCode: 301,
+    });
   },
+  component: () => null,
 });
