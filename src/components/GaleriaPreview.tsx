@@ -71,7 +71,7 @@ export function GaleriaPreview({ casa, casaSlug }: GaleriaPreviewProps) {
           asChild
           variant="outline"
           size="sm"
-          className="border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 rounded-full text-xs"
+          className="border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 hover:text-cdl-primary rounded-full text-xs"
         >
           <Link to={galeriaHref as any}>
             Ver galeria completa de {casa}
