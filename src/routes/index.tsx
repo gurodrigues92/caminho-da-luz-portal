@@ -130,7 +130,7 @@ function HeroSection() {
           </motion.p>
           <motion.p
             variants={fadeUp}
-            className="font-label uppercase tracking-[0.2em] text-cdl-secondary text-sm md:text-base mt-6"
+            className="font-label uppercase tracking-[0.15em] text-cdl-secondary text-sm md:text-base font-semibold mt-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
           >
             Centro Espiritual Universalista · Santo Daime
           </motion.p>
