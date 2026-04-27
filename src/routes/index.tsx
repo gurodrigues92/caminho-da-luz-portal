@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ChevronDown, Instagram, Camera } from "lucide-react";
+import { ChevronDown, Instagram, Camera, MousePointerClick } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { AuroraLayer } from "@/components/ui/aurora-background";
@@ -216,6 +216,16 @@ function CasasSection() {
                   <img src={casa.image} alt={`Casa Caminho da Luz em ${casa.name} — Santo Daime`} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 </Link>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: [0, 1, 1], scale: [0.5, 1.15, 1] }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
+                  className="absolute top-3 right-3 z-20 bg-white/90 rounded-full p-2 shadow-md text-cdl-primary pointer-events-none md:group-hover:opacity-0 transition-opacity"
+                  aria-hidden="true"
+                >
+                  <MousePointerClick className="h-4 w-4" />
+                </motion.div>
                 <div className="absolute bottom-0 left-0 right-0 p-6 z-20 pointer-events-none">
                   <p className="text-cdl-text-light/80 text-sm">{casa.subtitle}</p>
                   <div className="flex items-center gap-2 mt-2 pointer-events-auto">
@@ -395,13 +405,13 @@ function GaleriaHomeSection() {
         </motion.div>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {galeriaData.map((g) => (
-            <motion.div key={g.casa} variants={fadeUp} className="space-y-4">
+            <motion.div key={g.casa} variants={fadeUp}>
               <Link
                 to={g.to}
                 aria-label={`Ver galeria de ${g.casa}`}
-                className="block group cursor-pointer"
+                className="group block rounded-2xl border border-cdl-primary/20 bg-white p-3 shadow-sm transition-all duration-300 hover:border-cdl-primary hover:shadow-lg hover:-translate-y-0.5"
               >
-                <div className="grid grid-cols-3 gap-2 rounded-xl overflow-hidden transition-opacity duration-300 group-hover:opacity-90">
+                <div className="grid grid-cols-3 gap-2 rounded-xl overflow-hidden">
                   {g.fotos.map((foto, i) => (
                     <img
                       key={i}
@@ -412,15 +422,12 @@ function GaleriaHomeSection() {
                     />
                   ))}
                 </div>
+                <div className="text-center pt-3 pb-1">
+                  <span className="inline-flex items-center gap-2 text-cdl-primary group-hover:text-cdl-primary-light font-label uppercase tracking-widest text-sm transition-colors">
+                    Ver galeria de {g.casa} →
+                  </span>
+                </div>
               </Link>
-              <div className="text-center">
-                <Link
-                  to={g.to}
-                  className="inline-flex items-center gap-2 text-cdl-primary hover:text-cdl-primary-light font-label uppercase tracking-widest text-sm transition-colors"
-                >
-                  Ver galeria de {g.casa} →
-                </Link>
-              </div>
             </motion.div>
           ))}
         </motion.div>
