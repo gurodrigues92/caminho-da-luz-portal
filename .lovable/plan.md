@@ -1,47 +1,25 @@
 ## Pedido
-Na Hero, o ícone do logo e o wordmark "Caminho da Luz" NÃO devem ficar dentro do shape semi-transparente. Apenas os textos abaixo (H1 "Santo Daime em Sorocaba", parágrafo SEO, linha "Centro Espiritual...", frase do Pedrão e legenda) devem estar dentro da shape.
+A frase "Centro Espiritual Universalista · Santo Daime" (legenda dourada, uppercase com tracking largo) ainda está pouco legível dentro do shape escuro do Hero.
 
-## Estado atual (`src/routes/index.tsx`, linhas 80-145)
-Hoje a `motion.div` com `bg-black/40 backdrop-blur-md ring-1 ring-white/10 shadow-2xl` envolve TUDO: logo (mask), wordmark (mask), H1, parágrafo, "Centro Espiritual", frase do Pedrão e legenda.
+## Diagnóstico
+Linha 131-136 de `src/routes/index.tsx`:
+- Cor `text-cdl-secondary` (dourado) sobre `bg-black/40` — contraste razoável, mas o tracking `[0.2em]` + tamanho `text-sm` deixam as letras finas e "vibrando" sobre a textura blur.
+- Sem `drop-shadow`, ao contrário dos outros textos do bloco.
 
 ## Solução
-Reestruturar o bloco em duas partes irmãs dentro de um container flex vertical centralizado:
+Ajustes mínimos só nessa linha:
+1. Aumentar peso: adicionar `font-semibold` (hoje não tem peso definido).
+2. Subir um degrau de tamanho no mobile: `text-sm` → `text-[0.8rem]` mantendo `md:text-base` — na verdade vou usar `text-xs sm:text-sm md:text-base` para garantir respiro, mas o ganho real vem do peso e sombra.
+3. Reduzir tracking de `[0.2em]` para `[0.15em]` — letras menos espaçadas leem melhor em corpo pequeno.
+4. Adicionar `drop-shadow-md` para destacar do fundo (consistente com H1 e parágrafo).
+5. Trocar `text-cdl-secondary` puro por uma variação mais clara/brilhante: usar `text-cdl-secondary` + classe `brightness-110` não funciona em texto — então uso `text-amber-200` como fallback de alto contraste sobre fundo escuro, OU mantenho `text-cdl-secondary` se o token já for claro o suficiente.
 
-1. **Fora da shape** (sem fundo, só drop-shadow para legibilidade sobre a imagem):
-   - Logo símbolo (mask) — adicionar `drop-shadow-lg`
-   - Wordmark "Caminho da Luz" (mask) — adicionar `drop-shadow-lg`
-
-2. **Dentro da shape** (novo `<div>` interno com as classes da shape):
-   - H1 "Santo Daime em Sorocaba"
-   - Parágrafo SEO ("O Caminho da Luz é um centro...")
-   - "Centro Espiritual Universalista · Santo Daime"
-   - Frase do Pedrão
-   - Legenda "— João Carlos Pedrão, Dirigente"
-
-Estrutura nova:
-```tsx
-<motion.div className="relative z-10 flex flex-col items-center px-4 max-w-3xl mx-auto">
-  {/* Logo símbolo — fora da shape */}
-  <motion.div ... className="... drop-shadow-lg" />
-  {/* Wordmark — fora da shape */}
-  <motion.div ... className="... drop-shadow-lg" />
-
-  {/* Shape com APENAS os textos */}
-  <div className="mt-6 w-full text-center px-6 sm:px-8 py-6 sm:py-8 rounded-2xl bg-black/40 backdrop-blur-md ring-1 ring-white/10 shadow-2xl">
-    <motion.h1>Santo Daime em Sorocaba</motion.h1>
-    <motion.p>O Caminho da Luz é um centro...</motion.p>
-    <motion.p>Centro Espiritual Universalista · Santo Daime</motion.p>
-    <motion.p>"Mudar o mundo..."</motion.p>
-    <motion.p>— João Carlos Pedrão, Dirigente</motion.p>
-  </div>
-</motion.div>
-```
+Vou conferir o token `cdl-secondary` em `src/styles.css` antes de decidir entre manter o dourado da marca ou clarear. Provavelmente mantenho a cor da marca e resolvo só com **peso + sombra + tracking menor**, que já é o suficiente para legibilidade sem quebrar identidade visual.
 
 ## Arquivo
-- `src/routes/index.tsx` — apenas reestruturação do bloco da HeroSection (linhas ~80-145).
+- `src/routes/index.tsx` — apenas a `className` da `motion.p` na linha 133.
 
 ## Restrições
-- Sem mudança de conteúdo, cores, tipografia ou tamanhos.
-- Logo + wordmark mantêm a cor `bg-cdl-primary` atual; ganham `drop-shadow-lg` para destacar sobre a imagem.
-- Shape mantém exatamente o mesmo visual (bg-black/40, blur, ring, shadow), só envolve menos elementos.
-- Demais seções da home não mudam.
+- Não mudar o texto.
+- Não mexer em outros elementos do Hero.
+- Manter a cor dourada da marca (não trocar por branco) — a legenda é um detalhe de identidade.
