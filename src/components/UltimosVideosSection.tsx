@@ -90,7 +90,7 @@ export function UltimosVideosSection() {
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="rounded-full bg-cdl-secondary/95 text-cdl-bg-dark p-4 shadow-lg group-hover:scale-110 transition-transform">
+                    <span className="rounded-full bg-white/95 text-cdl-primary p-4 shadow-lg group-hover:scale-110 transition-transform">
                       <Play className="h-6 w-6 fill-current" />
                     </span>
                   </div>
@@ -105,7 +105,7 @@ export function UltimosVideosSection() {
             asChild
             variant="outline"
             size="sm"
-            className="border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 rounded-full text-xs"
+            className="border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 hover:text-cdl-primary rounded-full text-xs"
           >
             <a href={YOUTUBE_CHANNEL_URL} target="_blank" rel="noopener noreferrer">
               <Youtube className="h-4 w-4" />
