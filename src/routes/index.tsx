@@ -81,11 +81,11 @@ function HeroSection() {
         initial="hidden"
         animate="visible"
         variants={stagger}
-        className="relative z-10 text-center px-6 sm:px-8 py-8 sm:py-10 max-w-3xl mx-4 rounded-2xl bg-black/40 backdrop-blur-md ring-1 ring-white/10 shadow-2xl"
+        className="relative z-10 flex flex-col items-center px-4 max-w-3xl mx-auto"
       >
         <motion.div
           variants={fadeUp}
-          className="mx-auto mb-6 h-24 w-24 bg-cdl-primary"
+          className="mx-auto mb-6 h-24 w-24 bg-cdl-primary drop-shadow-lg"
           style={{
             maskImage: `url(${logoCdl})`,
             WebkitMaskImage: `url(${logoCdl})`,
@@ -103,7 +103,7 @@ function HeroSection() {
           variants={fadeUp}
           role="img"
           aria-label="Caminho da Luz"
-          className="mx-auto h-16 md:h-24 w-full max-w-md bg-cdl-primary"
+          className="mx-auto h-16 md:h-24 w-full max-w-md bg-cdl-primary drop-shadow-lg"
           style={{
             maskImage: `url(${wordmarkCdl})`,
             WebkitMaskImage: `url(${wordmarkCdl})`,
@@ -115,33 +115,35 @@ function HeroSection() {
             WebkitMaskSize: "contain",
           }}
         />
-        <motion.h1
-          variants={fadeUp}
-          className="font-heading text-2xl md:text-3xl text-cdl-text-light font-semibold mt-6 drop-shadow-md"
-        >
-          Santo Daime em Sorocaba
-        </motion.h1>
-        <motion.p
-          variants={fadeUp}
-          className="text-cdl-text-light/90 text-sm md:text-base mt-3 max-w-xl mx-auto leading-relaxed drop-shadow-sm"
-        >
-          O Caminho da Luz é um centro espiritualista universalista que estuda e consagra o Santo Daime (Ayahuasca) como caminho de cura, autoconhecimento e expansão da consciência. Sede em Sorocaba, com casas em São Paulo, Recife e Itararé.
-        </motion.p>
-        <motion.p
-          variants={fadeUp}
-          className="font-label uppercase tracking-[0.2em] text-cdl-secondary text-sm md:text-base mt-6"
-        >
-          Centro Espiritual Universalista · Santo Daime
-        </motion.p>
-        <motion.p
-          variants={fadeUp}
-          className="mt-8 text-cdl-primary-light italic font-semibold drop-shadow-sm max-w-xl mx-auto text-base md:text-lg leading-relaxed"
-        >
-          "Mudar o mundo é uma tarefa que se inicia mudando a cada um de nós."
-        </motion.p>
-        <motion.p variants={fadeUp} className="text-cdl-text-light/90 text-sm font-semibold drop-shadow-sm mt-3">
-          — João Carlos Pedrão, Dirigente
-        </motion.p>
+        <div className="mt-6 w-full text-center px-6 sm:px-8 py-6 sm:py-8 rounded-2xl bg-black/40 backdrop-blur-md ring-1 ring-white/10 shadow-2xl">
+          <motion.h1
+            variants={fadeUp}
+            className="font-heading text-2xl md:text-3xl text-cdl-text-light font-semibold drop-shadow-md"
+          >
+            Santo Daime em Sorocaba
+          </motion.h1>
+          <motion.p
+            variants={fadeUp}
+            className="text-cdl-text-light/90 text-sm md:text-base mt-3 max-w-xl mx-auto leading-relaxed drop-shadow-sm"
+          >
+            O Caminho da Luz é um centro espiritualista universalista que estuda e consagra o Santo Daime (Ayahuasca) como caminho de cura, autoconhecimento e expansão da consciência. Sede em Sorocaba, com casas em São Paulo, Recife e Itararé.
+          </motion.p>
+          <motion.p
+            variants={fadeUp}
+            className="font-label uppercase tracking-[0.2em] text-cdl-secondary text-sm md:text-base mt-6"
+          >
+            Centro Espiritual Universalista · Santo Daime
+          </motion.p>
+          <motion.p
+            variants={fadeUp}
+            className="mt-8 text-cdl-primary-light italic font-semibold drop-shadow-sm max-w-xl mx-auto text-base md:text-lg leading-relaxed"
+          >
+            "Mudar o mundo é uma tarefa que se inicia mudando a cada um de nós."
+          </motion.p>
+          <motion.p variants={fadeUp} className="text-cdl-text-light/90 text-sm font-semibold drop-shadow-sm mt-3">
+            — João Carlos Pedrão, Dirigente
+          </motion.p>
+        </div>
       </motion.div>
       <motion.div
         animate={{ y: [0, 10, 0] }}
