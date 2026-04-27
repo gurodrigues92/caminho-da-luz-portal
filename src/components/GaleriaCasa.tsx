@@ -158,7 +158,7 @@ export function GaleriaCasa({ casa, casaSlug, trabalhoSlug }: GaleriaCasaProps) 
                     >
                       {evento.tipo_trabalho}
                     </span>
-                    {evento.titulo && (
+                    {evento.titulo && evento.titulo !== evento.data_evento && (
                       <span className="text-cdl-text-muted text-sm">— {evento.titulo}</span>
                     )}
                   </div>
