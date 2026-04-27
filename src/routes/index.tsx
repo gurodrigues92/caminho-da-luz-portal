@@ -477,13 +477,15 @@ function CTASection() {
             Fale conosco no WhatsApp
           </a>
         </Button>
-        <p className="text-cdl-primary/70 text-sm mt-6">
-          Primeira vez?{" "}
+        <div className="mt-6 flex flex-col items-center gap-3">
+          <p className="text-cdl-primary/70 text-sm whitespace-nowrap">
+            Primeira vez?
+          </p>
           <Button
             asChild
             variant="outline"
             size="sm"
-            className="ml-1 border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 hover:text-cdl-primary rounded-full font-label uppercase tracking-wider text-xs"
+            className="border-cdl-primary text-cdl-primary bg-transparent hover:bg-cdl-primary/10 hover:text-cdl-primary rounded-full font-label uppercase tracking-wider text-xs"
           >
             <a
               href="/docs/Anamnese_Formulario.pdf"
@@ -493,7 +495,7 @@ function CTASection() {
               Preencha a anamnese
             </a>
           </Button>
-        </p>
+        </div>
       </motion.div>
     </section>
   );
