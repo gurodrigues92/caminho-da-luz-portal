@@ -9,13 +9,13 @@ export const Route = createFileRoute("/pernambuco")({
       { name: "description", content: "Santo Daime em Pernambuco — Caminho da Luz. Trabalhos espirituais com Ayahuasca para cura, autoconhecimento e expansão da consciência." },
       { property: "og:title", content: "Santo Daime Pernambuco — Caminho da Luz" },
       { property: "og:description", content: "Casa do Caminho da Luz em Pernambuco. Trabalhos espirituais com Santo Daime." },
-      { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188750/caminhodaluz/recife.jpg" },
+      { property: "og:image", content: "https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188750/caminhodaluz/recife.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/pernambuco" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Santo Daime Pernambuco — Caminho da Luz" },
       { name: "twitter:description", content: "Casa do Caminho da Luz em Pernambuco." },
-      { name: "twitter:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188750/caminhodaluz/recife.jpg" },
+      { name: "twitter:image", content: "https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188750/caminhodaluz/recife.jpg" },
     ],
     links: [
       { rel: "canonical", href: "https://caminhodaluzdaime.com.br/pernambuco" },
@@ -48,6 +48,6 @@ const pernambucoConfig: CasaPageProps = {
     },
   ],
   galeriaFotos: [
-    "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188750/caminhodaluz/recife.jpg",
+    "https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188750/caminhodaluz/recife.jpg",
   ],
 };

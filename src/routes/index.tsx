@@ -24,7 +24,7 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Pernambuco e Itararé. Expansão de consciência através do uso religioso do Santo Daime." },
       { property: "og:title", content: "Caminho da Luz — Centro Espiritual Universalista · Santo Daime" },
       { property: "og:description", content: "Centro Espiritual Universalista de Santo Daime com casas em Sorocaba, São Paulo, Pernambuco e Itararé." },
-      { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
+      { property: "og:image", content: "https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/" },
     ],
     links: [
@@ -266,7 +266,7 @@ function AboutSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           <motion.div className="order-2 md:order-1 flex flex-col items-center" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
             <img
-              src="https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
+              src="https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_800/v1776188751/caminhodaluz/pedrao.jpg"
               alt="João Carlos Pedrão, dirigente do Instituto Caminho da Luz"
               className="rounded-xl aspect-[3/4] object-cover w-full max-w-md mx-auto"
               loading="lazy"

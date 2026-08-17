@@ -10,7 +10,7 @@ export const Route = createFileRoute("/radio")({
       { name: "description", content: "Ouça a playlist do Caminho da Luz no Spotify e assista aos vídeos no YouTube." },
       { property: "og:title", content: "Rádio — Caminho da Luz" },
       { property: "og:description", content: "Músicas que elevam a consciência." },
-      { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
+      { property: "og:image", content: "https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/radio" },
     ],
     links: [

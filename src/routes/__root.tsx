@@ -33,7 +33,7 @@ const organizationSchema = JSON.stringify({
   "name": "Instituto Caminho da Luz",
   "alternateName": "Caminho da Luz - Santo Daime",
   "url": "https://caminhodaluzdaime.com.br",
-  "logo": "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_200/v1776188742/caminhodaluz/logo.png",
+  "logo": "https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_200/v1776188742/caminhodaluz/logo.png",
   "foundingDate": "2014",
   "founder": { "@type": "Person", "name": "João Carlos Pedrão" },
   "description": "Centro Espiritual Universalista de Santo Daime. Expansão de consciência através do uso religioso da Ayahuasca.",

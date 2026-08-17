@@ -27,7 +27,7 @@ export const Route = createFileRoute("/faq")({
       { name: "description", content: "Perguntas frequentes sobre o Instituto Caminho da Luz, Santo Daime, Ayahuasca e nossos trabalhos espirituais." },
       { property: "og:title", content: "FAQ — Perguntas Frequentes · Caminho da Luz" },
       { property: "og:description", content: "Tire suas dúvidas sobre o Caminho da Luz e o Santo Daime." },
-      { property: "og:image", content: "https://res.cloudinary.com/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
+      { property: "og:image", content: "https://cdn.altavance.media/dtt7egwkk/image/upload/f_auto,q_auto,w_1200/v1776188744/caminhodaluz/caminho-da-luz.jpg" },
       { property: "og:url", content: "https://caminhodaluzdaime.com.br/faq" },
     ],
     links: [
